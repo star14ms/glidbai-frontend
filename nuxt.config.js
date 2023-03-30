@@ -1,4 +1,6 @@
 export default {
+  srcDir: 'src',
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'testglider-chatbot',
