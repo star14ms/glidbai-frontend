@@ -6,7 +6,7 @@
         :messages="messageData"
         :bot-typing="botTyping"
         :input-disable="inputDisable"
-        :is-open="false"
+        :is-open="true"
         @init="botStart"
         @msg-send="msgSend"
       />
@@ -102,6 +102,8 @@ export default {
 
 <style>
 #chatbot {
+  position: absolute;
+
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -1,13 +1,24 @@
 <template>
-<section id="login" class="col-a-center mt-6">
+<section id="signup" class="col-a-center mt-6">
     <div class="has-text-centered">
         <img src="~/assets/icons/pinata.png" width="128" class="mb-4">
 
-        <p class="is-size-3 has-text-black-ter bold">Welcome to Glide</p>
+        <p class="is-size-3 has-text-black-ter bold">Join Glide</p>
         <p class="is-size-6">Your personalized AI-powered chatbot</p>
     </div>
 
     <div class="form-fields mt-5">
+        <div class="form-field">
+            <div class="form-field__title">
+                <span class="bold">Name</span>
+            </div>
+            <div class="form-field__input">
+                <b-field>
+                    <b-input ref="nameInput" v-model="nameField.name" :placeholder="nameField.placeholder" required @input="nameCheck()"></b-input>
+                </b-field>
+            </div>
+        </div>
+
         <div class="form-field">
             <div class="form-field__title">
                 <span class="bold">ID</span>
@@ -25,9 +36,8 @@
         </div>
 
         <div class="form-field">
-            <div class="form-field__title space-between">
+            <div class="form-field__title">
                 <span class="bold">Password</span>
-                <a class="has-text-grey-dark underline">Forgot your password?</a>
             </div>
             <div class="form-field__input">
                 <b-field 
@@ -42,13 +52,47 @@
                 </b-field>
             </div>
         </div>
+
+        <div class="form-field">
+            <div class="form-field__title">
+                <span class="bold">Confirm Password</span>
+            </div>
+            <div class="form-field__input">
+                <b-field 
+                    :type="passwordField2.state" 
+                    :message="[
+                        {'비밀번호가 다릅니다!': 
+                            passwordField2.password !== '' && 
+                            passwordField.password !== passwordField2.password
+                        },
+                        {'사용할 수 있는 비밀번호입니다.': passwordField2.available}
+                    ]">
+                    <b-input ref="passwordInput" v-model="passwordField2.password" :placeholder="passwordField2.placeholder" password-reveal type="password" @input="passwordCheck2()"></b-input>
+                </b-field>
+            </div>
+        </div>
+
+        <div class="form-field">
+            <div class="form-field__title">
+                <span class="bold">Access Token</span>
+            </div>
+            <div class="form-field__input">
+                <b-field 
+                    :type="tokenField.state" 
+                    :message="[
+                    ]">
+                    <b-input ref="idInput" v-model="tokenField.token" :placeholder="tokenField.placeholder" required @input="idTyping()"></b-input>
+                </b-field>
+            </div>
+        </div>
     </div>
 
     <b-button class="btn-submit is-primary rounded mt-3" @click="signUp()">Join</b-button>
 
-    <p class="is-size-6 has-text-grey-dark my-5">
-        계정이 없으세요?
-        <NuxtLink to="/signup" class="underline has-text-grey-dark">회원가입</NuxtLink>
+    <p class="is-size-7 has-text-grey mt-5">
+        By joining, you agree to the 
+        <span class="underline">Terms</span> and 
+        <span class="underline">Privacy Policy</span>
     </p>
 </section>
 </template>
@@ -59,6 +103,11 @@ export default {
         return {
             passwordRegex: /^[0-9a-zA-Z@$!%*#?&-=_+]{8,}$/g, // 최소 8자
         
+            nameField: {
+                name: null,
+                nameAvailable: false,
+                placeholder: 'Username',
+            },
             idField: {
                 available: false,
                 id: null,
@@ -70,7 +119,18 @@ export default {
                 available: false,
                 password: '',
                 state: null,
-                placeholder: null,
+                placeholder: 'Password (over 8 words)',
+            },
+            passwordField2: {
+                available: false,
+                password: '',
+                state: null,
+                placeholder: 'Confirm Password',
+            },
+            tokenField: {
+                available: false,
+                token: null,
+                state: null,
             },
         }
     },
