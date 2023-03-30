@@ -37,6 +37,8 @@
         No other internal dependency
       </card>
     </div>
+
+    <ChatBot />
   </section>
 </template>
 
