@@ -1,0 +1,22 @@
+
+/* weight */
+.semibold {
+  font-weight: 600;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.extra-bold {
+  font-weight: 800
+}
+
+
+/* text-decoration */
+.underline {
+  text-decoration: underline;
+}
+.midline {
+  text-decoration: line-through;
+}
