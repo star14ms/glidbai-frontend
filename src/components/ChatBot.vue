@@ -39,6 +39,11 @@ export default {
     }
   },
 
+  mounted() {
+    this.messageSound = new Audio('audios/bubble.mp3')
+    this.messageSound.volume = 0.7
+  },
+
   methods: {
     botStart() {
       // Get token if you want to build a private bot
@@ -85,6 +90,7 @@ export default {
 
           this.inputDisable = response.disableInput
           this.messageData.push(replyMessage)
+          this.messageSound.play()
 
           // finish
           this.botTyping = false
