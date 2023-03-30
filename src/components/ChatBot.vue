@@ -1,18 +1,17 @@
 <template>
-<div id="app">
-  <client-only placeholder="loading...">
-    <VueChatBot
-      :options="botOptions"
-      :messages="messageData"
-      :bot-typing="botTyping"
-      :input-disable="inputDisable"
-      :is-open="false"
-      @init="botStart"
-      @msg-send="msgSend"
-    />
-  </client-only>
-</div>
-
+  <div id="chatbot">
+    <client-only placeholder="loading...">
+      <VueChatBot
+        :options="botOptions"
+        :messages="messageData"
+        :bot-typing="botTyping"
+        :input-disable="inputDisable"
+        :is-open="false"
+        @init="botStart"
+        @msg-send="msgSend"
+      />
+    </client-only>
+  </div>
 </template>
 
 <script>
@@ -96,7 +95,7 @@ export default {
 </script>
 
 <style>
-#app {
+#chatbot {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -12,6 +12,8 @@
     "core-js": "^3.25.3",
     "nuxt": "^2.15.8",
     "nuxt-buefy": "^0.4.24",
+    "sass": "*1.49.7",
+    "sass-loader": "10",
     "vue": "^2.7.10",
     "vue-chat-bot": "^1.1.1",
     "vue-server-renderer": "^2.7.10",
