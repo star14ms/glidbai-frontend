@@ -1,3 +1,6 @@
+const baseURL = process.env.BASE_URL || 'http://localhost:8000/api'
+console.log('baseURL', baseURL)
+
 export default {
   srcDir: 'src',
 
@@ -43,9 +46,45 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/buefy
     'nuxt-buefy',
+    '@nuxtjs/axios',
+    '@nuxtjs/auth-next'
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+    transpile: [
+      'defu'
+    ]
+  },
+
+  axios: {
+    baseURL: baseURL
+  },
+
+  auth: {
+    redirect: {
+      home: false,
+      callback: `/login`,
+      logout: '/'
+    },
+    strategies: {
+      local: {
+        token: {
+          property: 'access_token',
+          global: true,
+          // required: true,
+          // type: 'Bearer'
+        },
+        user: {
+          property: false,
+          autoFetch: true,
+        },
+        endpoints: {
+          login: { url: '/auth/login/', method: 'post' },
+          logout: { url: '/auth/logout/', method: 'post' },
+          user: { url: '/user/', method: 'get' },
+        },
+      },
+    }
+  },
 }
