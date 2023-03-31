@@ -16,8 +16,7 @@
                 <b-field 
                     :type="idField.state" 
                     :message="[
-                        { '사용가능한 아이디입니다.': idField.available === true },
-                        { '이미 가입된 아이디입니다!': idField.duplicated === true },
+                        { '이 입력란을 작성하세요.': idField.id === '' },
                     ]">
                     <b-input ref="idInput" v-model="idField.id" :placeholder="idField.placeholder" required @input="idTyping()"></b-input>
                 </b-field>
@@ -33,10 +32,7 @@
                 <b-field 
                     :type="passwordField.state" 
                     :message="[
-                        {'최소 8자': 
-                           passwordField.password !== '' && !passwordField.available
-                        },
-                        {'사용할 수 있는 비밀번호입니다.': passwordField.available}
+                        {'이 입력란을 작성하세요.': passwordField.password === '' },
                     ]">
                     <b-input ref="passwordInput" v-model="passwordField.password" :placeholder="passwordField.placeholder" password-reveal type="password" required @input="passwordCheck()"></b-input>
                 </b-field>
@@ -44,7 +40,13 @@
         </div>
     </div>
 
-    <b-button class="btn-submit is-primary rounded mt-3" @click="signUp()">Join</b-button>
+    <b-button 
+        class="btn-submit is-primary rounded mt-3" :class="{'is-loading': isLoading }" 
+        :disabled="isLoading" 
+        @click="login()" 
+    >
+        Log in
+    </b-button>
 
     <p class="is-size-6 has-text-grey-dark my-5">
         계정이 없으세요?
@@ -57,114 +59,67 @@
 export default {
     data() {
         return {
-            passwordRegex: /^[0-9a-zA-Z@$!%*#?&-=_+]{8,}$/g, // 최소 8자
+            idRegex: /^(?=.*[a-z])[a-z0-9]{3,16}$/,
+            passwordRegex: /^[A-Za-z\d$@$!%*?&\-=_+]{8,}$/, // 최소 8자
         
             idField: {
-                available: false,
+                available: null,
                 id: null,
                 state: null,
-                checkedId: null,
                 placeholder: 'james@enterpix.com',
             },
             passwordField: {
-                available: false,
-                password: '',
+                available: null,
+                password: null,
                 state: null,
                 placeholder: null,
             },
+
+            isLoading: false,
         }
     },
     methods: {
-        async idCheck() {
-            const idRegex = /^[a-z]+[a-z0-9]{3,19}$/g;
-            this.idField.available = idRegex.test(this.idField.id);
-
-            if (!this.idField.id) {
-                this.idField.available = false;
-            }
-            this.idField.available ? this.idField.state = 'is-success' : this.idField.state = 'is-danger';
-
-            if (this.idField.available) {
-                try {
-                    const { data } = await this.$axios.get(`/user/idcheck/${this.idField.id}/`)
-
-                    if (data.result) {
-                        this.idField.duplicated = false
-                        this.idField.duplicated ? this.idField.state = 'is-danger' : this.idField.state = 'is-success';
-                        this.idField.checkedId = this.idField.id;
-                    } else {
-                        this.idField.available = null
-                        this.idField.duplicated = true
-                        this.idField.duplicated ? this.idField.state = 'is-danger' : this.idField.state = 'is-success';
-                    }
-                } catch (e) {
-                    console.log('중복 ID 체크 에러발생 - ', e);
-                    this.idField.available = null
-                    this.idField.duplicated = true
-                    this.idField.duplicated ? this.idField.state = 'is-danger' : this.idField.state = 'is-success';
-                }
-                this.idField = {...this.idField}
-            }
-        },
         idTyping() {
             this.idField.available = null;
-            this.idField.state = null;
-            this.idField.checkedId = null;
+            this.idField.available = this.idRegex.test(this.idField.id);
+            this.idField.available ? this.idField.state = 'is-success' : this.idField.state = 'is-danger';
         },
         passwordCheck() {
             this.passwordField.available = this.passwordRegex.test(this.passwordField.password);
             return this.passwordField.available ? (this.passwordField.state = 'is-success') : (this.passwordField.state = 'is-danger');
         },
-        passwordCheck2() {
-            this.passwordField2.available = this.passwordRegex.test(this.passwordField.password) &&
-                this.passwordField.password === this.passwordField2.password;
-            return this.passwordField2.available ? (this.passwordField2.state = 'is-success') : (this.passwordField2.state = 'is-danger');
+        async login() {
+            if (this.isLoading) return
+            this.isLoading = true
+            await this._login()
+            this.isLoading = false
         },
-        nameCheck() {
-            const nameRegex = /^[가-힣0-9a-zA-Z]+$/;
-            this.nameField.nameAvailable = nameRegex.test(this.nameField.name);
-        },
-        async signUp() {
-
-            if (!this.idField.checkedId) {
-                return this.$refs.idInput.focus();
+        async _login() {
+            if (!this.idField.available) {
+                return this.$refs.idInput.focus()
             } else if (!this.passwordField.available) {
-                return this.$refs.passwordInput.focus();
-            } else if (!this.passwordField2.available) {
-                return this.$refs.passwordInput.focus();
-            } else if (!this.nameField.nameAvailable) {
-                return this.$refs.nameInput.focus();
-            } else {
+                return this.$refs.passwordInput.focus()
+            }
 
-                if(this.passwordField.password !== this.passwordField2.password) {
-                    alert('비밀번호를 확인해주세요.')
-                    return null   
+            const loginData = {
+                username: this.idField.id,
+                password: this.passwordField.password,
+            }
+
+            try {
+                const response = await this.$auth.loginWith('local', {
+                    data: loginData,
+                })
+
+                if (response.data.user) {
+                    return this.$router.push('/')
+                } else {
+                    return this.toast('로그인 실패, ID와 비밀번호를 다시한번 확인해 주세요.')
                 }
 
-                const data = {
-                    username: this.idField.checkedId,
-                    password1: this.passwordField.password,
-                    password2: this.passwordField2.password,
-                    name: this.nameField.name,
-                }
-
-                try {
-                    const response = await this.$axios.post(`/auth/registration/`, data)
-
-                    this.$auth.setUserToken(response.data.access_token, response.data.refresh_token)
-                    await this.$auth.fetchUser()
-
-                    if (this.$auth.loggedIn) {
-                        if(this.$route.query.prev === 'pay') {
-                            this.$router.push('/payment/summer')
-                        } else {
-                            this.completion = true;
-                        }
-                    }
-                } catch (e) {
-                    alert('가입할 수 없는 아이디입니다.')
-                    return null
-                }
+            } catch (e) {
+                this.toast('로그인 실패, 서버 오류')
+                this.error_log(e)
             }
         },
     },
