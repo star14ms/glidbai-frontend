@@ -6,7 +6,7 @@
         :messages="messageData"
         :bot-typing="botTyping"
         :input-disable="inputDisable"
-        :is-open="true"
+        :is-open="false"
         @init="botStart"
         @msg-send="msgSend"
       />

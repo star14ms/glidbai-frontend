@@ -89,6 +89,7 @@ export default {
             return this.passwordField.available ? (this.passwordField.state = 'is-success') : (this.passwordField.state = 'is-danger');
         },
         async login() {
+            this.$router.push('/quiz/0')
             if (this.isLoading) return
             this.isLoading = true
             await this._login()

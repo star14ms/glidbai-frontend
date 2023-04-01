@@ -1,6 +1,6 @@
 <template>
   <nav
-      class="navbar header has-shadow is-primary"
+      class="navbar header has-shadow has-background-white"
       role="navigation"
       aria-label="main navigation"
     >
@@ -10,10 +10,11 @@
           href="/"
         >
           <img
-            src="~assets/buefy.png"
+            src="~/assets/icons/pinata.png"
             alt="Buefy"
             height="28"
           >
+          <span class="ml-2">Glide</span>
         </a>
 
         <div class="navbar-burger">

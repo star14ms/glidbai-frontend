@@ -116,7 +116,7 @@ export default {
     data() {
         return {
             nameRegex: /^[가-힣0-9a-zA-Z]{1,16}$/,
-            idRegex: /^(?=.*[a-z])[a-z0-9]{3,16}$/,
+            idRegex: /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
             passwordRegex: /^[A-Za-z\d$@$!%*?&\-=_+]{8,}$/, // 최소 8자
 
             nameField: {
@@ -230,7 +230,7 @@ export default {
             }
 
             try {
-                const response = await this.$axios.post(`/auth/registration/`, registration_data)
+                const response = await this.$axios.post(`/api/auth/signup`, registration_data)
 
                 this.$auth.setUserToken(response.data.access_token, response.data.refresh_token)
                 await this.$auth.fetchUser()
