@@ -96,7 +96,7 @@ export default {
             this.isLoading = true
             await this._login()
             this.isLoading = false
-            this.$router.push('/quiz/0')
+            this.$router.push('/question/0')
         },
         async _login() {
             if (!this.idField.available) {
