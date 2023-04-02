@@ -1,6 +1,10 @@
 html {
     overflow-x: hidden;
-    
+
+    body {
+        font-family: 'Pretendard';
+    }
+
     &::-webkit-scrollbar {
         width: 10px;
     }
@@ -8,7 +12,7 @@ html {
         background-color: transparent;
     }
     &::-webkit-scrollbar-thumb {
-        background-color: #A8A8A8;
+        background-color: #9CA3AF;
         border-radius: 3px;
     }
 }

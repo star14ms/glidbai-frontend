@@ -1,10 +1,10 @@
 <template>
-<section id="signup" class="col-a-center mt-6">
+<section id="signup" class="col-a-center">
     <div class="has-text-centered">
-        <img src="~/assets/icons/pinata.png" width="128" class="mb-4">
+        <img src="~/assets/icons/pinata.png" width="144" class="mb-4">
 
-        <p class="is-size-3 has-text-black-ter bold">Join Glide</p>
-        <p class="is-size-6">Your personalized AI-powered chatbot</p>
+        <h1 class="has-text-black bold">Join <span class="font-camo">Glide</span></h1>
+        <h2 class="mt-2">Your personalized AI-powered chatbot</h2>
     </div>
 
     <div class="form-fields mt-5">
@@ -33,7 +33,7 @@
                     :type="idField.state" 
                     :message="[
                         { '이 입력란을 작성하세요.': idField.id === '' },
-                        { '영문 또는 숫자 3~18자리 (영문 1자 이상)': idField.id !== '' && idField.available === false },
+                        { '이메일 형식': idField.id !== '' && idField.available === false },
                         { '사용가능한 아이디입니다.': idField.available },
                         { '이미 가입된 아이디입니다!': idField.duplicated },
                     ]">
@@ -96,14 +96,14 @@
     </div>
 
     <b-button 
-        class="btn-submit is-primary rounded mt-3" :class="{'is-loading': isLoading }"
+        class="btn-submit is-primary rounded mt-4" :class="{'is-loading': isLoading }"
         :disabled="isLoading" 
         @click="signUp()" 
     >
         Join
     </b-button>
 
-    <p class="is-size-7 has-text-grey mt-5">
+    <p id="bottom" class="is-size-7 my-5">
         By joining, you agree to the 
         <span class="underline">Terms</span> and 
         <span class="underline">Privacy Policy</span>
@@ -230,7 +230,7 @@ export default {
             }
 
             try {
-                const response = await this.$axios.post(`/api/auth/signup`, registration_data)
+                const response = await this.$axios.post(`/auth/signup`, registration_data)
 
                 this.$auth.setUserToken(response.data.access_token, response.data.refresh_token)
                 await this.$auth.fetchUser()
@@ -248,5 +248,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+h1 {
+    font-family: 'Inter';
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 36px;
+}
 
+h2 {
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+
+    color: #374151;
+}
+
+#bottom {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+
+    color: #9CA3AF;
+}
 </style>

@@ -11,22 +11,33 @@
 
     &__title {
         width: 100%;
-        margin: 0 6px;
+        color: black;
     }
 
     &__input {
-        margin-top: 0.3rem;
+        margin-top: 8px;
         width: 100%;
         min-height: 62px;
 
-        .field {
-            width: 100%;
-        }
+        // .field {
+        //     .icon {
+        //         top: 4px;
+        //         right: 4px !important;
+        //     }
+
+        //     input {
+        //         height: 48px;
+        //     }
+        // }
     }
 }
 
 
 .btn-submit {
-    width: 10rem;
-    height: 2rem;
+    width: 180px;
+    height: 40px;
+
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
 }
