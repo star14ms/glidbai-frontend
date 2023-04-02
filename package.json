@@ -6,24 +6,30 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@nuxtjs/auth-next": "5.0.0-1667386184.dfbbb54",
     "@nuxtjs/axios": "^5.13.6",
+    "@volar-plugins/vetur": "^0.1.0",
     "core-js": "^3.25.3",
     "node-fetch-native": "^1.0.2",
     "nuxt": "^2.15.8",
     "nuxt-buefy": "^0.4.24",
+    "nuxt-property-decorator": "^2.9.1",
+    "patch-package": "^6.5.1",
+    "postinstall-postinstall": "^2.1.0",
     "sass": "*1.49.7",
     "sass-loader": "10",
     "vue": "^2.7.10",
     "vue-chat-bot": "^1.1.1",
     "vue-server-renderer": "^2.7.10",
-    "vue-template-compiler": "^2.7.10"
+    "vuex-module-decorators": "^2.0.0"
   },
   "devDependencies": {
-    "@nuxt/types": "^2.15.8",
-    "@nuxt/typescript-build": "^2.1.0"
+    "@nuxt/types": "^2.16.3",
+    "@nuxt/typescript-build": "^3.0.1",
+    "typescript": "4"
   }
 }

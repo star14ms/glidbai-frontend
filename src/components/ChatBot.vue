@@ -40,7 +40,7 @@ export default {
   },
 
   mounted() {
-    this.messageSound = new Audio('audios/bubble.mp3')
+    this.messageSound = new Audio('/audios/bubble.mp3')
     this.messageSound.volume = 0.7
   },
 

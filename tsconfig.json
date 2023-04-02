@@ -35,5 +35,12 @@
     "dist",
     "node_modules_dev",
     "node_modules_prod"
-  ]
+  ],
+  "importHelpers": true,
+  "vueCompilerOptions": {
+    "target": 2.7,
+    "extensions": [
+      ".vue"
+    ]
+  }
 }

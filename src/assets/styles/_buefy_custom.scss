@@ -14,6 +14,11 @@ $primary-light: findLightColor($primary);
 $primary-dark: findDarkColor($primary);
 $primary-invert: findColorInvert($primary);
 
+$info: #3B82F6; 
+$info-light: findLightColor($info);
+$info-dark: findDarkColor($info);
+$info-invert: findColorInvert($info);
+
 // Lists and maps
 $custom-colors: null !default;
 $custom-shades: null !default;

@@ -2,10 +2,19 @@
     <div id="quiz" class="col-a-center">
         <div class="page">
             <div id="question" class="page-item">
-    
+                <div>
+                    {{ q.question }}
+                </div>
+
+                <div>
+                    <div class="choice">{{ q.choices.a }}</div>
+                    <div class="choice">{{ q.choices.b }}</div>
+                    <div class="choice">{{ q.choices.c }}</div>
+                    <div class="choice">{{ q.choices.d }}</div>
+                </div>
             </div>
             <div id="article" class="page-item">
-                {{ quiz.article }}
+                {{ q.passage }}
             </div>
         </div>
     
@@ -13,14 +22,26 @@
     </div>
 </template>
 
-<script>
-export default {
-    layout: 'quiz',
-    
-    computed: {
-        quiz() {
-            return this.$store.state.quiz.item
-        }
+<script lang="ts">
+
+import { Component, Vue } from 'nuxt-property-decorator'
+import { questionState } from '../../store'
+
+
+@Component({
+  layout: 'quiz',
+
+  asyncData(ctx) {
+    questionState.get({ id: '0', Authorization: '12345678' })
+  }
+})
+export default class Page extends Vue {
+    get q() {
+        return questionState.item
+    }
+
+    mounted() {
+        console.log(this.q)
     }
 }
 </script>

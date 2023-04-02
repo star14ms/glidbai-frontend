@@ -31,6 +31,7 @@ export default {
   plugins: [
     { src: '~/plugins/global' },
     { src: '~/plugins/vue-chat-bot', mode: 'client' },
+    { src: '~/plugins/axios.accessor' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -87,4 +88,8 @@ export default {
       },
     }
   },
+
+  transpileDependencies: [
+    'vuex-module-decorators'
+  ],
 }
