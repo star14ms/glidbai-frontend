@@ -8,23 +8,23 @@
 
       <ChatBot />
     </div>
-  </template>
-  
-  <script>
-  export default {
-  
-  }
-  </script>
-  
-  <style lang="scss" scoped>
-  
-  @import 'assets/styles/variables.scss';
-  .root {
-    background-color: #E5E5E5;
-  }
+</template>
 
-  .container {
-    min-height: calc(100vh - $header-height);
-  }
-  </style>
+<script>
+export default {
+
+}
+</script>
+
+<style lang="scss" scoped>
+
+@import 'assets/styles/variables.scss';
+.root {
+  background-color: #E5E5E5;
+}
+
+.container {
+  min-height: calc(100vh - $header-height);
+}
+</style>
   
