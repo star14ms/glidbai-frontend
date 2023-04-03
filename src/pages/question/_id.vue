@@ -84,19 +84,20 @@
             </div>
         </div>
 
-        <button v-show="!checked" id="btn-check" class="button is-primary" :disabled="checked" @click="check()">Check Answers</button>
-        <button v-show="checked" id="btn-check" class="button is-primary" @click="next()">Next</button>
-        <button v-show="checked" id="btn-check" class="button is-primary" @click="result()">See Result</button>
+        <button v-show="!checked" id="btn-check" class="button is-primary" @click="check()" :disabled="userChoiceIndex === null">
+            Check Answers
+        </button>
+        <button v-show="checked" id="btn-check" class="button is-primary" @click="next()">
+            {{ !isLastQuestion ? 'Next' : 'See Result'}}
+        </button>
     </div>
 </template>
 
 <script lang="ts">
 
 import { Component, Vue } from 'nuxt-property-decorator'
-import { questionState } from '../../store'
-import { explanationState } from '../../store'
+import { questionState, explanationState, OMRState } from '../../store'
 import { Answer2Index, Index2Answer } from '../../shared/question'
-
 
 @Component({
   layout: 'bg-gray',
@@ -123,22 +124,34 @@ export default class Page extends Vue {
         return this.answer2Index[this.q.answer]
     }
 
-    mounted() {
-        console.log(this.q)
+    get correct() {
+        return this.answerIndex === this.userChoiceIndex
+    }
+
+    get isLastQuestion() {
+        return OMRState.n_question === Number(this.$route.params.id) + 1
     }
 
     check() {
-        explanationState.get({ id: this.q._id, Authorization: '12345678' })
+        explanationState.get({ 
+            id: this.q._id, 
+            Authorization: '12345678' 
+        })
+        OMRState.update({
+            index: Number(this.$route.params.id), 
+            correct: this.correct
+        })
         this.checked = true
     }
 
     next() {
         const nextId = Number(this.$route.params.id) + 1
-        this.$router.push(`/question/${nextId}`)
-    }
 
-    result() {
-        this.$router.push(`/question/finish`)
+        if (!this.isLastQuestion) {
+            this.$router.push(`/question/${nextId}`)
+        } else {
+            this.$router.push(`/question/finish`)
+        }
     }
 }
 </script>

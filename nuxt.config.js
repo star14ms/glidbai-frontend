@@ -31,7 +31,8 @@ export default {
   plugins: [
     { src: '~/plugins/global' },
     { src: '~/plugins/vue-chat-bot', mode: 'client' },
-    { src: '~/plugins/axios.accessor' }
+    { src: '~/plugins/axios.accessor' },
+    { src: '~/plugins/persistedState'},
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

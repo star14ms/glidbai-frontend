@@ -25,7 +25,7 @@
                         </h4>
                         <span class="row-a-end">
                             <h3>
-                                <span ref="correctCount">0</span>/{{ data.questionCount }}
+                                <span ref="correctCount">0</span>/{{ questionCount }}
                             </h3>
                             <p ref="score">0.0%</p>
                         </span>
@@ -66,7 +66,7 @@
 <script lang="ts">
 
 import { Component, Vue } from 'nuxt-property-decorator'
-import { questionState } from '../../store'
+import { questionState, OMRState } from '../../store'
 
 @Component({
   layout: 'no-container',
@@ -82,14 +82,20 @@ export default class Page extends Vue {
     }
 
     data = {
-        correctCount: 6,
-        questionCount: 7,
         weakPoint: 'Weak vocabulary: Some test-takers struggle with vocabulary, which can make it difficult for them to understand and answer questions.',
         strongPoint: 'Strong English proficiency: Some test-takers have a high level of English proficiency, which can make it easier for them to understand and answer questions on the exam..',
     }
 
+    get correctCount() {
+        return OMRState.item.filter(Boolean).length
+    }
+
+    get questionCount() {
+        return OMRState.n_question
+    }
+
     get score() {
-        return Number((this.data.correctCount / this.data.questionCount * 100).toFixed(1))
+        return Number((this.correctCount / this.questionCount * 100).toFixed(1))
     }
 
     get resultKeyword() {
@@ -102,7 +108,7 @@ export default class Page extends Vue {
 
     mounted() {
         this.valueUpdateAnimation(this.$refs.score, this.score)
-        this.valueUpdateAnimation(this.$refs.correctCount, this.data.correctCount, '', 0)
+        this.valueUpdateAnimation(this.$refs.correctCount, this.correctCount, '', 0)
     }
 
     // <n_shares> 횟수 만큼 숫자 업데이트, <timeout> ms 대기시간 후에 실행
