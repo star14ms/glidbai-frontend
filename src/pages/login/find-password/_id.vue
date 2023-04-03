@@ -25,7 +25,7 @@
     </div>
 
     <b-button 
-        class="btn-submit is-primary rounded mt-3" :class="{'is-loading': isLoading }" 
+        class="btn-submit is-primary rounded-3 mt-3" :class="{'is-loading': isLoading }" 
         :disabled="!passwordField.available || isLoading" 
         @click="resetPassword()" 
     >

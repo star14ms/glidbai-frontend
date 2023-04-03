@@ -32,6 +32,9 @@ $danger-invert: findColorInvert($danger);
 $light: rgb(232 234 237);
 $light-invert: findColorInvert($light);
 
+$lighter: #F3F4F6;
+$lighter-invert: findColorInvert($lighter);
+
 // Lists and maps
 $custom-colors: null !default;
 $custom-shades: null !default;
@@ -50,6 +53,10 @@ $colors: mergeColorMaps(
         "light": (
             $light,
             $light-invert,
+        ),
+        "light2": (
+            $lighter,
+            $lighter-invert
         ),
         "dark": (
             $dark,

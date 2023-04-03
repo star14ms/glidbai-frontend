@@ -84,8 +84,9 @@
             </div>
         </div>
 
-        <button v-show="!checked" id="btn-check" class="button is-primary" @click="check()">Check Answers</button>
+        <button v-show="!checked" id="btn-check" class="button is-primary" :disabled="checked" @click="check()">Check Answers</button>
         <button v-show="checked" id="btn-check" class="button is-primary" @click="next()">Next</button>
+        <button v-show="checked" id="btn-check" class="button is-primary" @click="result()">See Result</button>
     </div>
 </template>
 
@@ -134,6 +135,10 @@ export default class Page extends Vue {
     next() {
         const nextId = Number(this.$route.params.id) + 1
         this.$router.push(`/question/${nextId}`)
+    }
+
+    result() {
+        this.$router.push(`/question/finish`)
     }
 }
 </script>

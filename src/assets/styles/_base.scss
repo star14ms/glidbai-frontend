@@ -119,18 +119,19 @@ $width-values: (
 
 
 // 모서리 둥글게
-.rounded-small {
-    border-radius: 0.5rem;
-    -moz-border-radius: 0.5rem;
-    -webkit-border-radius: 0.5rem;
-}
-.rounded {
-    border-radius: 0.75rem;
-    -moz-border-radius: 0.75rem;
-    -webkit-border-radius: 0.75rem;
-}
-.rounded-large {
-    border-radius: 1rem;
-    -moz-border-radius: 1rem;
-    -webkit-border-radius: 1rem;
+$rounded-shortcuts: (
+    "1": 0.25rem, 
+    "2": 0.5rem, 
+    "3": 0.75rem,
+    "4": 1rem,
+    "5": 1.5rem,
+    "6": 3rem,
+) !default;
+
+@each $shortcut, $value in $rounded-shortcuts {
+    .rounded-#{$shortcut} {
+        border-radius: $value;
+        -moz-border-radius: $value;
+        -webkit-border-radius: $value;
+    }
 }
