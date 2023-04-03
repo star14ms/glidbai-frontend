@@ -23,5 +23,13 @@ type GetQuestion = {
   Authorization: string,
 }
 
+type Answer2Index = {
+  [key: string]: number
+}
 
-export type { Question, GetQuestion }
+type Index2Answer = {
+  [key: number]: string
+}
+
+
+export type { Question, GetQuestion, Answer2Index, Index2Answer }

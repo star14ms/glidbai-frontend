@@ -5,14 +5,14 @@ html {
         font-family: 'Pretendard';
     }
 
-    &::-webkit-scrollbar {
+    & *::-webkit-scrollbar {
         width: 10px;
     }
-    &::-webkit-scrollbar-track {
+    & *::-webkit-scrollbar-track {
         background-color: transparent;
     }
-    &::-webkit-scrollbar-thumb {
-        background-color: #9CA3AF;
+    & *::-webkit-scrollbar-thumb {
+        background-color: #D1D5DB;
         border-radius: 3px;
     }
 }
@@ -61,12 +61,33 @@ $justify-content-shortcuts: (
             #{$property}: center;
         }
     }
+
+    @each $property, $shortcut2 in $alignment-shortcuts {
+        .#{$shortcut}-#{$shortcut2}-start {
+            display: flex;
+            flex-direction: $value !important;
+            #{$property}: flex-start;
+        }
+    }
+
+    @each $property, $shortcut2 in $alignment-shortcuts {
+        .#{$shortcut}-#{$shortcut2}-end {
+            display: flex;
+            flex-direction: $value !important;
+            #{$property}: flex-end;
+        }
+    }
 }
 
 @each $shortcut, $value in $justify-content-shortcuts {
     .space-#{$shortcut} {
         display: flex;
         align-items: center;
+        justify-content: $value !important;
+    }
+
+    .space-#{$shortcut}-a-unset {
+        display: flex;
         justify-content: $value !important;
     }
 }

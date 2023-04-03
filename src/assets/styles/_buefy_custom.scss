@@ -14,10 +14,23 @@ $primary-light: findLightColor($primary);
 $primary-dark: findDarkColor($primary);
 $primary-invert: findColorInvert($primary);
 
+$success: #4CC92C; 
+$success-light: findLightColor($success);
+$success-dark: findDarkColor($success);
+$success-invert: findColorInvert($success);
+
 $info: #3B82F6; 
 $info-light: findLightColor($info);
 $info-dark: findDarkColor($info);
 $info-invert: findColorInvert($info);
+
+$danger: #D7000D; 
+$danger-light: findLightColor($danger);
+$danger-dark: findDarkColor($danger);
+$danger-invert: findColorInvert($danger);
+
+$light: rgb(232 234 237);
+$light-invert: findColorInvert($light);
 
 // Lists and maps
 $custom-colors: null !default;
