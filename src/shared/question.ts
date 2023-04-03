@@ -23,6 +23,11 @@ type GetQuestion = {
   Authorization: string,
 }
 
+type GetNextQuestion = {
+  onlyUnsolved?: boolean,
+  Authorization: string,
+}
+
 type Answer2Index = {
   [key: string]: number
 }
@@ -32,4 +37,4 @@ type Index2Answer = {
 }
 
 
-export type { Question, GetQuestion, Answer2Index, Index2Answer }
+export type { Question, GetQuestion, GetNextQuestion, Answer2Index, Index2Answer }
