@@ -99,7 +99,7 @@ import { Answer2Index, Index2Answer } from '../../shared/question'
 
 
 @Component({
-  layout: 'quiz',
+  layout: 'bg-gray',
 
   asyncData(ctx) {
     questionState.get({ id: '0', Authorization: '12345678' })

@@ -1,4 +1,4 @@
-import { Module, VuexModule, Mutation, MutationAction } from 'vuex-module-decorators'
+import { Module, VuexModule, Action } from 'vuex-module-decorators'
 import { $axios } from '../utils/api'
 import { Question } from '~/src/shared/question'
 import { UpdateUserQuestion, CreateCurriculum } from '~/src/shared/user'
@@ -29,14 +29,14 @@ export default class QuestionModule extends VuexModule {
     updatedAt: String(),
   }
 
-  @Mutation
+  @Action
   async updateUserQuestion({Authorization, questionId, solved, correct}: UpdateUserQuestion) {
     await $axios.$post(`/users/quetsion`, { questionId, solved, correct }, {
       headers: { 'Authorization': `Bearer ${Authorization}` }
     })
   }
 
-  @Mutation
+  @Action
   async createCurriculum({Authorization, newby, topics, difficulty}: CreateCurriculum) {
     await $axios.$post(`/users/curriculum`, { newby, topics, difficulty }, {
       headers: { 'Authorization': `Bearer ${Authorization}` }

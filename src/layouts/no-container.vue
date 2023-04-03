@@ -1,11 +1,11 @@
 <template>
-    <div class="root">
-      <Header />
+  <div class="root">
+    <Header />
 
-      <div id="container" class="col-a-center is-10">
-        <Nuxt />
-      </div>
+    <div id="container" class="col-a-center is-10">
+      <Nuxt />
     </div>
+  </div>
 </template>
 
 <script>
