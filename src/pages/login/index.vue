@@ -36,6 +36,7 @@
                     :type="passwordField.state" 
                     :message="[
                         {'이 입력란을 작성하세요.': passwordField.password === '' },
+                        {'최소 8자': passwordField.password !== '' && passwordField.available === false },
                     ]">
                     <b-input ref="passwordInput" v-model="passwordField.password" :placeholder="passwordField.placeholder" password-reveal type="password" required @input="passwordCheck()"></b-input>
                 </b-field>
@@ -96,7 +97,7 @@ export default {
             this.isLoading = true
             await this._login()
             this.isLoading = false
-            this.$router.push('/question/0')
+            this.$router.push('/')
         },
         async _login() {
             if (!this.idField.available) {

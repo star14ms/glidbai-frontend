@@ -91,7 +91,7 @@
             {{ !isLastQuestion ? 'Next' : 'See Result'}}
         </button>
 
-        <ChatBot />
+        <ChatBot :scenario="scenario" />
     </div>
 </template>
 
@@ -113,6 +113,40 @@ export default class Page extends Vue {
     checked: boolean = false
     answer2Index: Answer2Index = {'a': 0, 'b': 1, 'c': 2, 'd': 3}
     index2Answer: Index2Answer = {0: 'A', 1: 'B', 2: 'C', 3: 'D'}
+
+    scenario = [[{
+      agent: 'bot',
+      type: 'button',
+      text: 'I’m here to help you with this exercise. <br> Here are a few ideas for things you can ask me:',
+      disableInput: true,
+      options: [
+        {
+          text: 'Give me a hint',
+          value: 'Give me a hint',
+          action: 'postback'
+        },
+        {
+          text: 'Quiz me!',
+          value: 'Quiz me!',
+          action: 'postback'
+        },
+        {
+          text: 'Try a similar example',
+          value: 'Try a similar example ',
+          action: 'postback'
+        },
+        {
+          text: 'Key vocabulary',
+          value: 'Key vocabulary',
+          action: 'postback'
+        },
+        {
+          text: 'Translate to Korean',
+          value: 'https://translate.google.co.kr/?hl=ko&sl=en&tl=ko&op=translate',
+          action: 'url'
+        },
+      ],
+    }]]
 
     get q() {
         return questionState.item
