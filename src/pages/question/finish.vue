@@ -1,63 +1,71 @@
 <template>
 <div id="result" class="w-100">
-    <div id="result-title" class="col-a-center has-background-light2 py-4">
-        <h2>Result</h2>
+    <div id="result-title" class="has-background-light2 py-4">
+        <slide-y-down-transition :duration="500">
+            <div v-show="transition.after_2000" class="col-a-center">
+                <h2>Result</h2>
 
-        <img :src="iconSrc" />
-
-        <h1>{{ resultKeyword.toUpperCase() }}</h1>
+                <img :src="iconSrc" />
+                
+                <h1>{{ resultKeyword.toUpperCase() }}</h1>
+            </div>
+        </slide-y-down-transition>
     </div>
 
     <div id="result-detail" class="has-background-white">
         <div class="container col">
-            <div id="your-score">
-                <h2 class="bold">Your Score</h2>
-
-                <div class="space-between has-background-light2 rounded-5 mt-4 p-5">
-                    <span>
-                        <h2 class="b-700">TOEFL</h2>
-                        <h2 class="b-500">Reading Test</h2>
-                    </span>
-
-                    <span id="total-score" class="col-a-center has-background-white rounded-4 py-3 px-4">
-                        <h4>
-                            TOTAL SCORE
-                        </h4>
-                        <span class="row-a-end">
-                            <h3>
-                                <span ref="correctCount">0</span>/{{ questionCount }}
-                            </h3>
-                            <p ref="score">0.0%</p>
+            <zoom-y-transition :duration="500">
+                <div id="your-score" v-show="transition.after_0">
+                    <h2 class="bold">Your Score</h2>
+    
+                    <div class="space-between has-background-light2 rounded-5 mt-4 p-5">
+                        <span>
+                            <h2 class="b-700">TOEFL</h2>
+                            <h2 class="b-500">Reading Test</h2>
                         </span>
-                    </span>
-                </div>
-            </div>
-
-            <div id="analysis">
-                <h2 class="bold">Analysis</h2>
-
-                <div class="columns mt-4">
-                    <div class="column has-background-light2 rounded-5 p-5">
-                        <h5>
-                            Your <span class="tag-custom">Weak</span> Point
-                        </h5>
-
-                        <p class="has-background-white rounded-4 mt-3 p-3">
-                            {{ data.weakPoint }}
-                        </p>
-                    </div>
-
-                    <div class="column has-background-light2 rounded-5 p-5">
-                        <h5>
-                            Your <span class="tag-custom has-background-info">Strong</span> Point
-                        </h5>
-
-                        <p class="has-background-white rounded-4 mt-3 p-3">
-                            {{ data.strongPoint }}
-                        </p>
+    
+                        <span id="total-score" class="col-a-center has-background-white rounded-4 py-3 px-4">
+                            <h4>
+                                TOTAL SCORE
+                            </h4>
+                            <span class="row-a-end">
+                                <h3>
+                                    <span ref="correctCount">0</span>/{{ questionCount }}
+                                </h3>
+                                <p ref="score">0.0%</p>
+                            </span>
+                        </span>
                     </div>
                 </div>
-            </div>
+            </zoom-y-transition>
+
+            <slide-y-down-transition :duration="500">
+                <div id="analysis" v-show="transition.after_2500">
+                    <h2 class="bold">Analysis</h2>
+    
+                    <div class="columns mt-4">
+                        <div class="column has-background-light2 rounded-5 p-5">
+                            <h5>
+                                Your <span class="tag-custom">Weak</span> Point
+                            </h5>
+        
+                            <p class="has-background-white rounded-4 mt-3 p-3">
+                                {{ data.weakPoint }}
+                            </p>
+                        </div>
+    
+                        <div class="column has-background-light2 rounded-5 p-5">
+                            <h5>
+                                Your <span class="tag-custom has-background-info">Strong</span> Point
+                            </h5>
+        
+                            <p class="has-background-white rounded-4 mt-3 p-3">
+                                {{ data.strongPoint }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </slide-y-down-transition>
         </div>
     </div>
 </div>
@@ -86,6 +94,12 @@ export default class Page extends Vue {
         strongPoint: 'Strong English proficiency: Some test-takers have a high level of English proficiency, which can make it easier for them to understand and answer questions on the exam..',
     }
 
+    transition = {
+        after_0: false,
+        after_2000: false,
+        after_2500: false,
+    }
+
     get correctCount() {
         return OMRState.item.filter(Boolean).length
     }
@@ -99,7 +113,7 @@ export default class Page extends Vue {
     }
 
     get resultKeyword() {
-        return this.score > 80 ? 'excellent' : this.score > 50 ? 'good' : 'poor'
+        return this.score >= 80 ? 'excellent' : this.score >= 50 ? 'good' : 'poor'
     }
 
     get iconSrc() {
@@ -107,8 +121,19 @@ export default class Page extends Vue {
     }
 
     mounted() {
+        this.setAnimationTimeout()
         this.valueUpdateAnimation(this.$refs.score, this.score)
         this.valueUpdateAnimation(this.$refs.correctCount, this.correctCount, '', 0)
+    }
+
+    setAnimationTimeout() {
+        this.transition.after_0 = true
+        setTimeout(() => {
+            this.transition.after_2000 = true
+        }, 2000)
+        setTimeout(() => {
+            this.transition.after_2500 = true
+        }, 2500)
     }
 
     // <n_shares> 횟수 만큼 숫자 업데이트, <timeout> ms 대기시간 후에 실행
@@ -117,7 +142,7 @@ export default class Page extends Vue {
         realValue: number, 
         subfix: string = '%', 
         fractionDigits: number = 1,
-        runtime: number = 1500,
+        runtime: number = 1200,
         n_shares: number = 30, 
         timeout: number = 250,
     ) {
@@ -142,7 +167,11 @@ export default class Page extends Vue {
     color: #000000;
 
     #result-title {
-        gap: 12px;
+        height: 288px;
+
+        .col-a-center {
+            gap: 12px;
+        }
     }
     
     #result-detail {
