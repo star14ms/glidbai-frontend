@@ -118,16 +118,18 @@ export default {
       }
     },
 
-    msgSend(value) {
-      if (typeof value.value === 'object' && value.value.to !== undefined) {
-        return this.$router.push(value.value.to)
+    msgSend(data) {
+      if (data.to !== undefined) {
+        return this.$router.push(data.to)
+      } else if (data.emit !== undefined) {
+        this.$emit(data.emit, { key: data.emit.slice(data.emit.indexOf(':')+1), value: data.value})
       }
 
       // Push the user's message to board
       this.messageData.push({
         agent: 'user',
         type: 'text',
-        text: value.text
+        text: data.text
       })
 
       if (this.scenarioIndex <= this.scenario.length-1) {

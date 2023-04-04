@@ -2,22 +2,40 @@
     <div id="index" class="has-background-light2">
         <slide-y-down-transition>
             <div id="title" v-show="transition.after_1000">
-              <h1>Welcome to ChatBot</h1>
-              <h2 class="mt-2 mb-5">Your personalised AI-powered chatbot</h2>
+                <h1>Welcome to ChatBot</h1>
+                <h2 class="mt-2 mb-5">Your personalised AI-powered chatbot</h2>
             </div>
         </slide-y-down-transition>
-        <ChatBot :is-open="true" :is-drop-menu="false" :start-message-delay="1500" :scenario="scenario" />
+
+        <ChatBot 
+          :is-open="true" 
+          :is-drop-menu="false" 
+          :start-message-delay="1500" 
+          :scenario="scenario" 
+          @update:newby="updateForm"
+          @update:difficulty="updateForm"
+          @update:topics="updateForm"
+        />
     </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
+type CreateCurriculumForm = {
+    [key: string]: any,
+    newby?: boolean,
+    difficulty?: number,
+    topics?: string[],
+}
+
 @Component({
     // middleware: 'login'
     layout: 'bg-gray',
 })
 export default class Page extends Vue {
+    createCurriculumForm: CreateCurriculumForm = {}
+
     transition = {
         after_1000: false,
     }
@@ -44,13 +62,16 @@ export default class Page extends Vue {
           options: [
             {
               text: 'Yes',
-              value: 'submit_ticket',
-              action: 'postback'
+              value: true,
+              action: 'postback',
+              emit: 'update:newby',
             },
             {
               text: 'No',
-              value: 'submit_ticket',
-              action: 'postback'
+              value: false,
+              action: 'postback',
+              type: 'emit',
+              event: 'update:newby',
             },
           ],
         },
@@ -64,18 +85,21 @@ export default class Page extends Vue {
           options: [
             {
               text: '초급',
-              value: '초급',
-              action: 'postback'
+              value: 1,
+              action: 'postback',
+              emit: 'update:difficulty',
             },
             {
               text: '중급',
-              value: '중급',
-              action: 'postback'
+              value: 2,
+              action: 'postback',
+              emit: 'update:difficulty',
             },
             {
               text: '고급',
-              value: '고급',
-              action: 'postback'
+              value: 3,
+              action: 'postback',
+              emit: 'update:difficulty',
             },
           ],
         },
@@ -90,37 +114,44 @@ export default class Page extends Vue {
             {
               text: 'natural sciences',
               value: 'natural sciences',
-              action: 'postback'
+              action: 'postback',
+              emit: 'update:topics',
             },
             {
               text: 'social sciences',
               value: 'social sciences',
-              action: 'postback'
+              action: 'postback',
+              emit: 'update:topics',
             },
             {
               text: 'humanities',
               value: 'humanities',
-              action: 'postback'
+              action: 'postback',
+              emit: 'update:topics',
             },
             {
               text: 'business and economics',
               value: 'business and economics',
-              action: 'postback'
+              action: 'postback',
+              emit: 'update:topics',
             },
             {
               text: 'history',
               value: 'history',
-              action: 'postback'
+              action: 'postback',
+              emit: 'update:topics',
             },
             {
               text: 'arts',
               value: 'arts',
-              action: 'postback'
+              action: 'postback',
+              emit: 'update:topics',
             },
             {
               text: 'literature',
               value: 'literature',
-              action: 'postback'
+              action: 'postback',
+              emit: 'update:topics',
             },
           ]
         },
@@ -140,11 +171,9 @@ export default class Page extends Vue {
           options: [
             {
               text: 'Let’s Start!',
-              value: {
-                'type': 'redirect',
-                'to': '/question/0',
-              },
-              action: 'postback'
+              value: null,
+              action: 'postback',
+              to: '/question/0',
             },
           ],
         },
@@ -183,6 +212,11 @@ export default class Page extends Vue {
             chatBox.parentNode.insertBefore(animationElement, chatBox)
             titleDiv.style.display = ''
         }
+    }
+
+    updateForm({ key, value }: { key: string, value: any }) {
+        this.createCurriculumForm[key] = value
+        console.log(this.createCurriculumForm)
     }
 }
 </script>
