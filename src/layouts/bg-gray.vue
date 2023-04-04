@@ -1,12 +1,10 @@
 <template>
-  <div class="root">
+  <div class="has-background-light2">
     <Header />
 
     <div class="container col-a-center is-10">
       <Nuxt />
     </div>
-
-    <ChatBot />
   </div>
 </template>
 
@@ -19,9 +17,6 @@ export default {
 <style lang="scss" scoped>
 
 @import 'assets/styles/variables.scss';
-.root {
-  background-color: #E5E5E5;
-}
 
 .container {
   min-height: calc(100vh - $header-height);

@@ -3,7 +3,7 @@
     <div class="has-text-centered">
         <img src="~/assets/icons/pinata.png" width="144" class="mb-4">
 
-        <h1 class="has-text-black bold">Welcome to <span class="font-camo">Glide</span></h1>
+        <h1 class="has-text-black bold">Welcome to <img src="~/assets/icons/title/glide-30.svg" /></h1>
         <h2 class="mt-2">Your personalized AI-powered chatbot</h2>
     </div>
 
@@ -136,6 +136,12 @@ h1 {
     font-weight: 600;
     font-size: 30px;
     line-height: 36px;
+
+    img {
+        position: relative;
+        top: 2px;
+        width: 72px;
+    }
 }
 
 h2 {

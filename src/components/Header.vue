@@ -1,6 +1,6 @@
 <template>
   <nav
-      class="navbar header has-background-white px-2"
+      class="navbar header has-background-white px-3"
       role="navigation"
       aria-label="main navigation"
     >
@@ -15,7 +15,7 @@
             width="32"
             height="32"
           >
-          <span class="is-size-5 font-camo ml-2">Glide</span>
+          <img class="ml-3" src="~/assets/icons/title/glide-28.svg" />
         </a>
 
         <div class="navbar-burger">

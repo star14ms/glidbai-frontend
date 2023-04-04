@@ -90,6 +90,8 @@
         <button v-show="checked" id="btn-check" class="button is-primary" @click="next()">
             {{ !isLastQuestion ? 'Next' : 'See Result'}}
         </button>
+
+        <ChatBot />
     </div>
 </template>
 
