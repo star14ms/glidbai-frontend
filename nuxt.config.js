@@ -34,6 +34,7 @@ export default {
     { src: '~/plugins/axios.accessor' },
     { src: '~/plugins/persistedState'},
     { src: '~/plugins/vue2-transitions'},
+    { src: '~/plugins/vue-kinesis' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

@@ -4,8 +4,12 @@
         <slide-y-down-transition :duration="500">
             <div v-show="transition.after_2000" class="col-a-center">
                 <h2>Result</h2>
-
-                <img :src="iconSrc" />
+                
+                <kinesis-container>
+                    <kinesis-element :strength="2" type="scale">
+                        <img :src="iconSrc" />
+                    </kinesis-element>
+                </kinesis-container>
                 
                 <h1>{{ resultKeyword.toUpperCase() }}</h1>
             </div>
