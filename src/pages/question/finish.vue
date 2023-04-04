@@ -5,11 +5,7 @@
             <div v-show="transition.after_2000" class="col-a-center">
                 <h2>Result</h2>
                 
-                <kinesis-container>
-                    <kinesis-element :strength="2" type="scale">
-                        <img :src="iconSrc" />
-                    </kinesis-element>
-                </kinesis-container>
+                <img :src="iconSrc" />
                 
                 <h1>{{ resultKeyword.toUpperCase() }}</h1>
             </div>
@@ -36,7 +32,7 @@
                                 <h3>
                                     <span ref="correctCount">0</span>/{{ questionCount }}
                                 </h3>
-                                <p ref="score">0.0%</p>
+                                <p ref="score" class="row-j-center">0.0%</p>
                             </span>
                         </span>
                     </div>
@@ -220,12 +216,14 @@ p {
 
 #your-score {
     #total-score {
+        width: 145px;
         gap: 8px;
 
         .row-a-end {
             gap: 8px;
 
             p {
+                width: 55px;
                 font-weight: 600;
                 color: #6B7280;
             }
