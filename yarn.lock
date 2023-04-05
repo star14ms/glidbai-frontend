@@ -8744,11 +8744,6 @@ vscode-uri@^3.0.3, vscode-uri@^3.0.7:
   resolved "https://registry.npmjs.org/vscode-uri/-/vscode-uri-3.0.7.tgz"
   integrity sha512-eOpPHogvorZRobNqJGhapa0JdwaxpjVvyBp0QIUMRMSf8ZAlqOdEquKuRmw9Qwu0qXtJIWqFtMkmvJjUZmMjVA==
 
-vue-chat-bot@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/vue-chat-bot/-/vue-chat-bot-1.1.1.tgz"
-  integrity sha512-kVlJl9CtE8kvfXW7xfb31LxGWCLQfwejkMvzmkbtUpGrElOgR0SXsTQasdB2HguF9WVVGcRFW8Okmg6g0OBEKw==
-
 vue-class-component@^7.2.6:
   version "7.2.6"
   resolved "https://registry.npmjs.org/vue-class-component/-/vue-class-component-7.2.6.tgz"
