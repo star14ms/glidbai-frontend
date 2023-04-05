@@ -122,7 +122,9 @@ export default {
           this.inputDisable = this.scenario[this.scenarioIndex][i].disableInput
 
           if (i === this.scenario[this.scenarioIndex].length-1) {
-            this.botTyping = false
+            if (!this.scenario[this.scenarioIndex][i].botTyping) {
+              this.botTyping = false
+            }
             this.scenarioIndex += 1
           }
         }, (i+1)*1500)

@@ -154,6 +154,7 @@ export default class Page extends Vue {
           type: 'text',
           text: '맞춤형 커리큘럼을 생성하고 있습니다. 잠시만 기다려주세요 😊',
           disableInput: true,
+          botTyping: true,
         },
       ]
     ]
