@@ -256,11 +256,12 @@ export default {
 }
 
 .qkb-msg-bubble-component__text {
+  display: inline-block;
+
   font-weight: 500;
   font-size: 14px;
   line-height: 20px;
 
-  padding: 12px !important;
   border-radius: 12px !important;
 }
 #chatbot.not-drop-menu .qkb-msg-bubble-component__text {

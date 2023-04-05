@@ -1,6 +1,47 @@
 
 /* Inter */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url('~assets/fonts/inter/Inter-Thin.ttf') format('opentype');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('~assets/fonts/inter/Inter-Light.ttf') format('opentype');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('~assets/fonts/inter/Inter-Regular.ttf') format('opentype');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('~assets/fonts/inter/Inter-Medium.ttf') format('opentype');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('~assets/fonts/inter/Inter-Bold.ttf') format('opentype');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('~assets/fonts/inter/Inter-Black.ttf') format('opentype');
+}
 
 
 /* weight */
