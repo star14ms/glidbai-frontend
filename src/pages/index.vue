@@ -1,16 +1,17 @@
 <template>
     <div id="index" class="has-background-light2">
         <slide-y-down-transition>
-            <div id="title" v-show="transition.after_1000">
+            <div id="title" :class="{ 'moved': transition.after_2000 }" v-show="transition.after_1000">
                 <h1>Welcome to ChatBot</h1>
-                <h2 class="mt-2 mb-5">Your personalised AI-powered chatbot</h2>
+                <h2 class="mt-2">Your personalised AI-powered chatbot</h2>
             </div>
         </slide-y-down-transition>
 
-        <ChatBot 
+        <ChatBot  
+          v-show="transition.after_3500"
           :is-open="true" 
           :is-drop-menu="false" 
-          :start-message-delay="1500" 
+          :start-message-delay="3500" 
           :scenario="scenario" 
           @update:newby="updateForm"
           @update:difficulty="updateForm"
@@ -38,6 +39,8 @@ export default class Page extends Vue {
 
     transition = {
         after_1000: false,
+        after_2000: false,
+        after_3500: false,
     }
 
     scenario = [
@@ -191,6 +194,12 @@ export default class Page extends Vue {
         setTimeout(() => {
             this.transition.after_1000 = true
         }, 1000)
+        setTimeout(() => {
+            this.transition.after_2000 = true
+        }, 2000)
+        setTimeout(() => {
+            this.transition.after_3500 = true
+        }, 3500)
     }
 
     insertTitle() {
@@ -222,8 +231,23 @@ export default class Page extends Vue {
 </script>
 
 <style lang="scss">
+
+// @keyframes moveUp {
+//   0% {
+//     margin-top: 225px;
+//   }
+//   100% {
+//     margin-top: 60px;
+//   }
+// }
+
 #title {
+  margin-top: 225px;
+  transition: 1.5s;
+
+  &.moved {
     margin-top: 60px;
+  }
 }
 
 #index h1 {
