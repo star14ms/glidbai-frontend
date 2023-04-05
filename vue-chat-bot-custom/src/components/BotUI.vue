@@ -13,6 +13,7 @@
       BoardContent(
         :bot-typing="botTyping",
         :main-data="messages"
+        :show-user-icon="optionsMain.userAvatarImg !== null"
       )
       BoardAction(
         :input-disable="inputDisable",
@@ -96,6 +97,8 @@ export default {
         boardContentBg: '#fff',
         botAvatarSize: 32,
         botAvatarImg: 'http://placehold.it/200x200',
+        userAvatarSize: 32,
+        userAvatarImg: null,
         msgBubbleBgBot: '#f0f0f0',
         msgBubbleColorBot: '#000',
         msgBubbleBgUser: '#4356e0',

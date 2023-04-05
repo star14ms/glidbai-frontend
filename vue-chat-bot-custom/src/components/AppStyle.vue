@@ -16,7 +16,9 @@ export default {
         boardContentBg,
         bubbleBtnSize,
         botAvatarImg,
+        userAvatarImg,
         botAvatarSize,
+        userAvatarSize,
         inputDisableBg,
         msgBubbleBgBot,
         msgBubbleColorBot,
@@ -54,6 +56,16 @@ ${botAvatarImg
     }
     .qkb-msg-avatar__img {
       background-image: url(${botAvatarImg});
+    }`
+    : ''
+}
+${userAvatarImg
+    ? `.qkb-msg-bubble--user .qkb-msg-avatar {
+      width: ${userAvatarSize}px;
+      height: ${userAvatarSize}px;
+    }
+    .qkb-msg-bubble--user .qkb-msg-avatar__img {
+      background-image: url(${userAvatarImg});
     }`
     : ''
 }

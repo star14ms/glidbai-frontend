@@ -7,6 +7,7 @@
       v-for="(item, index) in mainData",
       :key="index",
       :message="item",
+      :show-user-icon="showUserIcon"
     )
     .qkb-board-content__bot-typing(v-if="botTyping")
       slot(name="botTyping")
@@ -32,7 +33,12 @@ export default {
     botTyping: {
       type: Boolean,
       default: false
-    }
+    },
+
+    showUserIcon: {
+      type: Boolean,
+      default: false
+    },
   },
 
   mounted () {

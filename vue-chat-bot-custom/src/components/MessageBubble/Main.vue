@@ -1,6 +1,6 @@
 <template lang="pug">
 .qkb-msg-bubble(:class="bubbleClass")
-  .qkb-msg-avatar(v-if="message.agent === 'bot'")
+  .qkb-msg-avatar(v-if="message.agent === 'bot' || showUserIcon")
     .qkb-msg-avatar__img &nbsp;
   component(
     v-if="componentType",
@@ -23,7 +23,12 @@ export default {
   props: {
     message: {
       type: Object
-    }
+    },
+
+    showUserIcon: {
+      type: Boolean,
+      default: false
+    },
   },
 
   computed: {
@@ -50,3 +55,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.qkb-msg-bubble--user {
+  flex-direction: row-reverse
+}
+</style>

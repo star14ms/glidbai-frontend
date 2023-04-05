@@ -28,6 +28,7 @@
 
 <script>
 import BotIcon from '~/assets/icons/pinata.png'
+import userIcon from '~/assets/icons/user.svg'
 import { messageService } from '~/helpers/message'
 
 export default {
@@ -67,6 +68,8 @@ export default {
         boardContentBg: this.isDropMenu ? '#F9FAFB' : '#F3F4F6',
         botAvatarSize: 40,
         botAvatarImg: BotIcon,
+        userAvatarSize: 40,
+        userAvatarImg: userIcon,
         msgBubbleBgBot: '#fff',
         msgBubbleBgUser: '#EFF6FF',
         msgBubbleColorUser: '#000',
@@ -210,7 +213,7 @@ export default {
 
   .qkb-board-content__bubbles {
     min-height: unset;
-    padding: 1.25rem 1.25rem 1rem;
+    padding: 1.25rem 1rem 1rem;
   }
 
   .qkb-msg-avatar {
