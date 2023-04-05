@@ -53,7 +53,7 @@ export default {
 
   methods: {
     selectOption (value) {
-      this.disabled = true
+      this.disabled = this.mainData.reselectable ? false : true
       this.selectedItem = value
 
       if (this.mainData.options_multiple_choice) {

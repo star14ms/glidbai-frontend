@@ -4,6 +4,7 @@ type MessageData = {
   type: string,
   text: string,
   disableInput: boolean,
+  reselectable?: boolean,
   botTyping?: boolean,
   options?: {
     text: string,

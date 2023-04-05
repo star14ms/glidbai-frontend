@@ -102,6 +102,7 @@
 import { Component, Vue } from 'nuxt-property-decorator'
 import { questionState, explanationState, OMRState } from '../../store'
 import { Answer2Index, Index2Answer } from '../../shared/question'
+import { Scenario } from '../../shared/vue-chat-bot'
 
 @Component({
   layout: 'bg-gray',
@@ -116,11 +117,12 @@ export default class Page extends Vue {
     answer2Index: Answer2Index = {'a': 0, 'b': 1, 'c': 2, 'd': 3}
     index2Answer: Index2Answer = {0: 'A', 1: 'B', 2: 'C', 3: 'D'}
 
-    scenario = [[{
+    scenario: Scenario = [[{
       agent: 'bot',
       type: 'button',
       text: 'I’m here to help you with this exercise. <br> Here are a few ideas for things you can ask me:',
-      disableInput: true,
+      disableInput: false,
+      reselectable: true,
       options: [
         {
           text: 'Give me a hint',
