@@ -171,7 +171,7 @@ export default class Page extends Vue {
               text: 'Let’s Start!',
               value: null,
               action: 'postback',
-              to: '/question/0',
+              to: '/question/1',
             },
           ],
         },

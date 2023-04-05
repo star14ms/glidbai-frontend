@@ -1,5 +1,7 @@
 <template>
     <div id="quiz" class="col-a-center">
+        <h1>Question {{ Number($route.params.id) }} of {{ n_question }}</h1>
+
         <div class="page" :class="{ 'checked': checked }">
             <div class="page-item col">
                 <template v-if="!checked">
@@ -164,8 +166,12 @@ export default class Page extends Vue {
         return this.answerIndex === this.userChoiceIndex
     }
 
+    get n_question() {
+        return OMRState.n_question
+    }
+
     get isLastQuestion() {
-        return OMRState.n_question === Number(this.$route.params.id) + 1
+        return OMRState.n_question === Number(this.$route.params.id)
     }
 
     check() {
@@ -174,14 +180,14 @@ export default class Page extends Vue {
             Authorization: '12345678' 
         })
         OMRState.update({
-            index: Number(this.$route.params.id), 
+            index: Number(this.$route.params.id) - 1, 
             correct: this.correct
         })
         this.checked = true
     }
 
     next() {
-        const nextId = Number(this.$route.params.id) + 1
+        const nextId = Number(this.$route.params.id)
 
         if (!this.isLastQuestion) {
             this.$router.push(`/question/${nextId}`)
@@ -195,6 +201,13 @@ export default class Page extends Vue {
 <style lang="scss">
 #quiz {
     gap: 32px;
+
+    h1 {
+        font-family: 'Inter';
+        font-weight: 600;
+        margin-top: 32px;
+        font-size: 1.5rem;
+    }
 }
 
 .page {
@@ -206,8 +219,6 @@ export default class Page extends Vue {
     
     width: 1376px;
     min-height: 632px;
-
-    margin-top: 106px;
 
     .page-item {
         display: flex;
