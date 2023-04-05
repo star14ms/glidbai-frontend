@@ -277,11 +277,17 @@ export default {
   font-size: 16px !important;
   line-height: 24px;
 
-  &:hover {
+  &:hover, &.active {
     background-color: #3B82F6 !important;
     color: white !important;
   }
+
+  &[disabled] {
+    opacity: 0.5;
+  }
 }
+
+
 #chatbot.not-drop-menu .qkb-mb-button-options__btn {
   width: 193px;
   height: 32px;

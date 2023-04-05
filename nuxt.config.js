@@ -25,6 +25,7 @@ export default {
   css: [
     '~/assets/styles/main.scss', 
     '~/assets/fonts/main.css',
+    './vue-chat-bot-custom/dist/vue-chat-bot.css',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
