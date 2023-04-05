@@ -115,46 +115,40 @@ export default class Page extends Vue {
           disableInput: true,
           options: [
             {
-              text: 'natural sciences',
-              value: 'natural sciences',
+              text: '제출하기',
+              value: null,
               action: 'postback',
               emit: 'update:topics',
+            },
+          ],
+          options_multiple_choice: [
+            {
+              text: 'natural sciences',
+              value: 'natural sciences',
             },
             {
               text: 'social sciences',
               value: 'social sciences',
-              action: 'postback',
-              emit: 'update:topics',
             },
             {
               text: 'humanities',
               value: 'humanities',
-              action: 'postback',
-              emit: 'update:topics',
             },
             {
               text: 'business and economics',
               value: 'business and economics',
-              action: 'postback',
-              emit: 'update:topics',
             },
             {
               text: 'history',
               value: 'history',
-              action: 'postback',
-              emit: 'update:topics',
             },
             {
               text: 'arts',
               value: 'arts',
-              action: 'postback',
-              emit: 'update:topics',
             },
             {
               text: 'literature',
               value: 'literature',
-              action: 'postback',
-              emit: 'update:topics',
             },
           ]
         },

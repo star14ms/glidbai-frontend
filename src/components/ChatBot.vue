@@ -277,17 +277,21 @@ export default {
   font-size: 16px !important;
   line-height: 24px;
 
-  &:hover, &.active {
+  &:hover {
+    background-color: #93b8f5 !important;
+    color: white !important;
+  }
+
+  &:active, &.active {
     background-color: #3B82F6 !important;
     color: white !important;
   }
 
   &[disabled] {
     opacity: 0.5;
+    cursor: default;
   }
 }
-
-
 #chatbot.not-drop-menu .qkb-mb-button-options__btn {
   width: 193px;
   height: 32px;
@@ -296,6 +300,12 @@ export default {
   justify-content: center;
 
   border-radius: 8px !important;
+}
+#chatbot.not-drop-menu .qkb-msg-bubble-component__options__multiple-choice .qkb-mb-button-options__btn {
+  width: unset;
+  height: unset;
+  padding: 0.5rem 1rem;
+  border-radius: 20px !important;
 }
 
 

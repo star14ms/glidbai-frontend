@@ -2,6 +2,17 @@
 .qkb-msg-bubble-component.qkb-msg-bubble-component--button-options
   .qkb-msg-bubble-component__text(v-if="mainData.type === 'text'") {{ mainData.text }}
   .qkb-msg-bubble-component__text(v-if="['html', 'button'].includes(mainData.type)" v-html="mainData.text")
+  .qkb-msg-bubble-component__options-wrapper.qkb-msg-bubble-component__options__multiple-choice(v-if="mainData.options_multiple_choice")
+    .qkb-mb-button-options__item(
+      v-for="(item, index) in mainData.options_multiple_choice",
+      :key="index"
+    )
+      button.qkb-mb-button-options__btn(
+        :disabled="disabled",
+        :class="{ active: !loading && selectedItemMultiple.has(item) }",
+        @click="selectOptionMultiple(item)",
+      )
+        span {{ item.text }}
   .qkb-msg-bubble-component__options-wrapper
     .qkb-mb-button-options__item(
       v-for="(item, index) in mainData.options",
@@ -34,7 +45,9 @@ export default {
   data () {
     return {
       selectedItem: null,
+      selectedItemMultiple: new Set(),
       disabled: false,
+      loading: false,
     }
   },
 
@@ -42,7 +55,25 @@ export default {
     selectOption (value) {
       this.disabled = true
       this.selectedItem = value
-      EventBus.$emit('select-button-option', value)
+
+      if (this.mainData.options_multiple_choice) {
+        this.selectedItem.value = Array.from(this.selectedItemMultiple).map((item => item.value))
+        this.selectedItem.text = this.selectedItem.value.join(', ')
+        EventBus.$emit('select-button-option', this.selectedItem)
+      } else {
+        EventBus.$emit('select-button-option', value)
+      }
+    },
+    selectOptionMultiple (value) {
+      if (!this.selectedItemMultiple.has(value)) {
+        this.selectedItemMultiple.add(value)
+        this.loading = true
+        this.loading = false
+      } else {
+        this.selectedItemMultiple.delete(value)
+        this.loading = true
+        this.loading = false
+      }
     }
   }
 }
