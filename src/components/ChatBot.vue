@@ -83,16 +83,27 @@ export default {
     this.messageSound.volume = 0.7
   },
 
+  watch: {
+    scenario() {
+      this.scenarioIndex = 0
+      this.startScenario()
+    }
+  },
+
   methods: {
     botStart() {
+      this.startScenario()
+    },
+
+    startScenario() {
       if (this.scenarioIndex <= this.scenario.length-1) {
         setTimeout(() => {
-          this.nextScinario()
+          this.nextScenario()
         }, this.startMessageDelay)
       }
     },
 
-    nextScinario() {
+    nextScenario() {
       if (this.scenarioIndex > this.scenario.length-1) {
         this.toast('다음 시나리오가 없습니다.')
         return
@@ -133,7 +144,7 @@ export default {
       })
 
       if (this.scenarioIndex <= this.scenario.length-1) {
-        this.nextScinario()
+        this.nextScenario()
       } else {
         this.getResponse()
       }

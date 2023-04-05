@@ -58,8 +58,10 @@ export default {
 
       if (this.mainData.options_multiple_choice) {
         this.selectedItem.value = Array.from(this.selectedItemMultiple).map((item => item.value))
-        this.selectedItem.text = this.selectedItem.value.join(', ')
-        EventBus.$emit('select-button-option', this.selectedItem)
+        EventBus.$emit('select-button-option', {
+          ...this.selectedItem, 
+          text: this.selectedItem.value.join(', ')
+        })
       } else {
         EventBus.$emit('select-button-option', value)
       }
@@ -67,13 +69,11 @@ export default {
     selectOptionMultiple (value) {
       if (!this.selectedItemMultiple.has(value)) {
         this.selectedItemMultiple.add(value)
-        this.loading = true
-        this.loading = false
       } else {
         this.selectedItemMultiple.delete(value)
-        this.loading = true
-        this.loading = false
       }
+      this.loading = true
+      this.loading = false
     }
   }
 }

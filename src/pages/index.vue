@@ -22,13 +22,9 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { CreateCurriculumForm } from '../shared/user'
+import { Scenario } from '../shared/vue-chat-bot'
 
-type CreateCurriculumForm = {
-    [key: string]: any,
-    newby?: boolean,
-    difficulty?: number,
-    topics?: string[],
-}
 
 @Component({
     // middleware: 'login'
@@ -43,7 +39,7 @@ export default class Page extends Vue {
         after_3500: false,
     }
 
-    scenario = [
+    scenario: Scenario = [
       [
         {
           agent: 'bot',
@@ -73,8 +69,7 @@ export default class Page extends Vue {
               text: 'No',
               value: false,
               action: 'postback',
-              type: 'emit',
-              event: 'update:newby',
+              emit: 'update:newby',
             },
           ],
         },
@@ -160,6 +155,11 @@ export default class Page extends Vue {
           text: '맞춤형 커리큘럼을 생성하고 있습니다. 잠시만 기다려주세요 😊',
           disableInput: true,
         },
+      ]
+    ]
+
+    scenario2: Scenario = [
+      [
         {
           agent: 'bot',
           type: 'button',
@@ -174,7 +174,7 @@ export default class Page extends Vue {
             },
           ],
         },
-      ]
+      ],
     ]
 
     mounted() {
@@ -217,9 +217,20 @@ export default class Page extends Vue {
         }
     }
 
-    updateForm({ key, value }: { key: string, value: any }) {
+    async updateForm({ key, value }: { key: string, value: any }) {
         this.createCurriculumForm[key] = value
         console.log(this.createCurriculumForm)
+
+        if (key === 'topics') {
+          await this.requestCreateCurriculumn()
+          setTimeout(() => {
+            this.scenario = this.scenario2
+          }, 3000)
+        }
+    }
+
+    async requestCreateCurriculumn() {
+      
     }
 }
 </script>

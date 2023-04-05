@@ -6,11 +6,16 @@ type UpdateUserQuestion = {
     correct: boolean
 }
 
-type CreateCurriculum = {
-    Authorization: string
-    newby: boolean
-    topics: string[]
-    difficulty: number
+type CreateCurriculumForm = {
+    [key: string]: any,
+    newby?: boolean,
+    difficulty?: number,
+    topics?: string[],
 }
 
-export type { UpdateUserQuestion, CreateCurriculum }
+interface CreateCurriculum extends CreateCurriculumForm {
+    Authorization: string
+}
+
+
+export type { UpdateUserQuestion, CreateCurriculumForm, CreateCurriculum }
