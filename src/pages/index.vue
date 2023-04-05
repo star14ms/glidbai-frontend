@@ -179,9 +179,6 @@ export default class Page extends Vue {
     ]
 
     mounted() {
-        window.onload = () => {
-            // this.insertTitle()
-        }
         this.setAnimationTimeout()
     }
 
@@ -195,27 +192,6 @@ export default class Page extends Vue {
         setTimeout(() => {
             this.transition.after_3500 = true
         }, 3500)
-    }
-
-    insertTitle() {
-        const chatBox = document.querySelector('.qkb-board-content__bubbles')
-        const title = document.createElement('h1')
-        title.innerText = 'Welcome to ChatBot'
-        const subtitle = document.createElement('h2')
-        subtitle.classList.add('mt-2', 'mb-5')
-        subtitle.innerText = 'Your personalised AI-powered chatbot'
-
-        const titleDiv = document.createElement('div')
-        titleDiv.style.display = 'none'
-        titleDiv.appendChild(title)
-        titleDiv.appendChild(subtitle)
-        const animationElement = document.createElement('slide-y-down-transition')
-        animationElement.appendChild(titleDiv)
-
-        if (chatBox !== null && chatBox.parentNode !== null) {
-            chatBox.parentNode.insertBefore(animationElement, chatBox)
-            titleDiv.style.display = ''
-        }
     }
 
     async updateForm({ key, value }: { key: string, value: any }) {
@@ -237,17 +213,8 @@ export default class Page extends Vue {
 </script>
 
 <style lang="scss">
-
-// @keyframes moveUp {
-//   0% {
-//     margin-top: 225px;
-//   }
-//   100% {
-//     margin-top: 60px;
-//   }
-// }
-
 #title {
+  font-family: 'Inter';
   margin-top: 225px;
   transition: 1.5s;
 
