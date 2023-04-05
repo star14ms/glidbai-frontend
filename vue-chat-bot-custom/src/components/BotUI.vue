@@ -18,6 +18,7 @@
         :input-disable="inputDisable",
         :input-placeholder="optionsMain.inputPlaceholder",
         :input-disable-placeholder="optionsMain.inputDisablePlaceholder",
+        :icon-send-src="optionsMain.iconSendSrc"
         @msg-send="sendMessage"
       )
   .qkb-bot-bubble
@@ -26,12 +27,14 @@
     )
       slot(name="bubbleButton")
         transition(name="qkb-scaleUp")
-          BubbleIcon.qkb-bubble-btn-icon(
+          img.qkb-bubble-btn-icon(
             v-if="!botActive",
+            :src="optionsMain.iconBubbleSrc"
             key="1"
           )
-          CloseIcon.qkb-bubble-btn-icon.qkb-bubble-btn-icon--close(
+          img.qkb-bubble-btn-icon.qkb-bubble-btn-icon--close(
             v-else,
+            :src="optionsMain.iconCloseSrc"
             key="2"
           )
   AppStyle(:options="optionsMain")
@@ -44,8 +47,6 @@ import BoardHeader from './Board/Header'
 import BoardContent from './Board/Content'
 import BoardAction from './Board/Action'
 import AppStyle from './AppStyle'
-import BubbleIcon from '../assets/icons/bubble.svg'
-import CloseIcon from '../assets/icons/close.svg'
 
 export default {
   name: 'VueBotUI',
@@ -54,8 +55,6 @@ export default {
     BoardHeader,
     BoardContent,
     BoardAction,
-    BubbleIcon,
-    CloseIcon,
     AppStyle
   },
 
@@ -103,7 +102,10 @@ export default {
         msgBubbleColorUser: '#fff',
         inputPlaceholder: 'Message',
         inputDisableBg: '#fff',
-        inputDisablePlaceholder: null
+        inputDisablePlaceholder: null,
+        iconSendSrc: '/icons/send.svg',
+        iconBubbleSrc: '/icons/bubble.svg',
+        iconCloseSrc: '/icons/close.svg',
       }
     }
   },

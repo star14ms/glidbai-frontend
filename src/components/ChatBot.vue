@@ -72,7 +72,10 @@ export default {
         msgBubbleColorUser: '#000',
         inputPlaceholder: 'Send Message',
         inputDisableBg: '#fff',
-        inputDisablePlaceholder: 'Hit the buttons above to respond'
+        inputDisablePlaceholder: 'Hit the buttons above to respond',
+        iconSendSrc: '/icons/send.svg',
+        iconBubbleSrc: '/icons/bubble.svg',
+        iconCloseSrc: '/icons/close.svg',
       },
       scenarioIndex: 0,
     }

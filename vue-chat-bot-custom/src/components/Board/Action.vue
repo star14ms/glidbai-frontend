@@ -20,16 +20,10 @@
       slot(name="actions")
       button.qkb-action-item.qkb-action-item--send(@click="sendMessage")
         slot(name="sendButton")
-          IconSend.qkb-action-icon.qkb-action-icon--send
+          img.qkb-action-icon.qkb-action-icon--send(:src="iconSendSrc")
 </template>
 <script>
-import IconSend from '../../assets/icons/send.svg'
-
 export default {
-  components: {
-    IconSend
-  },
-
   props: {
     inputPlaceholder: {
       type: String
@@ -42,7 +36,12 @@ export default {
     inputDisable: {
       type: Boolean,
       default: false
-    }
+    },
+
+    iconSendSrc: {
+      type: String,
+      default: '/icons/send.svg'
+    },
   },
 
   data () {
