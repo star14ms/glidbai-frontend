@@ -36,6 +36,8 @@
 
 <script>
 export default {
+    middleware: 'login',
+
     data() {
         return {
             passwordRegex: /^[A-Za-z\d$@$!%*?&\-=_+]{8,}$/, // 최소 8자

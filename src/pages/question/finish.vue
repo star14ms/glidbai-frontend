@@ -77,6 +77,7 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import { questionState, OMRState } from '../../store'
 
 @Component({
+  middleware: 'login',
   layout: 'no-container',
 
   async asyncData(ctx) {

@@ -27,7 +27,7 @@ import { Scenario } from '../shared/vue-chat-bot'
 
 
 @Component({
-    // middleware: 'login'
+    middleware: 'login',
     layout: 'bg-gray',
 })
 export default class Page extends Vue {

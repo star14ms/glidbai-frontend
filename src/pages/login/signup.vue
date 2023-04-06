@@ -113,6 +113,8 @@
 
 <script>
 export default {
+    middleware: 'login',
+
     data() {
         return {
             nameRegex: /^[가-힣0-9a-zA-Z]{1,16}$/,

@@ -105,6 +105,7 @@ import { Answer2Index, Index2Answer } from '../../shared/question'
 import { Scenario } from '../../shared/vue-chat-bot'
 
 @Component({
+  middleware: 'login',
   layout: 'bg-gray',
 
   async asyncData(ctx) {
