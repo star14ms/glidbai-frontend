@@ -236,7 +236,8 @@ export default {
 
                 this.toast('회원가입 성공!', 'is-success')
             } catch (e) {
-                this.error_log(e, '회원가입 실패')
+                this.toast('회원가입 실패')
+                this.error_log(e)
             }
         },
     },

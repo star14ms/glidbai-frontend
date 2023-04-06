@@ -28,6 +28,13 @@
       <div class="navbar-menu">
         <div class="navbar-end">
           <a v-if="$auth.$storage._state['_token.local']" class="is-size-5 navbar-item" @click="logout()">Logout</a>
+          <NuxtLink 
+            v-if="$auth.$storage._state['_token.local']" 
+            to="/delete-account"
+            class="is-size-5 navbar-item" 
+          >
+            회원 탈퇴
+          </NuxtLink>
         </div>
       </div>
   </nav>
