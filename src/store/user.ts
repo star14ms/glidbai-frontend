@@ -1,7 +1,7 @@
 import { Module, VuexModule, Action } from 'vuex-module-decorators'
 import { $axios } from '../utils/api'
 import { Question } from '~/src/shared/question'
-import { UpdateUserQuestion, CreateCurriculum } from '~/src/shared/user'
+import { UpdateUserQuestion, CreateCurriculumForm } from '~/src/shared/user'
 
 
 @Module({
@@ -30,16 +30,12 @@ export default class QuestionModule extends VuexModule {
   }
 
   @Action
-  async updateUserQuestion({Authorization, questionId, solved, correct}: UpdateUserQuestion) {
-    await $axios.$post(`/users/quetsion`, { questionId, solved, correct }, {
-      headers: { 'Authorization': `Bearer ${Authorization}` }
-    })
+  async updateUserQuestion({ questionId, solved, correct }: UpdateUserQuestion) {
+    await $axios.$post(`/users/quetsion`, { questionId, solved, correct })
   }
 
   @Action
-  async createCurriculum({Authorization, newby, topics, difficulty}: CreateCurriculum) {
-    await $axios.$post(`/users/curriculum`, { newby, topics, difficulty }, {
-      headers: { 'Authorization': `Bearer ${Authorization}` }
-    })
+  async createCurriculum({ newby, topics, difficulty }: CreateCurriculumForm) {
+    await $axios.$post(`/users/curriculum`, { newby, topics, difficulty })
   }
 }

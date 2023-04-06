@@ -80,8 +80,8 @@ import { questionState, OMRState } from '../../store'
   middleware: 'login',
   layout: 'no-container',
 
-  async asyncData(ctx) {
-    await questionState.get({ id: '0', Authorization: '12345678' })
+  async asyncData() {
+    await questionState.get({ id: '0' })
   }
 })
 export default class Page extends Vue {

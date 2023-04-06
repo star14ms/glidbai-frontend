@@ -108,8 +108,8 @@ import { Scenario } from '../../shared/vue-chat-bot'
   middleware: 'login',
   layout: 'bg-gray',
 
-  async asyncData(ctx) {
-    await questionState.getNext({ onlyUnsolved: true, Authorization: '12345678' })
+  async asyncData() {
+    await questionState.getNext({ onlyUnsolved: true })
   }
 })
 export default class Page extends Vue {
@@ -178,10 +178,7 @@ export default class Page extends Vue {
     }
 
     check() {
-        explanationState.get({ 
-            id: this.q._id, 
-            Authorization: '12345678' 
-        })
+        explanationState.get({ id: this.q._id })
         OMRState.update({
             index: Number(this.$route.params.id) - 1, 
             correct: this.correct

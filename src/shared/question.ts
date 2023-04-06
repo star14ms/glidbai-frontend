@@ -20,12 +20,10 @@ type Question = {
 
 type GetQuestion = {
   id: string,
-  Authorization: string,
 }
 
 type GetNextQuestion = {
   onlyUnsolved?: boolean,
-  Authorization: string,
 }
 
 type Answer2Index = {

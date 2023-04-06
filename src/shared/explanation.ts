@@ -23,7 +23,6 @@ type Explanation = {
 
 type GetExplanation = {
     id: string,
-    Authorization: string,
 }
 
 export type { Explanation, GetExplanation }

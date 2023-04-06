@@ -1,6 +1,5 @@
 
 type UpdateUserQuestion = {
-    Authorization: string
     questionId: string
     solved: boolean
     correct: boolean
@@ -13,9 +12,5 @@ type CreateCurriculumForm = {
     topics?: string[],
 }
 
-interface CreateCurriculum extends CreateCurriculumForm {
-    Authorization: string
-}
 
-
-export type { UpdateUserQuestion, CreateCurriculumForm, CreateCurriculum }
+export type { UpdateUserQuestion, CreateCurriculumForm }
