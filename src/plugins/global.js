@@ -12,6 +12,7 @@ Vue.mixin({
                 message,
                 type,
                 pauseOnHover: true,
+                queue: false,
                 duration,
                 position,
             })
@@ -32,7 +33,6 @@ Vue.mixin({
             if (e.response) {
                 console.log(e.response.status, e.response.statusText)
                 console.log(e.response.data)
-                console.log(e.response.data.message)
             } else {
                 console.log(e)
             }

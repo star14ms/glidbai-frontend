@@ -119,28 +119,16 @@ export default class Page extends Vue {
           ],
           options_multiple_choice: [
             {
-              text: 'natural sciences',
-              value: 'natural sciences',
-            },
-            {
-              text: 'social sciences',
-              value: 'social sciences',
-            },
-            {
-              text: 'humanities',
-              value: 'humanities',
-            },
-            {
-              text: 'business and economics',
-              value: 'business and economics',
+              text: 'science',
+              value: 'science',
             },
             {
               text: 'history',
               value: 'history',
             },
             {
-              text: 'arts',
-              value: 'arts',
+              text: 'economics',
+              value: 'economics',
             },
             {
               text: 'literature',
@@ -197,13 +185,12 @@ export default class Page extends Vue {
 
     async updateForm({ key, value }: { key: string, value: any }) {
         this.createCurriculumForm[key] = value
-        console.log(this.createCurriculumForm)
 
         if (key === 'topics') {
-          await UserState.createCurriculum(this.createCurriculumForm)
-          setTimeout(() => {
+          setTimeout(async () => {
+            await UserState.createCurriculum(this.createCurriculumForm)
             this.scenario = this.scenario2
-          }, 1000)
+          }, 2000)
         }
     }
 }

@@ -68,8 +68,8 @@
                             v-for="(choice, idx) in [e.choices.a, e.choices.b, e.choices.c, e.choices.d]" 
                             class="mt-5" :class="{ 'bold': answerIndex === idx}"
                         >
-                            <p>({{ index2Answer[idx] }}) {{ choice.choice }}</p>
-                            <p>→ {{ choice.explanation }}</p>
+                            <p>({{ index2Answer[idx] }}) {{ choice?.choice }}</p>
+                            <p>→ {{ choice?.explanation }}</p>
                         </div>
                     </div>
                 </template>
@@ -188,7 +188,7 @@ export default class Page extends Vue {
     }
 
     next() {
-        const nextId = Number(this.$route.params.id)
+        const nextId = Number(this.$route.params.id) + 1
 
         if (!this.isLastQuestion) {
             this.$router.push(`/question/${nextId}`)
