@@ -28,10 +28,11 @@ Vue.mixin({
             }
         },
 
-        error_log(e) {
+        error_log(e, message) {
             if (e.response) {
                 console.log(e.response.status, e.response.statusText)
-                console.log(e.response.data.message ?? e.response.data)
+                this.toast(e.response.data.message ?? message ?? '오류 발생')
+                console.log(e.response.data)
             } else {
                 console.log(e)
             }

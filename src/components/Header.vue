@@ -24,16 +24,31 @@
           <span />
         </div>
       </div>
+
+      <div class="navbar-menu">
+        <div class="navbar-end">
+          <a v-if="$auth.$storage._state['_token.local']" class="is-size-5 navbar-item" @click="logout()">Logout</a>
+        </div>
+      </div>
   </nav>
 </template>
 
-<script>
-export default {
 
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+
+@Component
+export default class Header extends Vue {
+  async logout() {
+    // await this.$auth.logout()
+    await this.$auth.setUserToken(false)
+    await this.$auth.fetchUser()
+    this.$router.push('/login')
+  }
 }
 </script>
 
-<style>
+<style scoped>
 @media screen and (min-width: 1024px) {
   .navbar {
     min-height: 4rem;

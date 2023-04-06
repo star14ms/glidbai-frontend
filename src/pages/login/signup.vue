@@ -231,16 +231,12 @@ export default {
             }
 
             try {
-                const response = await this.$axios.post(`/auth/signup`, registration_data)
-                this.$auth.setUserToken(response.data.access_token, response.data.refresh_token)
-                await this.$auth.fetchUser()
+                await this.$axios.post(`/auth/signup`, registration_data)
+                this.$router.push('/login')
 
-                if (this.$auth.loggedIn) {
-                    this.toast('회원가입 성공!', 'is-success')
-                }
+                this.toast('회원가입 성공!', 'is-success')
             } catch (e) {
-                this.toast('회원가입 실패, 서버 오류')
-                this.error_log(e)
+                this.error_log(e, '회원가입 실패')
             }
         },
     },

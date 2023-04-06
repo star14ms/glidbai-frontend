@@ -125,8 +125,7 @@ export default {
                 }
 
             } catch (e) {
-                this.toast('로그인 실패, 서버 오류')
-                this.error_log(e)
+                this.error_log(e, '로그인 실패')
             }
         },
     },
