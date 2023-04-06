@@ -27,11 +27,11 @@
 
       <div class="navbar-menu">
         <div class="navbar-end is-size-6">
-          <a v-if="loggedIn" class="navbar-item" @click="logout()">
+          <a v-if="$auth.loggedIn" class="navbar-item" @click="logout()">
             Logout
           </a>
 
-          <NuxtLink v-if="loggedIn" class="navbar-item" to="/delete-account">
+          <NuxtLink v-if="$auth.loggedIn" class="navbar-item" to="/delete-account">
             Withdraw
           </NuxtLink>
         </div>
@@ -46,10 +46,6 @@ import { Component, Vue } from 'vue-property-decorator';
 @Component
 export default class Header extends Vue {
   loading = false
-
-  get loggedIn () {
-    return !this.loading && this.$auth.$storage._state['_token.local']
-  }
 
   async logout() {
     // await this.$auth.logout()

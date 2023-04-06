@@ -24,7 +24,7 @@ Vue.mixin({
             } catch(e) {
                 this.error_log(e)
                 if (typeof document === 'undefined') return e
-                this.toast(e.response.data?.message ?? '서버 오류 발생!', 'is-danger')
+                this.toast(e.response?.data?.message ?? '서버 오류 발생!', 'is-danger')
                 return e
             }
         },

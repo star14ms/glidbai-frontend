@@ -105,10 +105,11 @@ export default {
 
             try {
                 await this.$axios.$delete(`/auth/delete-account`, { data: loginData })
+                await this.$auth.setUserToken(false)
                 this.toast('회원 탈퇴 성공!', 'is-success')
                 return this.$router.push('/login')
             } catch (e) {
-                this.toast('회원 탈퇴 실패')
+                this.toast(e.response?.data?.message ?? '회원 탈퇴 실패')
                 this.error_log(e)
             }
         },

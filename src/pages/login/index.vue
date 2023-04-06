@@ -117,7 +117,7 @@ export default {
                 await this.$auth.setUserToken(response.data.token)
                 await this.$auth.fetchUser()
 
-                if (this.$auth.$storage._state['_token.local']) {
+                if (this.$auth.loggedIn) {
                     this.toast('로그인 성공!', 'is-success')
                     return this.$router.push('/')
                 } else {
@@ -125,7 +125,7 @@ export default {
                 }
 
             } catch (e) {
-                this.toast('로그인 실패')
+                this.toast(e.response?.data?.message ?? '로그인 실패')
                 this.error_log(e)
             }
         },
