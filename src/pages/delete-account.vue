@@ -3,7 +3,7 @@
         <div class="has-text-centered">
             <img src="~/assets/icons/pinata.png" width="144" class="mb-4">
     
-            <h1 class="has-text-black bold">회원 탈퇴<img src="~/assets/icons/title/glide-30.svg" /></h1>
+            <h1 class="has-text-black bold">withdraw <img src="~/assets/icons/title/glide-30.svg" /></h1>
         </div>
     
         <div class="form-fields mt-5">
@@ -26,9 +26,6 @@
             <div class="form-field">
                 <div class="form-field__title space-between">
                     <span class="bold">Password</span>
-                    <NuxtLink to="/login/find-password" id="btn-find-password" class="has-text-grey-dark underline">
-                        Forgot your password?
-                    </NuxtLink>
                 </div>
                 <div class="form-field__input">
                     <b-field 
@@ -46,7 +43,7 @@
         <b-button 
             class="btn-submit is-primary rounded-3 mt-3" :class="{'is-loading': isLoading }" 
             :disabled="isLoading" 
-            @click="login()" 
+            @click="withdraw()" 
         >
             Withdraw
         </b-button>
@@ -88,13 +85,13 @@ export default {
             this.passwordField.available = this.passwordRegex.test(this.passwordField.password);
             return this.passwordField.available ? (this.passwordField.state = 'is-success') : (this.passwordField.state = 'is-danger');
         },
-        async login() {
+        async withdraw() {
             if (this.isLoading) return
             this.isLoading = true
-            await this._login()
+            await this._withdraw()
             this.isLoading = false
         },
-        async _login() {
+        async _withdraw() {
             if (!this.idField.available) {
                 return this.$refs.idInput.focus()
             } else if (!this.passwordField.available) {
@@ -107,8 +104,7 @@ export default {
             }
 
             try {
-                const response = await $axios.$post(`/auth/delete-account`, loginData)
-
+                await this.$axios.$delete(`/auth/delete-account`, { data: loginData })
                 this.toast('회원 탈퇴 성공!', 'is-success')
                 return this.$router.push('/login')
             } catch (e) {
@@ -123,7 +119,6 @@ export default {
 <style lang="scss" scoped>
 h1 {
     font-family: 'Inter';
-    font-weight: 600;
     font-size: 30px;
     line-height: 36px;
 
