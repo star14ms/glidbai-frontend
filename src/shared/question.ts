@@ -22,6 +22,10 @@ type GetQuestion = {
   id: string,
 }
 
+type NextQuestion = {
+  questionId: string,
+}
+
 type GetNextQuestion = {
   onlyUnsolved?: boolean,
 }
@@ -35,4 +39,4 @@ type Index2Answer = {
 }
 
 
-export type { Question, GetQuestion, GetNextQuestion, Answer2Index, Index2Answer }
+export type { Question, GetQuestion, NextQuestion, GetNextQuestion, Answer2Index, Index2Answer }

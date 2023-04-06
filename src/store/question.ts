@@ -1,6 +1,6 @@
 import { Module, VuexModule, MutationAction } from 'vuex-module-decorators'
-import { $axios } from '../utils/api'
-import { Question, GetQuestion, GetNextQuestion } from '~/src/shared/question'
+import { $axios, $error_can_happen } from '../utils/api'
+import { Question, GetQuestion, NextQuestion, GetNextQuestion } from '~/src/shared/question'
 
 
 @Module({
@@ -49,28 +49,29 @@ export default class QuestionModule extends VuexModule {
     updatedAt: "2023-03-30T05:12:10.421+00:00"
   }
 
+  nextItem: NextQuestion = {
+    questionId: '64254b4c6ffe80a6f86851a0',
+  }
+
   @MutationAction
   async get({ id }: GetQuestion): Promise<{ item: Question }> {
-    const item: Question = await $axios.$get(`/questions/${id}`)
+    let item: Question = this.item
+
+    await $error_can_happen(async () => {
+      item = await $axios.$get(`/questions/${id}`)
+    })
 
     return { item }
   }
 
   @MutationAction
   async getNext({ onlyUnsolved }: GetNextQuestion) {
-    let item: Question = this.item
+    let nextItem: NextQuestion = this.nextItem
 
-    try {
-      // item = await $axios.$get(`/users/next-question?onlyUnsolved=${onlyUnsolved}`)
-    } catch (e: any) {
-      if (e.response) {
-          console.log(e.response.status, e.response.statusText)
-          console.log(e.response.data.message ?? e.response.data)
-      } else {
-          console.log(e)
-      }
-    }
+    await $error_can_happen(async () => {
+      nextItem = await $axios.$get(`/users/next-question?onlyUnsolved=${onlyUnsolved}`)
+    })
 
-    return { item }
+    return { nextItem }
   }
 }

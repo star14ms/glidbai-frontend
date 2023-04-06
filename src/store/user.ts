@@ -1,15 +1,15 @@
-import { Module, VuexModule, Action } from 'vuex-module-decorators'
-import { $axios } from '../utils/api'
+import { Module, VuexModule, Mutation } from 'vuex-module-decorators'
+import { $axios, $error_can_happen } from '../utils/api'
 import { Question } from '~/src/shared/question'
 import { UpdateUserQuestion, CreateCurriculumForm } from '~/src/shared/user'
 
 
 @Module({
-  name: 'question',
+  name: 'user',
   stateFactory: true,
   namespaced: true,
 })
-export default class QuestionModule extends VuexModule {
+export default class UserModule extends VuexModule {
   item: Question = {
     _id: String(),
     question: String(),
@@ -29,13 +29,17 @@ export default class QuestionModule extends VuexModule {
     updatedAt: String(),
   }
 
-  @Action
+  @Mutation
   async updateUserQuestion({ questionId, solved, correct }: UpdateUserQuestion) {
-    await $axios.$post(`/users/quetsion`, { questionId, solved, correct })
+    await $error_can_happen(async () => {
+      await $axios.$post(`/users/quetsion`, { questionId, solved, correct })
+    })
   }
 
-  @Action
+  @Mutation
   async createCurriculum({ newby, topics, difficulty }: CreateCurriculumForm) {
-    await $axios.$post(`/users/curriculum`, { newby, topics, difficulty })
+    await $error_can_happen(async () => {
+      await $axios.$post(`/users/curriculum`, { newby, topics, difficulty })
+    })
   }
 }

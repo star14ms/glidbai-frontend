@@ -23,16 +23,16 @@ Vue.mixin({
             } catch(e) {
                 this.error_log(e)
                 if (typeof document === 'undefined') return e
-                this.toast('서버 오류 발생!', 'is-danger')
+                this.toast(e.response.data?.message ?? '서버 오류 발생!', 'is-danger')
                 return e
             }
         },
 
-        error_log(e, message) {
+        error_log(e) {
             if (e.response) {
                 console.log(e.response.status, e.response.statusText)
-                this.toast(e.response.data.message ?? message ?? '오류 발생')
                 console.log(e.response.data)
+                console.log(e.response.data.message)
             } else {
                 console.log(e)
             }

@@ -1,5 +1,5 @@
 import { Module, VuexModule, MutationAction } from 'vuex-module-decorators'
-import { $axios } from '../utils/api'
+import { $axios, $error_can_happen } from '../utils/api'
 import { Explanation, GetExplanation } from '~/src/shared/explanation'
 
 
@@ -21,11 +21,9 @@ export default class ExplanationModule extends VuexModule {
   async get({ id }: GetExplanation): Promise<{ item: Explanation }> {
     let item: Explanation = this.item
 
-    try {
+    await $error_can_happen(async () => {
       item = await $axios.$get(`/explanations/${id}`)
-    } catch (e: any) {
-      console.log(e.response)
-    }
+    })
 
     return { item }
   }

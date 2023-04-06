@@ -110,6 +110,7 @@ import { Scenario } from '../../shared/vue-chat-bot'
 
   async asyncData() {
     await questionState.getNext({ onlyUnsolved: true })
+    await questionState.get({ id: questionState.nextItem.questionId })
   }
 })
 export default class Page extends Vue {
