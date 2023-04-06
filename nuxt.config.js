@@ -84,10 +84,12 @@ export default {
           autoFetch: true,
         },
         endpoints: {
-          login: { url: '/auth/login/', method: 'post' },
-          logout: { url: '/auth/logout/', method: 'post' },
-          user: { url: '/user/', method: 'get' },
+          login: { url: '/auth/signin', method: 'post' },
+          logout: { url: '/auth/signout', method: 'post' },
+          user: { url: '/auth/user', method: 'get' },
         },
+        tokenType: 'Bearer',
+        tokenName: 'Authorization'
       },
     }
   },

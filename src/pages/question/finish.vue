@@ -79,8 +79,8 @@ import { questionState, OMRState } from '../../store'
 @Component({
   layout: 'no-container',
 
-  asyncData(ctx) {
-    questionState.get({ id: '0', Authorization: '12345678' })
+  async asyncData(ctx) {
+    await questionState.get({ id: '0', Authorization: '12345678' })
   }
 })
 export default class Page extends Vue {

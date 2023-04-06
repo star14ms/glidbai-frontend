@@ -74,7 +74,7 @@
                         },
                         {'사용할 수 있는 비밀번호입니다.': passwordField2.available}
                     ]">
-                    <b-input ref="password2Input" v-model="passwordField2.password" :placeholder="passwordField2.placeholder" password-reveal type="password" required @input="passwordCheck2()"></b-input>
+                    <b-input ref="password2Input" v-model="passwordField2.password" :placeholder="passwordField2.placeholder" password-reveal type="password" required @input="passwordCheck2()" @paste.prevent></b-input>
                 </b-field>
             </div>
         </div>
@@ -222,21 +222,19 @@ export default {
             }
 
             const registration_data = {
-                username: this.idField.id,
-                password1: this.passwordField.password,
-                password2: this.passwordField2.password,
                 name: this.nameField.name,
-                access_token: this.tokenField.access_token,
+                email: this.idField.id,
+                password: this.passwordField.password,
+                accessToken: this.tokenField.access_token,
             }
 
             try {
                 const response = await this.$axios.post(`/auth/signup`, registration_data)
-
                 this.$auth.setUserToken(response.data.access_token, response.data.refresh_token)
                 await this.$auth.fetchUser()
 
                 if (this.$auth.loggedIn) {
-                    this.completion = true
+                    this.toast('회원가입 성공!', 'is-success')
                 }
             } catch (e) {
                 this.toast('회원가입 실패, 서버 오류')

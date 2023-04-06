@@ -107,8 +107,8 @@ import { Scenario } from '../../shared/vue-chat-bot'
 @Component({
   layout: 'bg-gray',
 
-  asyncData(ctx) {
-    questionState.get({ id: '0', Authorization: '12345678' })
+  async asyncData(ctx) {
+    await questionState.getNext({ onlyUnsolved: true, Authorization: '12345678' })
   }
 })
 export default class Page extends Vue {

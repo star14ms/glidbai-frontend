@@ -38,7 +38,7 @@
                         {'이 입력란을 작성하세요.': passwordField.password === '' },
                         {'최소 8자': passwordField.password !== '' && passwordField.available === false },
                     ]">
-                    <b-input ref="passwordInput" v-model="passwordField.password" :placeholder="passwordField.placeholder" password-reveal type="password" required @input="passwordCheck()"></b-input>
+                    <b-input ref="passwordInput" v-model="passwordField.password" :placeholder="passwordField.placeholder" password-reveal type="password" required @input="passwordCheck()" @paste.prevent></b-input>
                 </b-field>
             </div>
         </div>
@@ -97,7 +97,6 @@ export default {
             this.isLoading = true
             await this._login()
             this.isLoading = false
-            this.$router.push('/')
         },
         async _login() {
             if (!this.idField.available) {
@@ -107,16 +106,17 @@ export default {
             }
 
             const loginData = {
-                username: this.idField.id,
+                email: this.idField.id,
                 password: this.passwordField.password,
             }
 
             try {
-                const response = await this.$auth.loginWith('local', {
-                    data: loginData,
-                })
+                const response = await this.$auth.loginWith('local', { data: loginData })
+                await this.$auth.setUserToken(response.data.token)
+                await this.$auth.fetchUser()
 
-                if (response.data.user) {
+                if (this.$auth.$storage._state['_token.local']) {
+                    this.toast('로그인 성공!', 'is-success')
                     return this.$router.push('/')
                 } else {
                     return this.toast('로그인 실패, ID와 비밀번호를 다시한번 확인해 주세요.')
