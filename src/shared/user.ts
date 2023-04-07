@@ -7,7 +7,7 @@ type UpdateUserQuestion = {
 
 type CreateCurriculumForm = {
     [key: string]: any,
-    newby?: boolean,
+    newbie?: boolean,
     difficulty?: number,
     topics?: string[],
 }

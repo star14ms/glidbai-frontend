@@ -37,9 +37,9 @@ export default class UserModule extends VuexModule {
   }
 
   @Mutation
-  async createCurriculum({ newby, topics, difficulty }: CreateCurriculumForm) {
+  async createCurriculum({ newbie, topics, difficulty }: CreateCurriculumForm) {
     await $error_can_happen(async () => {
-      await $axios.$post(`/users/curriculum`, { newby, topics, difficulty })
+      await $axios.$post(`/users/curriculum`, { newbie, topics, difficulty })
     })
   }
 }

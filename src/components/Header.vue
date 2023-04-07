@@ -27,11 +27,11 @@
 
       <div class="navbar-menu">
         <div class="navbar-end is-size-6">
-          <a v-if="$auth.loggedIn" class="navbar-item" @click="logout()">
+          <a class="navbar-item" @click="logout()">
             Logout
           </a>
 
-          <NuxtLink v-if="$auth.loggedIn" class="navbar-item" to="/delete-account">
+          <NuxtLink class="navbar-item" to="/delete-account">
             Withdraw
           </NuxtLink>
         </div>

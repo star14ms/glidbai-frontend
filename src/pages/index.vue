@@ -13,7 +13,7 @@
           :is-drop-menu="false" 
           :start-message-delay="3500" 
           :scenario="scenario" 
-          @update:newby="updateForm"
+          @update:newbie="updateForm"
           @update:difficulty="updateForm"
           @update:topics="updateForm"
         />
@@ -64,13 +64,13 @@ export default class Page extends Vue {
               text: 'Yes',
               value: true,
               action: 'postback',
-              emit: 'update:newby',
+              emit: 'update:newbie',
             },
             {
               text: 'No',
               value: false,
               action: 'postback',
-              emit: 'update:newby',
+              emit: 'update:newbie',
             },
           ],
         },
@@ -187,8 +187,8 @@ export default class Page extends Vue {
         this.createCurriculumForm[key] = value
 
         if (key === 'topics') {
+          await UserState.createCurriculum(this.createCurriculumForm)
           setTimeout(async () => {
-            await UserState.createCurriculum(this.createCurriculumForm)
             this.scenario = this.scenario2
           }, 2000)
         }
