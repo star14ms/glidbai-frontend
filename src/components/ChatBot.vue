@@ -324,12 +324,12 @@ export default {
   font-size: 16px !important;
   line-height: 24px;
 
-  &:hover {
+  &:hover:not([disabled]) {
     background-color: #3B82F6 !important;
     color: white !important;
   }
 
-  &:active, &.active {
+  &:active:not([disabled]), &.active {
     background-color: #3B82F6 !important;
     color: white !important;
   }

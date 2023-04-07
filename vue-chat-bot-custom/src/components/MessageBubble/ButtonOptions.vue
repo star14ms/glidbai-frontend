@@ -20,7 +20,7 @@
     )
       button.qkb-mb-button-options__btn(
         v-if="item.action === 'postback'",
-        :disabled="disabled"
+        :disabled="disabled || (mainData.options_multiple_choice && selectedItemMultiple.size === 0)"
         :class="{ active: selectedItem === item }",
         @click="selectOption(item)"
       )
