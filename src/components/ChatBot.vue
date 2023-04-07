@@ -13,10 +13,9 @@
         @msg-clear="msgClear"
       >
         <template v-slot:header>
-          <div class="row-j-start">
+          <div class="is-flex">
             <img
               src="~/assets/icons/pinata.png"
-              alt="Buefy"
               width="32"
               height="32"
             >
@@ -184,10 +183,10 @@ export default {
       this.$axios.post('/chat', { questionId: this.questionId, text: text })
         .then(response => {
           const replyMessage = {
-            type: 'text',
+            type: 'html',
             agent: 'bot',
             text: response.data.intend !== 'unrelated' ? 
-              response.data.response.replace(/\\r\\n|\\n|\\r/gm,"<br>") : '문제와 관련된 질문 부탁드려요!',
+              response.data.response.replaceAll(String.fromCharCode(10), "<br>") : '문제와 관련된 질문 부탁드려요!',
           }
           this.messageData.push(replyMessage)
           this.messageSound.play()
@@ -261,6 +260,20 @@ export default {
   }
 }
 
+.qkb-board-header__close {
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.25rem;
+
+  &:hover {
+    opacity: 0.7;
+    cursor: pointer;
+  }
+}
 
 #chatbot.not-drop-menu .qkb-bot-bubble {
   display: none;
@@ -381,7 +394,7 @@ export default {
 
     .qkb-board-action__extra {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
     
       margin-top: 0.25rem;
 
@@ -409,6 +422,7 @@ export default {
         
         border-radius: 6px;
         background: #E5E7EB;
+        margin-right: 0.25rem;
       }
     }
   }

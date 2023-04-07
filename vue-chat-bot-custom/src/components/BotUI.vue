@@ -6,6 +6,7 @@
     .qkb-board(v-if="botActive")
       BoardHeader(
         :bot-title="optionsMain.botTitle",
+        :icon-closs-erc="optionsMain.iconCloseHeaderSrc"
         @close-bot="botToggle"
       )
         template(v-slot:header)
@@ -116,6 +117,7 @@ export default {
         iconSendSrc: '/icons/send.svg',
         iconBubbleSrc: '/icons/bubble.svg',
         iconCloseSrc: '/icons/close.svg',
+        iconCloseHeaderSrc: '/icons/close-header.svg',
       }
     }
   },
