@@ -7,8 +7,10 @@
         :bot-typing="botTyping"
         :input-disable="inputDisable"
         :is-open="isOpen"
+        :clear-button="clearButton"
         @init="botStart"
         @msg-send="msgSend"
+        @msg-clear="msgClear"
       >
         <template v-slot:header>
           <div class="row-j-start">
@@ -53,9 +55,13 @@ export default {
       default: () => [],
     },
     questionId: {
-      type: Number | null,
+      type: String | null,
       default: null,
-    }
+    },
+    clearButton: {
+      type: Boolean,
+      default: false
+    },
   },
 
   data() {
@@ -79,7 +85,7 @@ export default {
         inputPlaceholder: 'Send Message',
         inputDisableBg: '#fff',
         inputDisablePlaceholder: 'Hit the buttons above to respond',
-        iconSendSrc: '/icons/send.svg',
+        iconSendSrc: '/icons/send-white.svg',
         iconBubbleSrc: '/icons/bubble.svg',
         iconCloseSrc: '/icons/close.svg',
       },
@@ -94,7 +100,6 @@ export default {
 
   watch: {
     scenario() {
-      this.scenarioIndex = 0
       this.startScenario()
     }
   },
@@ -105,7 +110,8 @@ export default {
     },
 
     startScenario() {
-      if (this.scenarioIndex <= this.scenario.length-1) {
+      this.scenarioIndex = 0
+      if (this.scenario.length > 0) {
         setTimeout(() => {
           this.nextScenario()
         }, this.startMessageDelay)
@@ -161,6 +167,11 @@ export default {
       }
     },
 
+    msgClear() {
+      this.messageData = []
+      this.startScenario()
+    },
+
     // Submit the message from user to bot API, then get the response from Bot
     getResponse(text) {
       // Loading
@@ -170,13 +181,15 @@ export default {
       // Then get the response as below
 
       // Create new message from fake data
-      this.$axios.post('/chat', { questionId: this.questionId, text: text })
+      this.$axios.post('/chat', { questionId: '642c52a6d1df044319dab649', text: text })
         .then(response => {
           const replyMessage = {
             type: 'text',
             agent: 'bot',
-            text: response.data.response,
+            text: response.data.intend !== 'unrelated' ? 
+              response.data.response.replace(/\\r\\n|\\n|\\r/gm,"<br>") : '문제와 관련된 질문 부탁드려요!',
           }
+          console.log(response.data.response)
           this.messageData.push(replyMessage)
           this.messageSound.play()
 
@@ -300,7 +313,7 @@ export default {
   line-height: 24px;
 
   &:hover {
-    background-color: #93b8f5 !important;
+    background-color: #3B82F6 !important;
     color: white !important;
   }
 
@@ -334,6 +347,73 @@ export default {
 .qkb-board-action {
   background-color: white;
 }
+
+#chatbot:not(.not-drop-menu) .qkb-board-action {
+  background-color: #F9FAFB;
+  height: 84px;
+  border-top: 0;
+  padding: 0 1.5rem 0;
+  margin-bottom: 24px;
+
+  .qkb-board-action__wrapper {
+    background-color: transparent;
+    flex-direction: column;
+
+    .qkb-board-action__msg-box {
+      width: 392px;
+      height: 44px;
+      padding: 0;
+      background-image: linear-gradient(to right, #5EEFB4, #29CBFF, #0376FF, #0055FF);
+      border-radius: 12px;
+      
+      display: flex;
+      flex-grow: 0;
+      justify-content: center;
+      align-items: center;
+
+      .qkb-board-action__input {
+        width: 386px;
+        height: 38px;
+        padding: 0px 12px;
+        background-color: white;
+        border-radius: 10px;
+      }
+    }
+
+    .qkb-board-action__extra {
+      display: flex;
+      justify-content: space-between;
+    
+      margin-top: 0.25rem;
+
+      .qkb-action-item {
+        opacity: 1;
+      }
+
+      .qkb-action-item--send {
+        width: 36px;
+        height: 36px;
+        
+        border: 1px inset #93C5FD;
+        border-radius: 6px;
+        background-color: #3B82F6;
+
+        &[disabled] {
+          opacity: 0.5;
+          cursor: default;
+        }
+      }
+    
+      .qkb-action-item--clear {
+        width: 85px;
+        height: 36px;
+        
+        border-radius: 6px;
+        background: #E5E7EB;
+      }
+    }
+  }
+}
 #chatbot.not-drop-menu .qkb-board-action {
   margin: 0 1.5rem 1.5rem;
   border-radius: 12px;
@@ -348,15 +428,4 @@ export default {
     }
   }
 }
-
-// .qkb-board-action__extra {
-//   padding: 6px;
-//   width: 36px;
-//   height: 36px;
-  
-//   background: #93C5FD;
-  
-//   border: 1px solid #93C5FD;
-//   border-radius: 6px;
-// }
 </style>

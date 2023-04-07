@@ -22,6 +22,8 @@
         :icon-send-src="optionsMain.iconSendSrc"
         @msg-send="sendMessage"
       )
+        template(v-if="clearButton" v-slot:actions)
+          button.qkb-action-item.qkb-action-item--clear(@click="clearChat" :disabled="messages.length === 0") Clear Chat
   .qkb-bot-bubble
     button.qkb-bubble-btn(
       @click="botToggle"
@@ -82,7 +84,12 @@ export default {
     isOpen: {
       type: Boolean,
       default: false
-    }
+    },
+
+    clearButton: {
+      type: Boolean,
+      default: false
+    },
   },
 
   data () {
@@ -168,6 +175,10 @@ export default {
 
     selectOption (value) {
       this.$emit('msg-send', value)
+    },
+
+    clearChat() {
+      this.$emit('msg-clear')
     }
   }
 }

@@ -93,7 +93,7 @@
             {{ !isLastQuestion ? 'Next' : 'See Result'}}
         </button>
 
-        <ChatBot :scenario="scenario" :question-id="q._id" />
+        <ChatBot :scenario="scenario" :question-id="q._id" :clear-button="true" />
     </div>
 </template>
 
@@ -148,8 +148,8 @@ export default class Page extends Vue {
         },
         {
           text: 'Translate to Korean',
-          value: 'https://translate.google.co.kr/?hl=ko&sl=en&tl=ko&op=translate',
-          action: 'url'
+          value: 'Translate to Korean',
+          action: 'postback'
         },
       ],
     }]]
