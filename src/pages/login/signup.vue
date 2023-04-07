@@ -234,7 +234,7 @@ export default {
                 const response = await this.$axios.post(`/auth/signup`, registration_data)
                 await this.$auth.setUserToken(response.data.token)
                 await this.$auth.fetchUser()
-                this.$router.push('/login')
+                this.$router.push('/')
 
                 this.toast('회원가입 성공!', 'is-success')
             } catch (e) {

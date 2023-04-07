@@ -29,7 +29,6 @@
 <script>
 import BotIcon from '~/assets/icons/pinata.png'
 import userIcon from '~/assets/icons/user.svg'
-import { messageService } from '~/helpers/message'
 
 export default {
   components: {
@@ -52,6 +51,10 @@ export default {
     scenario: {
       type: Array[Array[Object]],
       default: () => [],
+    },
+    questionId: {
+      type: Number | null,
+      default: null,
     }
   },
 
@@ -154,12 +157,12 @@ export default {
       if (this.scenarioIndex <= this.scenario.length-1) {
         this.nextScenario()
       } else {
-        this.getResponse()
+        this.getResponse(data.text)
       }
     },
 
     // Submit the message from user to bot API, then get the response from Bot
-    getResponse() {
+    getResponse(text) {
       // Loading
       this.botTyping = true
 
@@ -167,14 +170,13 @@ export default {
       // Then get the response as below
 
       // Create new message from fake data
-      messageService.createMessage()
-        .then((response) => {
+      this.$axios.post('/chat', { questionId: this.questionId, text: text })
+        .then(response => {
           const replyMessage = {
+            type: 'text',
             agent: 'bot',
-            ...response
+            text: response.data.response,
           }
-
-          this.inputDisable = response.disableInput
           this.messageData.push(replyMessage)
           this.messageSound.play()
 

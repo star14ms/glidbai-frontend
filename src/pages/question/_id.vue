@@ -93,7 +93,7 @@
             {{ !isLastQuestion ? 'Next' : 'See Result'}}
         </button>
 
-        <ChatBot :scenario="scenario" />
+        <ChatBot :scenario="scenario" :question-id="q._id" />
     </div>
 </template>
 
