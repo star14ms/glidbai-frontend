@@ -181,7 +181,7 @@ export default {
       // Then get the response as below
 
       // Create new message from fake data
-      this.$axios.post('/chat', { questionId: '642c52a6d1df044319dab649', text: text })
+      this.$axios.post('/chat', { questionId: this.questionId, text: text })
         .then(response => {
           const replyMessage = {
             type: 'text',
@@ -189,7 +189,6 @@ export default {
             text: response.data.intend !== 'unrelated' ? 
               response.data.response.replace(/\\r\\n|\\n|\\r/gm,"<br>") : '문제와 관련된 질문 부탁드려요!',
           }
-          console.log(response.data.response)
           this.messageData.push(replyMessage)
           this.messageSound.play()
 

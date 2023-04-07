@@ -100,7 +100,7 @@
 <script lang="ts">
 
 import { Component, Vue } from 'nuxt-property-decorator'
-import { questionState, explanationState, OMRState } from '../../store'
+import { questionState, explanationState, OMRState, userState } from '../../store'
 import { Answer2Index, Index2Answer } from '../../shared/question'
 import { Scenario } from '../../shared/vue-chat-bot'
 
@@ -180,6 +180,7 @@ export default class Page extends Vue {
 
     check() {
         explanationState.get({ id: this.q._id })
+        userState.updateUserQuestion({ questionId: this.q._id, solved: true, correct: this.correct })
         OMRState.update({
             index: Number(this.$route.params.id) - 1, 
             correct: this.correct

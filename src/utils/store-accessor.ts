@@ -9,13 +9,13 @@ import UserModule from '../store/user'
 let questionState: QuestionModule
 let explanationState: ExplanationModule
 let OMRState: OMRModule
-let UserState: UserModule
+let userState: UserModule
 
 function initialiseStores(store: Store<any>): void {
   questionState = getModule(QuestionModule, store)
   explanationState = getModule(ExplanationModule, store)
   OMRState = getModule(OMRModule, store)
-  UserState = getModule(UserModule, store)
+  userState = getModule(UserModule, store)
 }
 
-export { initialiseStores, questionState, explanationState, OMRState, UserState }
+export { initialiseStores, questionState, explanationState, OMRState, userState }

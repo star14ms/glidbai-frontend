@@ -32,7 +32,7 @@ export default class UserModule extends VuexModule {
   @Mutation
   async updateUserQuestion({ questionId, solved, correct }: UpdateUserQuestion) {
     await $error_can_happen(async () => {
-      await $axios.$post(`/users/quetsion`, { questionId, solved, correct })
+      await $axios.$post(`/users/question`, { questionId, solved, correct })
     })
   }
 
