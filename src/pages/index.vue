@@ -183,12 +183,12 @@ export default class Page extends Vue {
         }, 3500)
     }
 
-    async updateForm({ key, value }: { key: string, value: any }) {
+    updateForm({ key, value }: { key: string, value: any }) {
         this.createCurriculumForm[key] = value
 
         if (key === 'topics') {
-          await userState.createCurriculum(this.createCurriculumForm)
-          setTimeout(async () => {
+          userState.createCurriculum(this.createCurriculumForm)
+          setTimeout(() => {
             this.scenario = this.scenario2
           }, 2000)
         }

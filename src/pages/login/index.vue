@@ -38,7 +38,7 @@
                         {'이 입력란을 작성하세요.': passwordField.password === '' },
                         {'최소 8자': passwordField.password !== '' && passwordField.available === false },
                     ]">
-                    <b-input ref="passwordInput" v-model="passwordField.password" :placeholder="passwordField.placeholder" password-reveal type="password" required @input="passwordCheck()" @paste.prevent></b-input>
+                    <b-input ref="passwordInput" v-model="passwordField.password" :placeholder="passwordField.placeholder" password-reveal type="password" required @input="passwordCheck()" @paste.prevent @keyup.enter.native="login()"></b-input>
                 </b-field>
             </div>
         </div>

@@ -108,9 +108,10 @@ import { Scenario } from '../../shared/vue-chat-bot'
   middleware: 'login',
   layout: 'bg-gray',
 
-  async asyncData() {
-    await questionState.getNext({ onlyUnsolved: true })
-    await questionState.get({ id: questionState.nextItem.questionId })
+  async asyncData({ route }) {
+    // await questionState.getNext({ onlyUnsolved: true })
+    // await questionState.get({ id: questionState.nextItem.questionId })
+    await questionState.get({ id: userState.userCurriculum[Number(route.params.id)-1].questionId })
   }
 })
 export default class Page extends Vue {
