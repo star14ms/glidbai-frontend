@@ -2,8 +2,8 @@
     <div id="index" class="has-background-light2">
         <slide-y-down-transition>
             <div id="title" :class="{ 'moved': transition.after_2000 }" v-show="transition.after_1000">
-                <h1>Welcome to ChatBot</h1>
-                <h2 class="mt-2">Your personalised AI-powered chatbot</h2>
+                <h1>Welcome to <img src="~/assets/icons/title/glide-30.svg" />!</h1>
+                <h2 class="mt-2">Your personalized AI Tutor for TOEFL</h2>
             </div>
         </slide-y-down-transition>
 

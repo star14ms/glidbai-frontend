@@ -4,7 +4,7 @@
         <img src="~/assets/icons/pinata.png" width="144" class="mb-4">
 
         <h1 class="has-text-black bold">Join <img src="~/assets/icons/title/glide-30.svg" /></h1>
-        <h2 class="mt-2">Your personalized AI-powered chatbot</h2>
+        <h2 class="mt-2">Your personalized AI Tutor for TOEFL</h2>
     </div>
 
     <div class="form-fields mt-5">
@@ -102,12 +102,6 @@
     >
         Join
     </b-button>
-
-    <p id="bottom" class="is-size-7 my-5">
-        By joining, you agree to the 
-        <span class="underline">Terms</span> and 
-        <span class="underline">Privacy Policy</span>
-    </p>
 </section>
 </template>
 
@@ -132,7 +126,7 @@ export default {
                 id: null,
                 state: null,
                 checkedId: null,
-                placeholder: 'james@enterpix.com',
+                placeholder: 'glide@enterpix.com',
             },
             passwordField: {
                 available: null,
@@ -267,13 +261,5 @@ h2 {
     line-height: 20px;
 
     color: #374151;
-}
-
-#bottom {
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-
-    color: #9CA3AF;
 }
 </style>

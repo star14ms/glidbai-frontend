@@ -93,7 +93,7 @@
             {{ !isLastQuestion ? 'Next' : 'See Result'}}
         </button>
 
-        <ChatBot :scenario="scenario" :question-id="q._id" :clear-button="true" />
+        <ChatBot :scenario="scenario" :question-id="q._id" :clear-button="true" :is-open="Number($route.params.id) === 1" />
     </div>
 </template>
 
@@ -123,7 +123,7 @@ export default class Page extends Vue {
     scenario: Scenario = [[{
       agent: 'bot',
       type: 'button',
-      text: 'I’m here to help you with this exercise. <br> Here are a few ideas for things you can ask me:',
+      text: '안녕하세요! <br> 당신의 영어 학습 도우미, 글라이디입니다 😊 <br> 문제 풀이 중 도움이 필요하시면 언제든지 채팅으로 편하게 질문해주세요. <br> 아래 제공된 다양한 옵션 중 하나를 선택하여 사용해보시는 것도 좋은 방법이에요. <br> 기쁜 마음으로 도와드리겠습니다!',
       disableInput: false,
       reselectable: true,
       options: [

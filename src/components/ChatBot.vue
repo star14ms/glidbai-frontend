@@ -5,7 +5,7 @@
         :options="botOptions"
         :messages="messageData"
         :bot-typing="botTyping"
-        :input-disable="inputDisable"
+        :input-disable="inputDisable || botTyping"
         :is-open="isOpen"
         :clear-button="clearButton"
         @init="botStart"
@@ -89,6 +89,7 @@ export default {
         iconCloseSrc: '/icons/close.svg',
       },
       scenarioIndex: 0,
+      MessageUnrelated: '저는 당신의 영어 실력을 향상시키기 위해 도와주는 글라이디입니다! 당신의 학습에 도움이 되는 질문이라면 모두 답변해 드릴 수 있으니, 문제와 관련된 질문을 작성해주세요 😊'
     }
   },
 
@@ -186,7 +187,7 @@ export default {
             type: 'html',
             agent: 'bot',
             text: response.data.intend !== 'unrelated' ? 
-              response.data.response.replaceAll(String.fromCharCode(10), "<br>") : '문제와 관련된 질문 부탁드려요!',
+              response.data.response.replaceAll(String.fromCharCode(10), "<br>") : this.MessageUnrelated,
           }
           this.messageData.push(replyMessage)
           this.messageSound.play()
