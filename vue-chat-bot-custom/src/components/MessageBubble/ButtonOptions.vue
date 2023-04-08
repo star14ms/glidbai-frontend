@@ -26,8 +26,14 @@
       )
         span {{ item.text }}
       a.qkb-mb-button-options__btn.qkb-mb-button-options__url(
+        v-else-if="disabled || (mainData.options_multiple_choice && selectedItemMultiple.size === 0)",
         target="_blank",
+        class="disabled"
+      )
+        span {{ item.text }}
+      a.qkb-mb-button-options__btn.qkb-mb-button-options__url(
         v-else,
+        target="_blank",
         :href="item.value"
       )
         span {{ item.text }}
@@ -46,14 +52,18 @@ export default {
     return {
       selectedItem: null,
       selectedItemMultiple: new Set(),
-      disabled: false,
       loading: false,
+    }
+  },
+
+  computed: {
+    disabled() {
+      return this.selectedItem !== null && !this.mainData.reselectable
     }
   },
 
   methods: {
     selectOption (value) {
-      this.disabled = this.mainData.reselectable ? false : true
       this.selectedItem = value
 
       if (this.mainData.options_multiple_choice) {

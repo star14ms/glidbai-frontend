@@ -183,7 +183,7 @@ export default class Page extends Vue {
         {
           ...this.q_idx === 1 ? {
             text: 'Where this passage came from?',
-            value: this.q.url,
+            value: '',
             action: 'url'
           } : {
             text: 'Translate to Korean',
@@ -229,6 +229,9 @@ export default class Page extends Vue {
     async created() {
         await this.$axios.$get(`/questions/${this.$route.params.id}`)
         this.q = questionState.item
+        if (this.scenario[0][0].options && this.q_idx === 1) {
+          this.scenario[0][0].options[4].value = this.q.url
+        }
 
         this.$axios.post('/chat', { questionId: this.$route.params.id, text: 'Try a similar example' }).then((res) => {
           if (this.scenario[0][0].options) {

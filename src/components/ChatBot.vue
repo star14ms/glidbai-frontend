@@ -221,8 +221,13 @@ export default {
             agent: 'bot',
             text: response.data.intend !== 'unrelated' ? 
               response.data.response.replaceAll(String.fromCharCode(10), "<br>") : this.MessageUnrelated,
+            reselectable: true,
           }
-          this.$store.commit('bot/AddMessageData', replyMessage)
+          if (this.storeMessage) {
+            this.$store.commit('bot/AddMessageData', replyMessage)
+          } else {
+            this.messageData = []
+          }
           this.messageSound.play()
 
           // finish
@@ -362,17 +367,17 @@ export default {
   font-size: 16px !important;
   line-height: 24px;
 
-  &:hover:not([disabled]) {
+  &:hover:not([disabled], .disabled) {
     background-color: #3B82F6 !important;
     color: white !important;
   }
 
-  &:active:not([disabled]), &.active {
+  &:active:not([disabled], .disabled), &.active {
     background-color: #3B82F6 !important;
     color: white !important;
   }
 
-  &[disabled] {
+  &[disabled], &.disabled {
     opacity: 0.5;
     cursor: default;
   }
