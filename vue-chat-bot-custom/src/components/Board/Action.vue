@@ -18,6 +18,7 @@
         span {{ inputDisablePlaceholder }}
     .qkb-board-action__extra
       slot(name="actions")
+      button.qkb-action-item.qkb-action-item--clear(v-if="clearButton" @click="clearMessageText" :disabled="!messageText") Clear Chat
       button.qkb-action-item.qkb-action-item--send(@click="sendMessage" :disabled="!messageText || inputDisable")
         slot(name="sendButton")
           img.qkb-action-icon.qkb-action-icon--send(:src="iconSendSrc")
@@ -41,6 +42,11 @@ export default {
     iconSendSrc: {
       type: String,
       default: '/icons/send.svg'
+    },
+
+    clearButton: {
+      type: Boolean,
+      default: false
     },
   },
 
@@ -88,6 +94,10 @@ export default {
         this.$emit('msg-send', { text: this.messageText })
         this.messageText = null
       }
+    },
+
+    clearMessageText() {
+      this.messageText = null
     }
   }
 }

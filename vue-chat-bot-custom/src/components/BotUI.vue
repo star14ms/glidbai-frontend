@@ -21,10 +21,9 @@
         :input-placeholder="optionsMain.inputPlaceholder",
         :input-disable-placeholder="optionsMain.inputDisablePlaceholder",
         :icon-send-src="optionsMain.iconSendSrc"
+        :clear-button="clearButton"
         @msg-send="sendMessage"
       )
-        template(v-if="clearButton" v-slot:actions)
-          button.qkb-action-item.qkb-action-item--clear(@click="clearChat" :disabled="messages.length === 0") Clear Chat
   .qkb-bot-bubble
     button.qkb-bubble-btn(
       @click="botToggle"
