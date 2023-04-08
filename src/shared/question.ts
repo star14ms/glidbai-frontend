@@ -22,6 +22,29 @@ type Question = {
   updatedAt: string, // <date-time>
 }
 
+const QuestionInit: Question = {
+  _id: String(),
+  question: String(),
+  passage: String(),
+  choices: {
+    a: String(),
+    b: String(),
+    c: String(),
+    d: String(),
+  }, 
+  answer: String(),
+  explanation: String(),
+  topic: String(),
+  subTopic: String(),
+  difficulty: Number(),
+  url: String(),
+  highlight: Array(),
+  length: Number(),
+  sentences: Array(),
+  createdAt: String(),
+  updatedAt: String(),
+}
+
 type Highlight = {
   choice: string,
   sentence: string,
@@ -53,4 +76,5 @@ type Answer2Symbol = {
 }
 
 
+export { QuestionInit }
 export type { Question, GetQuestion, NextQuestion, GetNextQuestion, Answer2Index, Index2Answer, Answer2Symbol }

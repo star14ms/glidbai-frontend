@@ -113,7 +113,7 @@
           :question-id="q._id" 
           :clear-button="true" 
           :is-open="q_idx === 1 ? true : isOpen"
-          :store-message="true"
+          :store-message="isMyQuestion ? true : false"
           :rating-enable="true"
           />
     </div>
@@ -123,7 +123,7 @@
 
 import { Component, Vue } from 'nuxt-property-decorator'
 import { questionState, OMRState, userState, botState } from '../../../store'
-import { Answer2Index, Answer2Symbol, Index2Answer } from '../../../shared/question'
+import { Answer2Index, Answer2Symbol, Index2Answer, Question, QuestionInit } from '../../../shared/question'
 import { Scenario } from '../../../shared/vue-chat-bot'
 
 @Component({
@@ -143,7 +143,8 @@ export default class Page extends Vue {
     index2Answer: Index2Answer = {0: 'A', 1: 'B', 2: 'C', 3: 'D'}
     passageWithHighlight: string = ''
     choiceSymbols: Answer2Symbol = {'a': 'ⓐ', 'b': 'ⓑ', 'c': 'ⓒ', 'd': 'ⓓ'}
-    
+    q: Question = QuestionInit
+
     startTextList: string[] = [
       '안녕하세요! <br> 당신의 영어 학습 도우미, 글라이디입니다 😊 <br> 문제 풀이 중 도움이 필요하시면 언제든지 채팅으로 편하게 질문해주세요. <br> 아래 제공된 다양한 옵션 중 하나를 선택하여 사용해보시는 것도 좋은 방법이에요. <br> 기쁜 마음으로 도와드리겠습니다!',
       '1번 문제를 완료하셨군요! 이제 2번 문제를 시작해봅시다. <br> 이해가 잘 되지 않거나 추가 설명이 필요하시면 언제든지 알려주세요. 도와드리기 위해 여기 있어요! 😇',
@@ -155,7 +156,7 @@ export default class Page extends Vue {
     scenario: Scenario = [[{
       agent: 'bot',
       type: 'button',
-      text: this.startTextList[this.q_idx-1],
+      text: this.startTextList[this.isMyQuestion ? this.q_idx-1 : 0],
       disableInput: false,
       reselectable: true,
       options: [
@@ -193,16 +194,12 @@ export default class Page extends Vue {
       ],
     }]]
 
-    get q() {
-        return questionState.item
-    }
-
     get q_idx() {
         return userState.userCurriculum.findIndex(item => item.questionId === questionState.item._id) + 1
     }
 
     get isMyQuestion() {
-        return userState.userCurriculum.findIndex(item => item.questionId === questionState.item._id) !== -1
+        return this.q_idx !== 0
     }
 
     get q_explanation() {
@@ -229,8 +226,17 @@ export default class Page extends Vue {
         return botState.isOpen
     }
 
-    beforeMount() {
-        this.passageWithHighlight = this.q.passage
+    async created() {
+        await this.$axios.$get(`/questions/${this.$route.params.id}`)
+        this.q = questionState.item
+
+        this.$axios.post('/chat', { questionId: this.$route.params.id, text: 'Try a similar example' }).then((res) => {
+          if (this.scenario[0][0].options) {
+            this.scenario[0][0].options[2].value = `/question/id/${res.data.response}`
+          }
+        })
+
+        this.passageWithHighlight = this.q.passage.slice()
         for (const highlight of this.q.highlight) {
             this.passageWithHighlight = this.passageWithHighlight.replace(
                 highlight.sentence, 
@@ -239,14 +245,8 @@ export default class Page extends Vue {
                 '</span>'
             )
         }
-
-        this.$axios.post('/chat', { questionId: this.q._id, text: 'Try a similar example' }).then((res) => {
-          if (this.scenario[0][0].options) {
-            this.scenario[0][0].options[2].value = `/question/id/${res.data.response}`
-          }
-        })
         console.log(this.q._id)
-        console.log(userState.userCurriculum)
+        console.log(userState.userCurriculum.slice().map(item => item.questionId))
     }
 
     check() {

@@ -392,7 +392,7 @@ export default {
   padding: 0.5rem 1rem;
   border-radius: 20px !important;
 }
-.qkb-msg-bubble:not(:first-child) {
+#chatbot:not(.not-drop-menu) .qkb-msg-bubble:not(:first-child) {
   .qkb-msg-bubble-component__options-wrapper {
     flex-direction: unset;
   }
