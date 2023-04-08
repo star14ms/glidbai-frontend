@@ -15,10 +15,17 @@ type Question = {
   subTopic: string, // 소주제
   difficulty: number, // 문제의 난이도
   url: string, // article url
+  highlight: Array<Highlight>,
   length: number, // passage의 문장 수
   sentences: string[] // passage를 구성하는 문장들
   createdAt: string, // <date-time>
   updatedAt: string, // <date-time>
+}
+
+type Highlight = {
+  choice: string,
+  sentence: string,
+  correct: boolean,
 }
 
 type GetQuestion = {
@@ -41,5 +48,9 @@ type Index2Answer = {
   [key: number]: string
 }
 
+type Answer2Symbol = {
+  [key: string]: string
+}
 
-export type { Question, GetQuestion, NextQuestion, GetNextQuestion, Answer2Index, Index2Answer }
+
+export type { Question, GetQuestion, NextQuestion, GetNextQuestion, Answer2Index, Index2Answer, Answer2Symbol }

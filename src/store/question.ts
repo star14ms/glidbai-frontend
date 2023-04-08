@@ -25,6 +25,7 @@ export default class QuestionModule extends VuexModule {
     subTopic: String(),
     difficulty: Number(),
     url: String(),
+    highlight: Array(),
     length: Number(),
     sentences: Array(),
     createdAt: String(),

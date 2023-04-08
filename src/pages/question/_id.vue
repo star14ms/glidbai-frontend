@@ -84,7 +84,7 @@
 
                 <template v-else>
                     <h2 id="subtopic">{{ q.subTopic }}</h2>
-                    <p>{{ passageWithHighlight }}</p>
+                    <p v-html="passageWithHighlight"></p>
                     
                     <div class="w-100 row-j-center">
                         <h4 id="article-url" class="has-background-light2">
@@ -116,7 +116,7 @@
 
 import { Component, Vue } from 'nuxt-property-decorator'
 import { questionState, OMRState, userState, botState } from '../../store'
-import { Answer2Index, Index2Answer } from '../../shared/question'
+import { Answer2Index, Answer2Symbol, Index2Answer } from '../../shared/question'
 import { Scenario } from '../../shared/vue-chat-bot'
 
 @Component({
@@ -127,7 +127,6 @@ import { Scenario } from '../../shared/vue-chat-bot'
     // await questionState.getNext({ onlyUnsolved: true })
     // await questionState.get({ id: questionState.nextItem.questionId })
     await questionState.get({ id: userState.userCurriculum[Number(route.params.id)-1].questionId })
-    console.log(questionState.item.highlight)
   }
 })
 export default class Page extends Vue {
@@ -136,7 +135,7 @@ export default class Page extends Vue {
     answer2Index: Answer2Index = {'a': 0, 'b': 1, 'c': 2, 'd': 3}
     index2Answer: Index2Answer = {0: 'A', 1: 'B', 2: 'C', 3: 'D'}
     passageWithHighlight: string = ''
-    choiceSymbols = {'a': 'ⓐ', 'b': 'ⓑ', 'c': 'ⓒ', 'd': 'ⓓ'}
+    choiceSymbols: Answer2Symbol = {'a': 'ⓐ', 'b': 'ⓑ', 'c': 'ⓒ', 'd': 'ⓓ'}
     
     startTextList: string[] = [
       '안녕하세요! <br> 당신의 영어 학습 도우미, 글라이디입니다 😊 <br> 문제 풀이 중 도움이 필요하시면 언제든지 채팅으로 편하게 질문해주세요. <br> 아래 제공된 다양한 옵션 중 하나를 선택하여 사용해보시는 것도 좋은 방법이에요. <br> 기쁜 마음으로 도와드리겠습니다!',
@@ -214,9 +213,10 @@ export default class Page extends Vue {
         for (const highlight of this.q.highlight) {
             this.passageWithHighlight = this.passageWithHighlight.replace(
                 highlight.sentence, 
-                '<span>' + this.choiceSymbols[highlight.choice] + '</span>'
+                `<span class="${highlight.correct ? 'green' : 'red'}">` 
+                    + this.choiceSymbols[highlight.choice] + highlight.sentence + 
+                '</span>'
             )
-            console.log(highlight)
         }
     }
 
@@ -386,6 +386,15 @@ export default class Page extends Vue {
 
 .checked #article {
     font-size: 16px;
+
+    span {
+      &.green {
+        background-color: #EAF7E4;
+      }
+      &.red {
+        background-color: #F6DFDE;
+      }
+    }
 }
 
 #btn-check {
