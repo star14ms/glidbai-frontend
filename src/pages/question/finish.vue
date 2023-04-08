@@ -64,6 +64,20 @@
                             </p>
                         </div>
                     </div>
+
+                    <div class="col-a-center mt-5">
+                        <b-button 
+                            class="btn-submit is-primary rounded-3 mt-3" 
+                            @click="$router.push('/')" 
+                        >
+                            Retry
+                        </b-button>
+    
+                        <p id="bottom" class="my-5">
+                            Want to try more tests?
+                            <a href="https://www.testglider.com/" class="underline has-text-grey-dark" target="_blank">Visit TestGlider</a>
+                        </p>
+                    </div>
                 </div>
             </slide-y-down-transition>
         </div>
@@ -249,6 +263,14 @@ p {
         line-height: 24px;
         color: white;
         background-color: #EF4444;
+    }
+
+    #bottom {
+        color: #6B7280;
+
+        a {
+            color: #3B82F6 !important;
+        }
     }
 }
 </style>
