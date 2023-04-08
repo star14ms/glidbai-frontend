@@ -10,8 +10,11 @@ type Question = {
     d: string,
   }, 
   answer: string, // 정답
+  explanation: string, // 해설
   topic: string, // 주제
+  subTopic: string, // 소주제
   difficulty: number, // 문제의 난이도
+  url: string, // article url
   length: number, // passage의 문장 수
   sentences: string[] // passage를 구성하는 문장들
   createdAt: string, // <date-time>

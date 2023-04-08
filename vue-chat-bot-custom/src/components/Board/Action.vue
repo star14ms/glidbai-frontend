@@ -10,7 +10,7 @@
         ref="qkbMessageInput",
         :disabled="inputDisable",
         :placeholder="inputPlaceholder",
-        @keydown.enter="sendMessage",
+        @keypress.enter="sendMessage",
       )
       .qkb-board-action__disable-text(
         v-if="inputDisablePlaceholder && inputDisable"

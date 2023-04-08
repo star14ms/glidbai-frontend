@@ -64,24 +64,33 @@
 
                         <h2 class="subtitle bold mt-5">This is a Negative Factual Information question. </h2>
 
-                        <div 
-                            v-for="(choice, idx) in [e.choices.a, e.choices.b, e.choices.c, e.choices.d]" 
-                            class="mt-5" :class="{ 'bold': answerIndex === idx}" :key="`explanation_${idx}`"
-                        >
-                            <p>({{ index2Answer[idx] }}) {{ choice?.choice }}</p>
-                            <p>→ {{ choice?.explanation }}</p>
+                        <div v-html="q_explanation">
                         </div>
                     </div>
                 </template>
             </div>
 
-            <div id="article" class="page-item">
+            <div id="article" class="page-item col">
                 <template v-if="!checked">
-                    {{ q.passage }}
+                    <h2 id="subtopic">{{ q.subTopic }}</h2>
+                    <p>{{ q.passage }}</p>
+                    
+                    <div class="w-100 row-j-center">
+                        <h4 id="article-url" class="has-background-light2">
+                            Do you wanna check out <a :href="q.url" class="underline">this article?</a>
+                        </h4>
+                    </div>
                 </template>
 
                 <template v-else>
-                    {{ q.passage }}
+                    <h2 id="subtopic">{{ q.subTopic }}</h2>
+                    <p>{{ passageWithHighlight }}</p>
+                    
+                    <div class="w-100 row-j-center">
+                        <h4 id="article-url" class="has-background-light2">
+                            Do you wanna check out <a :href="q.url" class="underline">this article?</a>
+                        </h4>
+                    </div>
                 </template>
             </div>
         </div>
@@ -106,7 +115,7 @@
 <script lang="ts">
 
 import { Component, Vue } from 'nuxt-property-decorator'
-import { questionState, explanationState, OMRState, userState, botState } from '../../store'
+import { questionState, OMRState, userState, botState } from '../../store'
 import { Answer2Index, Index2Answer } from '../../shared/question'
 import { Scenario } from '../../shared/vue-chat-bot'
 
@@ -118,6 +127,7 @@ import { Scenario } from '../../shared/vue-chat-bot'
     // await questionState.getNext({ onlyUnsolved: true })
     // await questionState.get({ id: questionState.nextItem.questionId })
     await questionState.get({ id: userState.userCurriculum[Number(route.params.id)-1].questionId })
+    console.log(questionState.item.highlight)
   }
 })
 export default class Page extends Vue {
@@ -125,6 +135,8 @@ export default class Page extends Vue {
     checked: boolean = false
     answer2Index: Answer2Index = {'a': 0, 'b': 1, 'c': 2, 'd': 3}
     index2Answer: Index2Answer = {0: 'A', 1: 'B', 2: 'C', 3: 'D'}
+    passageWithHighlight: string = ''
+    choiceSymbols = {'a': 'ⓐ', 'b': 'ⓑ', 'c': 'ⓒ', 'd': 'ⓓ'}
     
     startTextList: string[] = [
       '안녕하세요! <br> 당신의 영어 학습 도우미, 글라이디입니다 😊 <br> 문제 풀이 중 도움이 필요하시면 언제든지 채팅으로 편하게 질문해주세요. <br> 아래 제공된 다양한 옵션 중 하나를 선택하여 사용해보시는 것도 좋은 방법이에요. <br> 기쁜 마음으로 도와드리겠습니다!',
@@ -173,8 +185,8 @@ export default class Page extends Vue {
         return questionState.item
     }
 
-    get e() {
-        return explanationState.item
+    get q_explanation() {
+        return this.q.explanation.replaceAll(String.fromCharCode(10), " <br><br> ")
     }
     
     get answerIndex() {
@@ -197,8 +209,18 @@ export default class Page extends Vue {
         return botState.isOpen
     }
 
+    beforeMount() {
+        this.passageWithHighlight = this.q.passage
+        for (const highlight of this.q.highlight) {
+            this.passageWithHighlight = this.passageWithHighlight.replace(
+                highlight.sentence, 
+                '<span>' + this.choiceSymbols[highlight.choice] + '</span>'
+            )
+            console.log(highlight)
+        }
+    }
+
     check() {
-        explanationState.get({ id: this.q._id })
         userState.updateUserQuestion({ questionId: this.q._id, solved: true, correct: this.correct })
         OMRState.update({
             index: Number(this.$route.params.id) - 1, 
@@ -280,7 +302,7 @@ export default class Page extends Vue {
     }
 }
 
-#question {
+#question, #subtopic {
     font-weight: 700;
     font-size: 18px;
     line-height: 24px;
@@ -346,6 +368,20 @@ export default class Page extends Vue {
     line-height: 24px;
 
     color: #000000;
+
+    #article-url {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        border-radius: 2rem;
+
+        a {
+            color: #3B82F6 !important;
+
+            &:hover {
+                opacity: 0.7;
+            }
+        }
+    }
 }
 
 .checked #article {

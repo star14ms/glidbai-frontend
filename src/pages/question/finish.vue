@@ -270,6 +270,10 @@ p {
 
         a {
             color: #3B82F6 !important;
+
+            &:hover {
+                opacity: 0.7;
+            }
         }
     }
 }
