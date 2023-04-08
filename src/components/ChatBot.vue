@@ -1,6 +1,6 @@
 <template>
   <div id="chatbot" :class="{ 'not-drop-menu': !isDropMenu }">
-    <client-only placeholder="loading...">
+    <client-only>
       <VueChatBot
         :options="botOptions"
         :messages="storeMessage ? messageDataStored : messageData"

@@ -30,10 +30,6 @@
           <a class="navbar-item" @click="logout()">
             Logout
           </a>
-
-          <NuxtLink class="navbar-item" to="/delete-account">
-            Withdraw
-          </NuxtLink>
         </div>
       </div>
   </nav>
