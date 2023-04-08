@@ -400,6 +400,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin: 0.5rem 0.5rem 0 0.5rem;
+  width: 352px;
 
   font-weight: 500;
   font-size: 12px;

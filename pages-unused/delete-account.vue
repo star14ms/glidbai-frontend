@@ -63,7 +63,7 @@ export default {
                 available: null,
                 id: null,
                 state: null,
-                placeholder: 'glide@enterpix.com',
+                placeholder: 'glide@gmail.com',
             },
             passwordField: {
                 available: null,
