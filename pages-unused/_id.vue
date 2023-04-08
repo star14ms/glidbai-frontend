@@ -119,76 +119,58 @@
     </div>
 </template>
 
-<script lang="ts">
-
-import { Component, Vue } from 'nuxt-property-decorator'
+<script>
 import { questionState, OMRState, userState, botState } from '../../../store'
-import { Answer2Index, Answer2Symbol, Index2Answer, Question, QuestionInit } from '../../../shared/question'
-import { Scenario } from '../../../shared/vue-chat-bot'
 
-@Component({
-  middleware: ['login', 'question/_id'],
-  layout: 'bg-gray',
 
-  async asyncData({ route }) {
-    // await questionState.getNext({ onlyUnsolved: true })
-    // await questionState.get({ id: questionState.nextItem.questionId })
-    await questionState.get({ id: route.params.id })
-  }
-})
-export default class Page extends Vue {
-    userChoiceIndex: null | number = null
-    checked: boolean = false
-    answer2Index: Answer2Index = {'a': 0, 'b': 1, 'c': 2, 'd': 3}
-    index2Answer: Index2Answer = {0: 'A', 1: 'B', 2: 'C', 3: 'D'}
-    passageWithHighlight: string = ''
-    choiceSymbols: Answer2Symbol = {'a': 'ⓐ', 'b': 'ⓑ', 'c': 'ⓒ', 'd': 'ⓓ'}
-    q: Question = QuestionInit
+export default {
+    middleware: ['login', 'question/_id'],
+    layout: 'bg-gray',
 
-    startTextList: string[] = [
-      '안녕하세요! <br> 당신의 영어 학습 도우미, 글라이디입니다 😊 <br> 문제 풀이 중 도움이 필요하시면 언제든지 채팅으로 편하게 질문해주세요. 아래 제공된 다양한 옵션 중 하나를 선택하여 사용해보는 것도 좋은 방법이에요. 기쁜 마음으로 도와드리겠습니다!',
-      '1번 문제를 완료하셨군요! <br> 이제 2번 문제를 시작해봅시다. <br><br> 이해가 잘 되지 않거나 추가 설명이 필요하시면 <br> 언제든지 알려주세요. <br> 도와드리기 위해 여기 있어요! 😇',
-      '2번 문제도 잘 해결하셨어요! <br> 이제 3번 문제로 넘어가봅시다. <br><br> 만약 어려움이 있거나 더 깊이 이해하고 싶으시면 언제든지 말씀해주세요. 항상 도와드리기 위해 기다리고 있어요! ',
-      '3번 문제까지 모두 해결하셨군요! <br> 이제 2문제밖에 남지 않았어요. <br> 끝까지 완주해보아요 😊 <br><br> 문제를 풀다가 혹시나 헷갈리거나 추가적인 정보가 필요하시면 망설이지 말고 알려주세요!',
-      '4번 문제도 성공적으로 마무리하셨네요! <br> 이제 마지막 문제가 남았어요. <br> 화이팅하시고 끝까지 잘 마무리 해봅시다! <br><br> 만약 도움이 필요하시면 언제든지 알려주세요. 함께 끝까지 힘을 합쳐 최선의 결과를 이끌어냅시다!',
-    ]
+    async asyncData({ store, route }) {
+        // await store.state.question.getNext({ onlyUnsolved: true })
+        // await store.state.question.get({ id: store.state.question.nextItem.questionId })
+        await questionState.get({ id: route.params.id })
+    },
 
-    scenario: Scenario = []
+    data() {
+        return {
+            userChoiceIndex: null,
+            checked: false,
+            answer2Index: {'a': 0, 'b': 1, 'c': 2, 'd': 3},
+            index2Answer: {0: 'A', 1: 'B', 2: 'C', 3: 'D'},
+            passageWithHighlight: '',
+            choiceSymbols: {'a': 'ⓐ', 'b': 'ⓑ', 'c': 'ⓒ', 'd': 'ⓓ'},
+            scenario: [],
+            q: null,
+            q_explanation: null,
+            answerIndex: null,
+            correct: null,
+            q_idx: null,
+            isMyQuestion: null,
+            isLastQuestion: null,
+        
+            startTextList: [
+              '안녕하세요! <br> 당신의 영어 학습 도우미, 글라이디입니다 😊 <br> 문제 풀이 중 도움이 필요하시면 언제든지 채팅으로 편하게 질문해주세요. 아래 제공된 다양한 옵션 중 하나를 선택하여 사용해보는 것도 좋은 방법이에요. 기쁜 마음으로 도와드리겠습니다!',
+              '1번 문제를 완료하셨군요! <br> 이제 2번 문제를 시작해봅시다. <br><br> 이해가 잘 되지 않거나 추가 설명이 필요하시면 <br> 언제든지 알려주세요. <br> 도와드리기 위해 여기 있어요! 😇',
+              '2번 문제도 잘 해결하셨어요! <br> 이제 3번 문제로 넘어가봅시다. <br><br> 만약 어려움이 있거나 더 깊이 이해하고 싶으시면 언제든지 말씀해주세요. 항상 도와드리기 위해 기다리고 있어요! ',
+              '3번 문제까지 모두 해결하셨군요! <br> 이제 2문제밖에 남지 않았어요. <br> 끝까지 완주해보아요 😊 <br><br> 문제를 풀다가 혹시나 헷갈리거나 추가적인 정보가 필요하시면 망설이지 말고 알려주세요!',
+              '4번 문제도 성공적으로 마무리하셨네요! <br> 이제 마지막 문제가 남았어요. <br> 화이팅하시고 끝까지 잘 마무리 해봅시다! <br><br> 만약 도움이 필요하시면 언제든지 알려주세요. 함께 끝까지 힘을 합쳐 최선의 결과를 이끌어냅시다!',
+            ],
 
-    get q_idx() {
-        return userState.userCurriculum.findIndex(item => item.questionId === questionState.item._id) + 1
-    }
+        }
+    },
 
-    get isMyQuestion() {
-        return this.q_idx !== 0
-    }
+    computed: {
+        n_question() {
+            return this.$store.state.OMR.n_question
+        },
+        isOpen() {
+            return botState.isOpen
+        },
+    },
 
-    get q_explanation() {
-        return this.q.explanation.replaceAll(String.fromCharCode(10), " <br><br> ")
-    }
-    
-    get answerIndex() {
-        return this.answer2Index[this.q.answer]
-    }
-
-    get correct() {
-        return this.answerIndex === this.userChoiceIndex
-    }
-
-    get n_question() {
-        return OMRState.n_question
-    }
-
-    get isLastQuestion() {
-        return OMRState.n_question === this.q_idx
-    }
-
-    get isOpen() {
-        return botState.isOpen
-    }
-
-    async beforeMount() {
-        this.q = await this.$axios.$get(`/questions/${this.$route.params.id}`)
+    async created() {
         this.scenario = [[{
           agent: 'bot',
           type: 'button',
@@ -229,6 +211,15 @@ export default class Page extends Vue {
             }
           ],
         }]]
+
+        this.q = await this.$axios.get(`/questions/${this.$route.params.id}`)
+        this.q_explanation = this.q.explanation.replaceAll(String.fromCharCode(10), " <br><br> ")
+        this.answerIndex = this.answer2Index[this.q.answer]
+        this.correct = this.answerIndex === this.userChoiceIndex
+        this.q_idx = userState.userCurriculum.findIndex(item => item.questionId === this.q._id) + 1
+        this.isMyQuestion = this.q_idx !== 0
+        this.isLastQuestion = this.$store.state.OMR.n_question === this.q_idx
+
         if (this.scenario[0][0].options && this.q_idx === 1) {
           this.scenario[0][0].options[4].value = this.q.url
         }
@@ -249,24 +240,26 @@ export default class Page extends Vue {
         }
         console.log(this.q._id)
         console.log(userState.userCurriculum.slice().map(item => item.questionId))
-    }
+    },
 
-    check() {
-        userState.updateUserQuestion({ questionId: this.q._id, solved: true, correct: this.correct })
-        OMRState.update({
-            index: this.q_idx - 1, 
-            correct: this.correct
-        })
-        this.checked = true
-    }
-
-    next() {
-        if (!this.isLastQuestion) {
-            const nextQuestionIdx = this.q_idx
-            const nextId = userState.userCurriculum[nextQuestionIdx].questionId
-            this.$router.push(`/question/id/${nextId}`)
-        } else {
-            this.$router.push(`/question/finish`)
+    methods: {
+        check() {
+            userState.updateUserQuestion({ questionId: this.q._id, solved: true, correct: this.correct })
+            OMRState.update({
+                index: this.q_idx - 1, 
+                correct: this.correct
+            })
+            this.checked = true
+        },
+        
+        next() {
+            if (!this.isLastQuestion) {
+                const nextQuestionIdx = this.q_idx
+                const nextId = userState.userCurriculum[nextQuestionIdx].questionId
+                this.$router.push(`/question/id/${nextId}`)
+            } else {
+                this.$router.push(`/question/finish`)
+            }
         }
     }
 }

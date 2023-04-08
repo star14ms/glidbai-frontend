@@ -12,6 +12,7 @@
     "@nuxtjs/auth-next": "5.0.0-1667386184.dfbbb54",
     "@nuxtjs/axios": "^5.13.6",
     "@volar-plugins/vetur": "^0.1.0",
+    "@volar/vue-language-plugin-pug": "^1.2.0",
     "core-js": "^3.25.3",
     "js-cookie": "^3.0.1",
     "node-fetch-native": "^1.0.2",

@@ -185,6 +185,13 @@ export default {
       }
 
       this.$emit('init')
+
+      if (this.botActive) {
+        this.$emit('open')
+      } else {
+        // EventBus.$off('select-button-option')
+        this.$emit('destroy')
+      }
     },
 
     botToggle () {

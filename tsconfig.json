@@ -34,13 +34,17 @@
     ".nuxt",
     "dist",
     "node_modules_dev",
-    "node_modules_prod"
+    "node_modules_prod",
+    "pages-unused"
   ],
   "importHelpers": true,
   "vueCompilerOptions": {
     "target": 2.7,
     "extensions": [
       ".vue"
+    ],
+    "plugins": [
+      "@volar/vue-language-plugin-pug"
     ]
   }
 }
