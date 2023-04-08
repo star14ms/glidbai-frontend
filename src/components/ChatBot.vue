@@ -8,6 +8,7 @@
         :input-disable="inputDisable || botTyping"
         :is-open="isOpen"
         :clear-button="clearButton"
+        :rating-enable="ratingEnable"
         @init="botStart"
         @msg-send="msgSend"
         @msg-clear="msgClear"
@@ -67,6 +68,10 @@ export default {
       type: Boolean,
       default: false
     },
+    ratingEnable: {
+      type: Boolean,
+      default: false 
+    }
   },
 
   data() {

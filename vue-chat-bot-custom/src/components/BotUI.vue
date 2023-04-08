@@ -15,6 +15,7 @@
         :bot-typing="botTyping",
         :main-data="messages"
         :show-user-icon="optionsMain.userAvatarImg !== null"
+        :rating-enable="ratingEnable"
       )
       BoardAction(
         :input-disable="inputDisable",
@@ -87,6 +88,11 @@ export default {
     },
 
     clearButton: {
+      type: Boolean,
+      default: false
+    },
+
+    ratingEnable: {
       type: Boolean,
       default: false
     },

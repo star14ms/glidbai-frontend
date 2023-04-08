@@ -8,16 +8,16 @@
       :is="componentType",
       :main-data="message"
     )
-    .qkb-msg-feedback(v-if="message.agent === 'bot'")
+    .qkb-msg-feedback(v-if="message.agent === 'bot' && ratingEnable")
       .qkb-msg-feedback__leave
         div(@click="$emit('leave:feedback')") Leave Feedback
       .qkb-msg-feedback__rate
         span Rate this response
         button.qkb-msg-feedback-btn--like.button(
-          v-show="rating === true" @click="rate(true)"
+          v-show="rating !== false" @click="rate(true)"
         ) 👍
         button.qkb-msg-feedback-btn--unlike.button(
-          v-show="rating === false" @click="rate(false)"
+          v-show="rating !== true" @click="rate(false)"
         ) 👎
   .qkb-msg-bubble__time(v-if="message.createdAt")
     | {{ message.createdAt }}
@@ -38,6 +38,11 @@ export default {
     },
 
     showUserIcon: {
+      type: Boolean,
+      default: false
+    },
+
+    ratingEnable: {
       type: Boolean,
       default: false
     },

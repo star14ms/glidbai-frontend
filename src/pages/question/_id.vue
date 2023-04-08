@@ -108,6 +108,7 @@
           :clear-button="true" 
           :is-open="Number($route.params.id) === 1 ? true : isOpen"
           :store-message="true"
+          :rating-enable="true"
           />
     </div>
 </template>

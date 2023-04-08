@@ -8,6 +8,7 @@
       :key="index",
       :message="item",
       :show-user-icon="showUserIcon"
+      :rating-enable="ratingEnable"
     )
     .qkb-board-content__bot-typing(v-if="botTyping")
       slot(name="botTyping")
@@ -36,6 +37,11 @@ export default {
     },
 
     showUserIcon: {
+      type: Boolean,
+      default: false
+    },
+
+    ratingEnable: {
       type: Boolean,
       default: false
     },
