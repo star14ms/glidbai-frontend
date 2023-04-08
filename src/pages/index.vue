@@ -160,7 +160,7 @@ export default class Page extends Vue {
               text: 'Let’s Start!',
               value: null,
               action: 'postback',
-              to: '/question/1',
+              to: '',
             },
           ],
         },
@@ -190,6 +190,10 @@ export default class Page extends Vue {
           userState.createCurriculum(this.createCurriculumForm)
           botState.clearMessageData()
           setTimeout(() => {
+            if (this.scenario2[0][0].options) {
+              this.scenario2[0][0].options[0].to = 
+                `/question/id/${userState.userCurriculum.length !== 0 ? userState.userCurriculum[0].questionId : 0}`
+            }
             this.scenario = this.scenario2
           }, 2000)
         }

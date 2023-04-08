@@ -1,6 +1,12 @@
 <template>
     <div id="quiz" class="col-a-center">
-        <h1>Question {{ Number($route.params.id) }} of {{ n_question }}</h1>
+        <h1>
+            <client-only>
+                <template v-if="isMyQuestion">
+                    Question {{ Number(q_idx) }} of {{ n_question }}
+                </template>
+            </client-only>
+        </h1>
 
         <div class="page" :class="{ 'checked': checked }">
             <div class="page-item col">
@@ -98,7 +104,7 @@
         <button v-show="!checked" id="btn-check" class="button is-primary" @click="check()" :disabled="userChoiceIndex === null">
             Check Answers
         </button>
-        <button v-show="checked" id="btn-check" class="button is-primary" @click="next()">
+        <button v-show="isMyQuestion && checked" id="btn-check" class="button is-primary" @click="next()">
             {{ !isLastQuestion ? 'Next' : 'See Result'}}
         </button>
 
@@ -106,7 +112,7 @@
           :scenario="scenario" 
           :question-id="q._id" 
           :clear-button="true" 
-          :is-open="Number($route.params.id) === 1 ? true : isOpen"
+          :is-open="q_idx === 1 ? true : isOpen"
           :store-message="true"
           :rating-enable="true"
           />
@@ -116,9 +122,9 @@
 <script lang="ts">
 
 import { Component, Vue } from 'nuxt-property-decorator'
-import { questionState, OMRState, userState, botState } from '../../store'
-import { Answer2Index, Answer2Symbol, Index2Answer } from '../../shared/question'
-import { Scenario } from '../../shared/vue-chat-bot'
+import { questionState, OMRState, userState, botState } from '../../../store'
+import { Answer2Index, Answer2Symbol, Index2Answer } from '../../../shared/question'
+import { Scenario } from '../../../shared/vue-chat-bot'
 
 @Component({
   middleware: ['login', 'question/_id'],
@@ -127,7 +133,7 @@ import { Scenario } from '../../shared/vue-chat-bot'
   async asyncData({ route }) {
     // await questionState.getNext({ onlyUnsolved: true })
     // await questionState.get({ id: questionState.nextItem.questionId })
-    await questionState.get({ id: userState.userCurriculum[Number(route.params.id)-1].questionId })
+    await questionState.get({ id: route.params.id })
   }
 })
 export default class Page extends Vue {
@@ -149,7 +155,7 @@ export default class Page extends Vue {
     scenario: Scenario = [[{
       agent: 'bot',
       type: 'button',
-      text: this.startTextList[Number(this.$route.params.id)-1],
+      text: this.startTextList[this.q_idx-1],
       disableInput: false,
       reselectable: true,
       options: [
@@ -174,7 +180,7 @@ export default class Page extends Vue {
           action: 'postback'
         },
         {
-          ...Number(this.$route.params.id) === 1 ? {
+          ...this.q_idx === 1 ? {
             text: 'Where this passage came from?',
             value: this.q.url,
             action: 'url'
@@ -189,6 +195,14 @@ export default class Page extends Vue {
 
     get q() {
         return questionState.item
+    }
+
+    get q_idx() {
+        return userState.userCurriculum.findIndex(item => item.questionId === questionState.item._id) + 1
+    }
+
+    get isMyQuestion() {
+        return userState.userCurriculum.findIndex(item => item.questionId === questionState.item._id) !== -1
     }
 
     get q_explanation() {
@@ -208,7 +222,7 @@ export default class Page extends Vue {
     }
 
     get isLastQuestion() {
-        return OMRState.n_question === Number(this.$route.params.id)
+        return OMRState.n_question === this.q_idx
     }
 
     get isOpen() {
@@ -226,22 +240,23 @@ export default class Page extends Vue {
             )
         }
         console.log(this.q._id)
+        console.log(userState.userCurriculum)
     }
 
     check() {
         userState.updateUserQuestion({ questionId: this.q._id, solved: true, correct: this.correct })
         OMRState.update({
-            index: Number(this.$route.params.id) - 1, 
+            index: this.q_idx - 1, 
             correct: this.correct
         })
         this.checked = true
     }
 
     next() {
-        const nextId = Number(this.$route.params.id) + 1
-
         if (!this.isLastQuestion) {
-            this.$router.push(`/question/${nextId}`)
+            const nextQuestionIdx = this.q_idx
+            const nextId = userState.userCurriculum[nextQuestionIdx].questionId
+            this.$router.push(`/question/id/${nextId}`)
         } else {
             this.$router.push(`/question/finish`)
         }
