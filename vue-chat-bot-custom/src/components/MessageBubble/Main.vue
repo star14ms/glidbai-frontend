@@ -2,11 +2,23 @@
 .qkb-msg-bubble(:class="bubbleClass")
   .qkb-msg-avatar(v-if="message.agent === 'bot' || showUserIcon")
     .qkb-msg-avatar__img &nbsp;
-  component(
-    v-if="componentType",
-    :is="componentType",
-    :main-data="message"
-  )
+  .qkb-msg-content
+    component(
+      v-if="componentType",
+      :is="componentType",
+      :main-data="message"
+    )
+    .qkb-msg-feedback(v-if="message.agent === 'bot'")
+      .qkb-msg-feedback__leave
+        div(@click="$emit('leave:feedback')") Leave Feedback
+      .qkb-msg-feedback__rate
+        span Rate this response
+        button.qkb-msg-feedback-btn--like.button(
+          v-show="rating === true" @click="rate(true)"
+        ) 👍
+        button.qkb-msg-feedback-btn--unlike.button(
+          v-show="rating === false" @click="rate(false)"
+        ) 👎
   .qkb-msg-bubble__time(v-if="message.createdAt")
     | {{ message.createdAt }}
 </template>
@@ -51,6 +63,22 @@ export default {
       }
 
       return type
+    }
+  },
+
+  data() {
+    return {
+      rating: null,
+    }
+  },
+
+  methods: {
+    rate(like) {
+      if (this.rating === like) {
+        this.rating = null
+      } else {
+        this.rating = like
+      }
     }
   }
 }

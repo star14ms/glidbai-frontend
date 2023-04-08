@@ -389,6 +389,52 @@ export default {
 }
 
 
+.qkb-msg-feedback {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.5rem 0.5rem 0 0.5rem;
+
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 12px;
+
+  .qkb-msg-feedback__leave {
+    color: #9CA3AF;
+    text-decoration: underline;
+  }
+
+  .qkb-msg-feedback__rate {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    span {
+      margin-right: 0.25rem;
+      color: #374151;
+    }
+
+    button {
+      padding: 0;
+      width: 22px;
+      height: 22px;
+      border: 1px solid #F3F4F6;
+      background-color: white;
+      opacity: 1;
+
+      &:focus:not(:active) {
+        box-shadow: none;
+      }
+
+      &:first-child {
+        margin-left: 2px;
+      }
+    }
+  }
+}
+
+
 .qkb-board-action {
   background-color: white;
 }
