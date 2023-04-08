@@ -176,11 +176,13 @@ export default {
         this.$emit(data.emit, { key: data.emit.slice(data.emit.indexOf(':')+1), value: data.value})
       }
 
+      const text = data.value !== 'give me more hints' ? data.text : 'give me more hints'
+
       // Push the user's message to board
       const message = {
         agent: 'user',
         type: 'text',
-        text: data.text
+        text: text
       }
 
       if (this.storeMessage) {
@@ -192,7 +194,7 @@ export default {
       if (this.scenarioIndex <= this.scenario.length-1) {
         this.nextScenario()
       } else {
-        this.getResponse(data.text)
+        this.getResponse(text)
       }
     },
 
@@ -216,12 +218,26 @@ export default {
       // Create new message from fake data
       this.$axios.post('/chat', { questionId: this.questionId, text: text })
         .then(response => {
+          let hintDenied = null
+          if (response.data.response.includes('I can only provide 3 hints')) {
+            hintDenied = true
+          } else {
+            hintDenied = false
+          }
+
           const replyMessage = {
-            type: 'html',
+            type: 'button',
             agent: 'bot',
             text: response.data.intend !== 'unrelated' ? 
               response.data.response.replaceAll(String.fromCharCode(10), "<br>") : this.MessageUnrelated,
             reselectable: true,
+            options: response.data.intend !== 'hint' ? this.scenario[0][0].options.slice(0, 3) : 
+              !hintDenied ? [
+                { text: 'Want more hint?', value: 'give me more hints', action: 'postback'},
+                ...this.scenario[0][0].options.slice(1, 4),
+              ] : [
+                ...this.scenario[0][0].options.slice(1, 5),
+              ]
           }
           if (this.storeMessage) {
             this.$store.commit('bot/AddMessageData', replyMessage)
