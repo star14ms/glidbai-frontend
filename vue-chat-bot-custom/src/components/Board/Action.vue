@@ -68,6 +68,16 @@ export default {
     }
   },
 
+  watch: {
+    inputDisable(value) {
+      if (!value) {
+        setTimeout(() => {
+          this.$refs.qkbMessageInput.focus()
+        }, 100)
+      }
+    }
+  },
+
   mounted () {
     this.$refs.qkbMessageInput.focus()
   },
