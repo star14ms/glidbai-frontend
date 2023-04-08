@@ -11,6 +11,8 @@
         @init="botStart"
         @msg-send="msgSend"
         @msg-clear="msgClear"
+        @open="changeOpenState(true)"
+        @destroy="changeOpenState(false)"
       >
         <template v-slot:header>
           <div class="is-flex">
@@ -65,7 +67,6 @@ export default {
 
   data() {
     return {
-      messageData: [],
       botTyping: false,
       inputDisable: this.scenario.length === 0 ? false : true,
       botOptions: {
@@ -90,6 +91,12 @@ export default {
       },
       scenarioIndex: 0,
       MessageUnrelated: '저는 당신의 영어 실력을 향상시키기 위해 도와주는 글라이디입니다! 당신의 학습에 도움이 되는 질문이라면 모두 답변해 드릴 수 있으니, 문제와 관련된 질문을 작성해주세요 😊'
+    }
+  },
+
+  computed: {
+    messageData() {
+      return this.$store.state.bot.messageData
     }
   },
 
@@ -127,7 +134,7 @@ export default {
       for (let i=0; i<this.scenario[this.scenarioIndex].length; i++) {
         this.botTyping = true
         setTimeout(() => {
-          this.messageData.push(this.scenario[this.scenarioIndex][i])
+          this.$store.commit('bot/AddMessageData', this.scenario[this.scenarioIndex][i])
 
           if (this.isOpen) {
             this.messageSound.muted = true
@@ -154,7 +161,7 @@ export default {
       }
 
       // Push the user's message to board
-      this.messageData.push({
+      this.$store.commit('bot/AddMessageData', {
         agent: 'user',
         type: 'text',
         text: data.text
@@ -168,7 +175,7 @@ export default {
     },
 
     msgClear() {
-      this.messageData = []
+      this.$store.commit('bot/clearMessageData')
       this.startScenario()
     },
 
@@ -189,13 +196,17 @@ export default {
             text: response.data.intend !== 'unrelated' ? 
               response.data.response.replaceAll(String.fromCharCode(10), "<br>") : this.MessageUnrelated,
           }
-          this.messageData.push(replyMessage)
+          this.$store.commit('bot/AddMessageData', replyMessage)
           this.messageSound.play()
 
           // finish
           this.botTyping = false
         })
-    }
+    },
+
+    changeOpenState(isOpen) {
+      this.$store.commit('bot/ChangeIsOpen', isOpen)
+    },
   }
 }
 </script>

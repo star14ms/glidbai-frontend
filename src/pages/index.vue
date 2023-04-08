@@ -24,7 +24,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { CreateCurriculumForm } from '../shared/user'
 import { Scenario } from '../shared/vue-chat-bot'
-import { userState } from '../store'
+import { userState, botState } from '../store'
 
 
 @Component({
@@ -188,6 +188,7 @@ export default class Page extends Vue {
 
         if (key === 'topics') {
           userState.createCurriculum(this.createCurriculumForm)
+          botState.clearMessageData()
           setTimeout(() => {
             this.scenario = this.scenario2
           }, 2000)

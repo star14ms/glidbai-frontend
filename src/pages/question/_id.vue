@@ -10,7 +10,7 @@
                     </div>
     
                     <div id="choices" class="col">
-                        <div v-for="(choice, idx) in [q.choices.a, q.choices.b, q.choices.c, q.choices.d]" class="choice">
+                        <div v-for="(choice, idx) in [q.choices.a, q.choices.b, q.choices.c, q.choices.d]" class="choice" :key="`choice_${idx}`">
                             <b-radio v-model="userChoiceIndex" :native-value="idx" size="is-small" type="is-info">
                                 {{ choice }}
                             </b-radio>
@@ -38,7 +38,7 @@
                         </div>
 
                         <div id="choices-checked" class="col mt-5">
-                            <div v-for="(choice, idx) in [q.choices.a, q.choices.b, q.choices.c, q.choices.d]" class="space-between-a-unset">
+                            <div v-for="(choice, idx) in [q.choices.a, q.choices.b, q.choices.c, q.choices.d]" class="space-between-a-unset" :key="`choice_checked_${idx}`">
                                 <i 
                                     class="tag is-large mr-2 bold" 
                                     :class="{ 
@@ -66,7 +66,7 @@
 
                         <div 
                             v-for="(choice, idx) in [e.choices.a, e.choices.b, e.choices.c, e.choices.d]" 
-                            class="mt-5" :class="{ 'bold': answerIndex === idx}"
+                            class="mt-5" :class="{ 'bold': answerIndex === idx}" :key="`explanation_${idx}`"
                         >
                             <p>({{ index2Answer[idx] }}) {{ choice?.choice }}</p>
                             <p>→ {{ choice?.explanation }}</p>
@@ -93,14 +93,14 @@
             {{ !isLastQuestion ? 'Next' : 'See Result'}}
         </button>
 
-        <ChatBot :scenario="scenario" :question-id="q._id" :clear-button="true" :is-open="Number($route.params.id) === 1" />
+        <ChatBot :scenario="scenario" :question-id="q._id" :clear-button="true" :is-open="Number($route.params.id) === 1 ? true : isOpen" />
     </div>
 </template>
 
 <script lang="ts">
 
 import { Component, Vue } from 'nuxt-property-decorator'
-import { questionState, explanationState, OMRState, userState } from '../../store'
+import { questionState, explanationState, OMRState, userState, botState } from '../../store'
 import { Answer2Index, Index2Answer } from '../../shared/question'
 import { Scenario } from '../../shared/vue-chat-bot'
 
@@ -177,6 +177,10 @@ export default class Page extends Vue {
 
     get isLastQuestion() {
         return OMRState.n_question === Number(this.$route.params.id)
+    }
+
+    get isOpen() {
+        return botState.isOpen
     }
 
     check() {
