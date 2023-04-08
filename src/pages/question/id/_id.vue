@@ -171,8 +171,8 @@ export default class Page extends Vue {
         },
         {
           text: 'Try a similar example',
-          value: 'Try a similar example ',
-          action: 'postback'
+          value: '',
+          action: 'url'
         },
         {
           text: 'Key vocabulary',
@@ -239,6 +239,12 @@ export default class Page extends Vue {
                 '</span>'
             )
         }
+
+        this.$axios.post('/chat', { questionId: this.q._id, text: 'Try a similar example' }).then((res) => {
+          if (this.scenario[0][0].options) {
+            this.scenario[0][0].options[2].value = `/question/id/${res.data.response}`
+          }
+        })
         console.log(this.q._id)
         console.log(userState.userCurriculum)
     }
