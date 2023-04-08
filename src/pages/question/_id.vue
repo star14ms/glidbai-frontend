@@ -77,7 +77,7 @@
                     
                     <div class="w-100 row-j-center">
                         <h4 id="article-url" class="has-background-light2">
-                            Do you wanna check out <a :href="q.url" class="underline">this article?</a>
+                            Do you wanna check out <a :href="q.url" target="_blank" class="underline">this article?</a>
                         </h4>
                     </div>
                 </template>
@@ -88,7 +88,7 @@
                     
                     <div class="w-100 row-j-center">
                         <h4 id="article-url" class="has-background-light2">
-                            Do you wanna check out <a :href="q.url" class="underline">this article?</a>
+                            Do you wanna check out <a :href="q.url" target="_blank" class="underline">this article?</a>
                         </h4>
                     </div>
                 </template>
@@ -173,10 +173,16 @@ export default class Page extends Vue {
           action: 'postback'
         },
         {
-          text: 'Translate to Korean',
-          value: 'Translate to Korean',
-          action: 'postback'
-        },
+          ...Number(this.$route.params.id) === 1 ? {
+            text: 'Where this passage came from?',
+            value: this.q.url,
+            action: 'url'
+          } : {
+            text: 'Translate to Korean',
+            value: 'Translate to Korean',
+            action: 'postback'
+          },
+        }
       ],
     }]]
 
@@ -218,6 +224,7 @@ export default class Page extends Vue {
                 '</span>'
             )
         }
+        console.log(this.q._id)
     }
 
     check() {
