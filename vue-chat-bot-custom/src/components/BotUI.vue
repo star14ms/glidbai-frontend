@@ -26,6 +26,7 @@
         @msg-send="sendMessage"
       )
   .qkb-bot-bubble
+    span.qkb-bubble-notification(v-if="notification")
     button.qkb-bubble-btn(
       @click="botToggle"
     )
@@ -101,6 +102,7 @@ export default {
   data () {
     return {
       botActive: false,
+      notification: false,
       defaultOptions: {
         botTitle: 'Chatbot',
         colorScheme: '#1b53d0',
@@ -141,6 +143,26 @@ export default {
       }
 
       return classes
+    }
+  },
+
+  watch: {
+    messages: {
+      deep: true,
+      
+      handler() {
+        if (!this.botActive) {
+          this.notification = true
+        }
+      }
+    },
+    
+    botActive: {
+      handler(value) {
+        if (value) {
+          this.notification = false
+        }
+      }
     }
   },
 

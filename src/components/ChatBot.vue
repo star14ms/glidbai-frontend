@@ -392,6 +392,18 @@ export default {
   padding: 0.5rem 1rem;
   border-radius: 20px !important;
 }
+.qkb-msg-bubble:not(:first-child) {
+  .qkb-msg-bubble-component__options-wrapper {
+    flex-direction: unset;
+  }
+  
+  .qkb-mb-button-options__btn {
+    padding: 0.25rem 0.5rem;
+    border-radius: 8px !important;
+    font-size: 13px !important;
+    line-height: 16px;
+  }
+}
 
 
 .qkb-msg-feedback {
@@ -525,5 +537,16 @@ export default {
       color: #9CA3AF !important;
     }
   }
+}
+
+
+.qkb-bubble-notification {
+  position: absolute;
+  z-index: 1;
+  background: orangered;
+  width: 20px;
+  height: 20px;
+  transform: translate(-5%, -5%);
+  border-radius: 50%;
 }
 </style>
