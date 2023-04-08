@@ -116,7 +116,7 @@ export default {
         iconSendSrc: '/icons/send.svg',
         iconBubbleSrc: '/icons/bubble.svg',
         iconCloseSrc: '/icons/close.svg',
-        iconCloseHeaderSrc: '/icons/close-header.svg',
+        iconCloseHeaderSrc: '/icons/arrow-down-invert.svg',
       }
     }
   },
