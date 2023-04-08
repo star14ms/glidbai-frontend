@@ -93,7 +93,13 @@
             {{ !isLastQuestion ? 'Next' : 'See Result'}}
         </button>
 
-        <ChatBot :scenario="scenario" :question-id="q._id" :clear-button="true" :is-open="Number($route.params.id) === 1 ? true : isOpen" />
+        <ChatBot 
+          :scenario="scenario" 
+          :question-id="q._id" 
+          :clear-button="true" 
+          :is-open="Number($route.params.id) === 1 ? true : isOpen"
+          :store-message="true"
+          />
     </div>
 </template>
 

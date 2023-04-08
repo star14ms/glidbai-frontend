@@ -3,7 +3,7 @@
     <client-only placeholder="loading...">
       <VueChatBot
         :options="botOptions"
-        :messages="messageData"
+        :messages="storeMessage ? messageDataStored : messageData"
         :bot-typing="botTyping"
         :input-disable="inputDisable || botTyping"
         :is-open="isOpen"
@@ -63,10 +63,15 @@ export default {
       type: Boolean,
       default: false
     },
+    storeMessage: {
+      type: Boolean,
+      default: false
+    },
   },
 
   data() {
     return {
+      messageData: [],
       botTyping: false,
       inputDisable: this.scenario.length === 0 ? false : true,
       botOptions: {
@@ -95,7 +100,7 @@ export default {
   },
 
   computed: {
-    messageData() {
+    messageDataStored() {
       return this.$store.state.bot.messageData
     }
   },
@@ -134,17 +139,23 @@ export default {
       for (let i=0; i<this.scenario[this.scenarioIndex].length; i++) {
         this.botTyping = true
         setTimeout(() => {
-          this.$store.commit('bot/AddMessageData', this.scenario[this.scenarioIndex][i])
+          const message = this.scenario[this.scenarioIndex][i]
+
+          if (this.storeMessage) {
+            this.$store.commit('bot/AddMessageData', message)
+          } else {
+            this.messageData.push(message)
+          }
 
           if (this.isOpen) {
             this.messageSound.muted = true
             this.messageSound.play()
             this.messageSound.muted = false
           }
-          this.inputDisable = this.scenario[this.scenarioIndex][i].disableInput
+          this.inputDisable = message.disableInput
 
           if (i === this.scenario[this.scenarioIndex].length-1) {
-            if (!this.scenario[this.scenarioIndex][i].botTyping) {
+            if (!message.botTyping) {
               this.botTyping = false
             }
             this.scenarioIndex += 1
@@ -161,11 +172,17 @@ export default {
       }
 
       // Push the user's message to board
-      this.$store.commit('bot/AddMessageData', {
+      const message = {
         agent: 'user',
         type: 'text',
         text: data.text
-      })
+      }
+
+      if (this.storeMessage) {
+        this.$store.commit('bot/AddMessageData', message)
+      } else {
+        this.messageData.push(message)
+      }
 
       if (this.scenarioIndex <= this.scenario.length-1) {
         this.nextScenario()
@@ -175,7 +192,11 @@ export default {
     },
 
     msgClear() {
-      this.$store.commit('bot/clearMessageData')
+      if (this.storeMessage) {
+        this.$store.commit('bot/clearMessageData')
+      } else {
+        this.messageData = []
+      }
       this.startScenario()
     },
 
