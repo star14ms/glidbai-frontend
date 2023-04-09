@@ -171,6 +171,15 @@ export default class Page extends Vue {
         this.setAnimationTimeout()
     }
 
+    moveTitle() {
+        const title = document.querySelector('#title')
+        const chatBox = document.querySelector('.qkb-board-content__bubbles')
+        if (title === null || chatBox === null || chatBox.parentNode === null) return
+        chatBox.before(title)
+        document.documentElement.style.setProperty("--bottop", '0px')
+        document.documentElement.style.setProperty("--title-margin-bottom", '40px')
+    }
+
     setAnimationTimeout() {
         setTimeout(() => {
             this.transition.after_1000 = true
@@ -180,6 +189,7 @@ export default class Page extends Vue {
         }, 2000)
         setTimeout(() => {
             this.transition.after_3500 = true
+            this.moveTitle()
         }, 3500)
     }
 
@@ -209,6 +219,8 @@ export default class Page extends Vue {
 
   &.moved {
     margin-top: 60px;
+    margin-bottom: 0px;
+    margin-bottom: var(--title-margin-bottom, 0px);
   }
 }
 

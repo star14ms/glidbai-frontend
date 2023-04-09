@@ -338,6 +338,7 @@ export default {
 #chatbot.not-drop-menu .qkb-board {
   position: fixed;
   top: calc($header-height + 148px);
+  top: calc($header-height + var(--bottop, 148px)) !important;
   left: 50%;
   transform: translateX(-50%);
   box-shadow: none;
@@ -346,7 +347,8 @@ export default {
     width: 100% !important;
   }
   width: 1024px !important;
-  height: calc(100vh - $header-height - 148px) !important;
+  height: calc(100vh - ($header-height + 148px)) !important;
+  height: calc(100vh - ($header-height + var(--bottop, 148px))) !important;
 
   .qkb-board-header {
     display: none;
