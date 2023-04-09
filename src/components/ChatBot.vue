@@ -176,7 +176,7 @@ export default {
         this.$emit(data.emit, { key: data.emit.slice(data.emit.indexOf(':')+1), value: data.value})
       }
 
-      const text = data.value !== 'give me more hints' ? data.text : 'give me more hints'
+      const text = data.value !== 'Give me more hints' ? data.text : 'Give me more hints'
 
       // Push the user's message to board
       const message = {
@@ -225,6 +225,11 @@ export default {
             hintDenied = false
           }
 
+          let sourceButtonMini = this.scenario[0][0].options.slice(4, 5)[0]
+          if (this.scenario[0][0].options[4].text === 'Give me the source for this passage') {
+            sourceButtonMini.text = 'Source for this passage'
+          }
+
           const replyMessage = {
             type: 'button',
             agent: 'bot',
@@ -233,10 +238,11 @@ export default {
             reselectable: true,
             options: response.data.intend !== 'hint' ? this.scenario[0][0].options.slice(0, 3) : 
               !hintDenied ? [
-                { text: 'Want more hint?', value: 'give me more hints', action: 'postback'},
+                { text: 'Want more hint?', value: 'Give me more hints', action: 'postback'},
                 ...this.scenario[0][0].options.slice(1, 4),
               ] : [
-                ...this.scenario[0][0].options.slice(1, 5),
+                ...this.scenario[0][0].options.slice(1, 4), 
+                sourceButtonMini,
               ]
           }
           if (this.storeMessage) {

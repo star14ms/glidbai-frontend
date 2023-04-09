@@ -218,7 +218,7 @@ export default class Page extends Vue {
             },
             {
               ...this.q_idx === 1 ? {
-                text: 'Where this passage came from?',
+                text: botState.messageData.length === 0 ? 'Give me the source for this passage' : 'Source for this passage',
                 value: '',
                 action: 'url'
               } : {
