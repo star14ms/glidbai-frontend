@@ -219,7 +219,7 @@ export default {
       this.$axios.post('/chat', { questionId: this.questionId, text: text })
         .then(response => {
           let hintDenied = null
-          if (response.data.response.includes('I can only provide 3 hints')) {
+          if (response.data.response?.includes('I can only provide 3 hints')) {
             hintDenied = true
           } else {
             hintDenied = false
@@ -242,7 +242,7 @@ export default {
           if (this.storeMessage) {
             this.$store.commit('bot/AddMessageData', replyMessage)
           } else {
-            this.messageData = []
+            this.messageData.push(replyMessage)
           }
           this.messageSound.play()
 
