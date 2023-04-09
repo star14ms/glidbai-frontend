@@ -27,9 +27,9 @@
         <div class="form-field">
             <div class="form-field__title space-between">
                 <span class="bold">Password</span>
-                <NuxtLink to="/login/find-password" id="btn-find-password" class="has-text-grey-dark underline">
+                <!-- <NuxtLink to="/login/find-password" id="btn-find-password" class="has-text-grey-dark underline">
                     Forgot your password?
-                </NuxtLink>
+                </NuxtLink> -->
             </div>
             <div class="form-field__input">
                 <b-field 
