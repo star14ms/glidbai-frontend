@@ -186,7 +186,7 @@ export default class Page extends Vue {
     }
     
     #result-detail {
-        padding: 32px 0;
+        padding: 32px;
     
         .container {
             max-width: 1024px;
@@ -244,6 +244,11 @@ p {
 
 #analysis {
     .columns {
+        @media screen and (max-width: 768px) {
+            display: flex;
+            flex-direction: column;
+        }
+
         gap: 20px;
 
         p {

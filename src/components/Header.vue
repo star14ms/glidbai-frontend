@@ -18,16 +18,16 @@
           <img class="ml-3" src="~/assets/icons/title/glide-28.svg" />
         </a>
 
-        <div class="navbar-burger">
+        <!-- <div class="navbar-burger">
           <span />
           <span />
           <span />
-        </div>
+        </div> -->
       </div>
 
       <div class="navbar-menu">
         <div class="navbar-end is-size-6">
-          <a class="navbar-item" @click="logout()">
+          <a v-if="!loading && $auth.$storage._state['_token.local']" class="navbar-item" @click="logout()">
             Logout
           </a>
         </div>
@@ -55,10 +55,13 @@ export default class Header extends Vue {
 </script>
 
 <style scoped>
+.navbar {
+  font-family: 'Inter';
+}
+
 @media screen and (min-width: 1024px) {
   .navbar {
     min-height: 4rem;
-    font-family: 'Inter';
   }
 }
 </style>

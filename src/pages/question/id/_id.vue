@@ -275,11 +275,11 @@ export default class Page extends Vue {
 <style lang="scss">
 #quiz {
     gap: 32px;
+    margin: 32px 0;
 
     h1 {
         font-family: 'Inter';
         font-weight: 600;
-        margin-top: 32px;
         font-size: 1.5rem;
     }
 }
@@ -290,7 +290,11 @@ export default class Page extends Vue {
     align-items: flex-start;
     padding: 0px;
     gap: 18px;
-    
+
+    @media screen and (max-width: 1376px) {
+      width: 100% !important;
+      flex-direction: column;
+    }
     width: 1376px;
     min-height: 632px;
 
@@ -300,7 +304,12 @@ export default class Page extends Vue {
         align-items: flex-start;
         padding: 64px;
         gap: 32px;
-        
+
+        @media screen and (max-width: calc(679px * 2)) {
+          padding: 32px;
+          width: 100% !important;
+          height: unset;
+        }
         width: 679px;
         height: 632px;
         overflow-y: scroll;

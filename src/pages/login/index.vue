@@ -1,5 +1,5 @@
 <template>
-<section id="login" class="col-a-center mt-5">
+<section id="login" class="col-a-center mt-5 mb-6">
     <div class="has-text-centered">
         <img src="~/assets/icons/pinata.png" width="144" class="mb-4">
 
