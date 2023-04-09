@@ -26,7 +26,7 @@
 
         <div class="form-field">
             <div class="form-field__title">
-                <span class="bold">ID</span>
+                <span class="bold">Email</span>
             </div>
             <div class="form-field__input">
                 <b-field 
@@ -144,6 +144,7 @@ export default {
                 available: null,
                 access_token: null,
                 state: null,
+                placeholder: '"흔하지 않은 영어 튜터" 페이지를 확인해주세요!',
             },
 
             isLoading: false,
