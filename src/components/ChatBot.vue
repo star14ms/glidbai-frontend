@@ -301,6 +301,7 @@ export default {
 .qkb-board {
   @media screen and (max-width: 440px), screen and (max-height: 690px) {
     height: 100vh !important;
+    height: calc(var(--vh, 1vh) * 100) !important;
     bottom: -1.5rem !important;
     right: -1.5rem;
     margin: 0; 
@@ -620,9 +621,5 @@ export default {
   height: 20px;
   transform: translate(-5%, -5%);
   border-radius: 50%;
-
-  @media screen and (max-width: 440px) {
-    transform: translate(calc(-5% + -1.5rem), -5%);
-  }
 }
 </style>
