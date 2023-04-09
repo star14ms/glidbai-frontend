@@ -1,4 +1,4 @@
-# GliDbai
+# Glide AI
 
 ## Build Setup
 
