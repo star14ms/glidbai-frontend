@@ -1,5 +1,5 @@
 <template>
-  <div id="chatbot" :class="{ 'not-drop-menu': !isDropMenu, 'is-open': isOpen }">
+  <div id="chatbot" :class="{ 'not-drop-menu': !isDropMenu, 'is-open': isOpenState }">
     <client-only>
       <VueChatBot
         :options="botOptions"
@@ -107,6 +107,10 @@ export default {
   computed: {
     messageDataStored() {
       return this.$store.state.bot.messageData
+    },
+
+    isOpenState() {
+      return this.$store.state.bot.isOpen
     }
   },
 
@@ -278,8 +282,15 @@ export default {
   margin-top: 60px;
 }
 
+@media screen and (max-width: 600px) {
+  .qkb-bot-ui {
+    right: 1.5rem;
+    bottom: 1.5rem;
+    left: unset;
+  }
+}
 
-@media screen and (max-width: 440px) {
+@media screen and (max-width: 440px), screen and (max-height: 690px) {
   #chatbot.is-open {
     .qkb-bot-bubble {
       display: none;
@@ -288,11 +299,14 @@ export default {
 }
 
 .qkb-board {
-  @media screen and (max-width: 440px) {
-    width: 100% !important;
+  @media screen and (max-width: 440px), screen and (max-height: 690px) {
     height: 100vh !important;
-    bottom: 0 !important;
-    margin-bottom: -1.5rem;
+    bottom: -1.5rem !important;
+    right: -1.5rem;
+    margin: 0; 
+  }
+  @media screen and (max-width: 440px) {
+    width: 100vw !important;
   }
   width: 440px !important;
   height: 594px !important;
@@ -593,9 +607,9 @@ export default {
 }
 
 
-.qkb-bubble-btn {
+.qkb-bot-bubble {
   @media screen and (max-width: 600px) {
-    right: 1.5rem;
+    position: relative;
   }
 }
 .qkb-bubble-notification {
@@ -606,5 +620,9 @@ export default {
   height: 20px;
   transform: translate(-5%, -5%);
   border-radius: 50%;
+
+  @media screen and (max-width: 440px) {
+    transform: translate(calc(-5% + -1.5rem), -5%);
+  }
 }
 </style>
