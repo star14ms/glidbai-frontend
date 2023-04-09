@@ -423,9 +423,11 @@ export default {
   font-size: 16px !important;
   line-height: 24px;
 
-  &:hover:not([disabled], .disabled) {
-    background-color: #3B82F6 !important;
-    color: white !important;
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not([disabled], .disabled) {
+      background-color: #3B82F6 !important;
+      color: white !important;
+    }
   }
 
   &:active:not([disabled], .disabled), &.active {
