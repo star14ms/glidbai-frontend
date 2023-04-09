@@ -27,7 +27,7 @@
                 <template v-else>
                     <div id="answer">
                         <div id="answer-info" class="space-between-a-unset">
-                            <span class="col-j-end">Negative Factual Information</span>
+                            <span class="col-j-end">{{ q.questionType }}</span>
 
                             <span>
                                 <div class="row-a-center">
@@ -40,7 +40,7 @@
 
                         <div id="question" class="space-between mt-5">
                             <i class="has-text-danger">Q</i>
-                            <span>{{ q.question }}</span>
+                            <span class="w-100">{{ q.question }}</span>
                         </div>
 
                         <div id="choices-checked" class="col mt-5">
@@ -321,10 +321,21 @@ export default class Page extends Vue {
 
     &.checked .page-item {
         padding: 32px;
+        
+        #answer {
+            width: 100%;
+        }
 
         #answer-info {
             color: #5B5C61;
-            font-size: 0.75rem;
+            font-size: 12px;
+            font-weight: 500;
+            font-family: 'Inter';
+
+            .col-j-end {
+                font-size: 14px;
+                margin-left: 67px;
+            }
 
             i.tag {
                 width: 12px;

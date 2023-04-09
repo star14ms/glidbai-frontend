@@ -1,4 +1,4 @@
-import { Module, VuexModule, Mutation, Action, MutationAction } from 'vuex-module-decorators'
+import { Module, VuexModule, Mutation, MutationAction } from 'vuex-module-decorators'
 
 @Module({
   name: 'OMR',

@@ -1,4 +1,4 @@
-import { Module, VuexModule, Mutation, MutationAction } from 'vuex-module-decorators'
+import { Module, VuexModule, Mutation } from 'vuex-module-decorators'
 import { MessageData } from '~/src/shared/vue-chat-bot'
 
 @Module({

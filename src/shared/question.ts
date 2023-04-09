@@ -13,6 +13,7 @@ type Question = {
   explanation: string, // 해설
   topic: string, // 주제
   subTopic: string, // 소주제
+  questionType: string, // 문제 유형
   difficulty: number, // 문제의 난이도
   url: string, // article url
   highlight: Array<Highlight>,
@@ -36,6 +37,7 @@ const QuestionInit: Question = {
   explanation: String(),
   topic: String(),
   subTopic: String(),
+  questionType: String(),
   difficulty: Number(),
   url: String(),
   highlight: Array(),

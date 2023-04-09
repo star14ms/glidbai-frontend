@@ -1,6 +1,6 @@
 import { Module, VuexModule, MutationAction } from 'vuex-module-decorators'
 import { $axios, $error_can_happen } from '../utils/api'
-import { Question, GetQuestion, NextQuestion, GetNextQuestion } from '~/src/shared/question'
+import { Question, QuestionInit, GetQuestion, NextQuestion, GetNextQuestion } from '../../src/shared/question'
 
 
 @Module({
@@ -9,28 +9,7 @@ import { Question, GetQuestion, NextQuestion, GetNextQuestion } from '~/src/shar
   namespaced: true,
 })
 export default class QuestionModule extends VuexModule {
-  item: Question = {
-    _id: String(),
-    question: String(),
-    passage: String(),
-    choices: {
-      a: String(),
-      b: String(),
-      c: String(),
-      d: String(),
-    }, 
-    answer: String(),
-    explanation: String(),
-    topic: String(),
-    subTopic: String(),
-    difficulty: Number(),
-    url: String(),
-    highlight: Array(),
-    length: Number(),
-    sentences: Array(),
-    createdAt: String(),
-    updatedAt: String(),
-  }
+  item: Question = QuestionInit
 
   nextItem: NextQuestion = {
     questionId: String(),
