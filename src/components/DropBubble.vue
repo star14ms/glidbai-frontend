@@ -76,7 +76,7 @@ export default {
       counting: false,
       defaultOptions: {
         botTitle: 'Chatbot',
-        colorScheme: '#1b53d0',
+        colorScheme: '#FFFFFF',
         textColor: '#fff',
         bubbleBtnSize: 56,
         animation: true,
@@ -223,11 +223,17 @@ export default {
         left: -1.5rem;
       }
     }
+
+    .qkb-bubble-notification {
+      right: 0;
+      transform: translate(5%, 5%);
+      border-radius: 50%;
+    }
   }
 }
 
 @media screen and (min-width: 1600px) {
-  .qkb-bot-ui--animate {
+  #counter .qkb-bot-ui--animate {
     // FadeDown
     .qkb-fadeUp-enter-active,
     .qkb-fadeUp-leave-active {

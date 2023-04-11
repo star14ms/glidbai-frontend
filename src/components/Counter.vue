@@ -1,8 +1,9 @@
 <template>
-<no-ssr>
+<client-only>
     <vue-countdown 
         ref="vac" 
-        :left-time="leftTime" 
+        :left-time="leftTime"
+        :auto-start="leftTime !== 0"
         :speed="100"
         @start="onStart()"
         @paused="onPaused()"
@@ -12,7 +13,7 @@
         <div id="counter-background" @click="$emit('click:background')"></div>
     
         <template
-            v-for="slot in ['process', 'finish']"
+            v-for="slot in ['before', 'preheat', 'process', 'finish']"
             :slot="slot"
             slot-scope="{ state, timeObj, startCountdown, pauseCountdown }"
         >
@@ -56,7 +57,7 @@
             </div>
         </template>
     </vue-countdown>
-</no-ssr>
+</client-only>
 </template>
 
 <script>
@@ -81,7 +82,7 @@ export default {
             const addedTime = sec * 1000
             let newActualEndTime
 
-            if (vac.state === 'finished') {
+            if (vac.state === 'finished' || vac.state === 'beforeStart') {
                 newActualEndTime = nowTime + addedTime
                 vac.state = 'paused'
             } else if (vac.state === 'paused') {
