@@ -107,9 +107,10 @@ import $moment from '@nuxtjs/moment'
   layout: 'no-container',
 
   beforeRouteEnter(to, from, next) {
-    next((vm) => {
+    next((vm: any) => {
         if (from.name === 'question-id-id' && from.params.id === userState.userCurriculum[4].questionId) {
             OMRState.setEndTime()
+            OMRState.setTimeTaken(vm.$moment.duration(vm.$moment(OMRState.endTime).diff(OMRState.startTime)).format('mm:ss'))
         }
     })
   }
@@ -153,7 +154,7 @@ export default class Page extends Vue {
     }
 
     get timeTaken() {
-        return this.$moment.duration(this.$moment(OMRState.endTime).diff(OMRState.startTime)).format('mm:ss')
+        return OMRState.timeTaken
     }
 
     mounted() {

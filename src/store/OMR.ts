@@ -13,6 +13,7 @@ export default class OMRModule extends VuexModule {
   endTime: Date | null = null
   isOpenCounter: boolean = false
   isPausedCounter: boolean = false
+  timeTaken: string = '00:00'
 
   @Mutation
   init() {
@@ -50,5 +51,10 @@ export default class OMRModule extends VuexModule {
   @Mutation
   ChangeisPausedCounter(isPaused: boolean) {
     this.isPausedCounter = isPaused
+  }
+
+  @Mutation
+  setTimeTaken(timeTaken: string) {
+    this.timeTaken = timeTaken
   }
 }
