@@ -9,7 +9,7 @@
           @start="counting = true"
           @paused="counting = false"
           @finish="!botActive ? notification = true : {}; counting = false"
-          @click:background="botActive = false"
+          @click:background="botToggle"
         )
   .qkb-bot-bubble
     span.qkb-bubble-notification(v-if="notification")

@@ -108,8 +108,12 @@
             {{ !isLastQuestion ? 'Next' : 'See Result'}}
         </button>
 
-        <DropBubble />
-        
+        <DropBubble 
+          :is-open="isOpenCounter" 
+          @open="changeOpenCounterState(true)"
+          @destroy="changeOpenCounterState(false)"
+        />
+
         <ChatBot 
           :scenario="scenario" 
           :question-id="q._id" 
@@ -136,6 +140,14 @@ import { Scenario } from '../../../shared/vue-chat-bot'
     // await questionState.getNext({ onlyUnsolved: true })
     // await questionState.get({ id: questionState.nextItem.questionId })
     await questionState.get({ id: route.params.id })
+  },
+
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+        if (from.fullPath === '/') {
+            OMRState.setStartTime()
+        }
+    })
   }
 })
 export default class Page extends Vue {
@@ -273,6 +285,10 @@ export default class Page extends Vue {
             OMRState.setEndTime()
             this.$router.push(`/question/finish`)
         }
+    }
+
+    changeOpenCounterState(isOpen: boolean) {
+      this.$store.commit('OMR/ChangeIsOpenCounter', isOpen)
     }
 }
 </script>

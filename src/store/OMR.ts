@@ -11,11 +11,15 @@ export default class OMRModule extends VuexModule {
   leftTime: number = 10 * 60 * 1000
   startTime: Date | null = null
   endTime: Date | null = null
+  isOpenCounter: boolean = false
+  isPausedCounter: boolean = false
 
   @Mutation
   init() {
     this.item = Array(this.n_question).fill(null)
     this.leftTime = 10 * 60 * 1000
+    this.isOpenCounter = false
+    this.isPausedCounter = false
   }
 
   @Mutation
@@ -36,5 +40,15 @@ export default class OMRModule extends VuexModule {
   @Mutation
   setEndTime() {
     this.endTime = new Date()
+  }
+
+  @Mutation
+  ChangeIsOpenCounter(isOpen: boolean) {
+    this.isOpenCounter = isOpen
+  }
+
+  @Mutation
+  ChangeisPausedCounter(isPaused: boolean) {
+    this.isPausedCounter = isPaused
   }
 }

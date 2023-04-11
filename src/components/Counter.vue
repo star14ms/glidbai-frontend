@@ -4,8 +4,8 @@
         ref="vac" 
         :left-time="leftTime" 
         :speed="100"
-        @start="$emit('start')"
-        @paused="$emit('paused')"
+        @start="onStart()"
+        @paused="onPaused()"
         @finish="onFinish()"
         @process="onProcess()"
     >
@@ -60,6 +60,8 @@
 </template>
 
 <script>
+import { OMRState } from '../store'
+
 export default {
     computed: {
         leftTime() {
@@ -151,6 +153,16 @@ export default {
             })
             vac.timeObj.org = org
             vac.timeObj.ceil = ceil
+        },
+
+        onStart() {
+            OMRState.ChangeisPausedCounter(false)
+            this.$emit('start')
+        },
+
+        onPaused() {
+            OMRState.ChangeisPausedCounter(true)
+            this.$emit('paused')
         },
 
         onProcess() {
