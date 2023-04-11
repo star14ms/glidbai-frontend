@@ -188,7 +188,15 @@ export default class Page extends Vue {
     }
 
     async beforeMount() {
+        await this.loadData()
+        console.log(this.q._id)
+        console.log(userState.userCurriculum.slice().map(item => item.questionId))
+    }
+
+    async loadData() {
         this.q = await this.$axios.$get(`/questions/${this.$route.params.id}`)
+        const res2 = await this.$axios.post('/chat', { questionId: this.$route.params.id, text: 'Try a similar example' })
+
         this.scenario = [[{
           agent: 'bot',
           type: 'button',
@@ -208,7 +216,7 @@ export default class Page extends Vue {
             },
             {
               text: 'Try a similar example',
-              value: '',
+              value: `/question/id/${res2.data.response}`,
               action: 'url'
             },
             {
@@ -219,7 +227,7 @@ export default class Page extends Vue {
             {
               ...this.q_idx === 1 ? {
                 text: botState.messageData.length === 0 ? 'Give me the source for this passage' : 'Source for this passage',
-                value: '',
+                value: this.q.url,
                 action: 'url'
               } : {
                 text: 'Translate to Korean',
@@ -229,14 +237,6 @@ export default class Page extends Vue {
             }
           ],
         }]]
-        if (this.scenario[0][0].options && this.q_idx === 1) {
-          this.scenario[0][0].options[4].value = this.q.url
-        }
-
-        const res2 = await this.$axios.post('/chat', { questionId: this.$route.params.id, text: 'Try a similar example' })
-        if (this.scenario[0][0].options) {
-          this.scenario[0][0].options[2].value = `/question/id/${res2.data.response}`
-        }
 
         this.passageWithHighlight = this.q.passage.slice()
         for (const highlight of this.q.highlight) {
@@ -247,8 +247,6 @@ export default class Page extends Vue {
                 '</span>'
             )
         }
-        console.log(this.q._id)
-        console.log(userState.userCurriculum.slice().map(item => item.questionId))
     }
 
     check() {
