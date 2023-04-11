@@ -9,6 +9,8 @@ export default class OMRModule extends VuexModule {
   n_question: number = 5
   item: Array<boolean> = Array(this.n_question).fill(null)
   leftTime: number = 10 * 60 * 1000
+  startTime: Date | null = null
+  endTime: Date | null = null
 
   @Mutation
   init() {
@@ -24,5 +26,15 @@ export default class OMRModule extends VuexModule {
   @Mutation
   updateLeftTime(leftTime: number) {
     this.leftTime = leftTime
+  }
+
+  @Mutation
+  setStartTime() {
+    this.startTime = new Date()
+  }
+
+  @Mutation
+  setEndTime() {
+    this.endTime = new Date()
   }
 }

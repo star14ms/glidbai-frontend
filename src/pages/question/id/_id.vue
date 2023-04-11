@@ -189,6 +189,10 @@ export default class Page extends Vue {
         return botState.isOpen
     }
 
+    get isOpenCounter() {
+        return OMRState.isOpenCounter
+    }
+
     async beforeMount() {
         await this.loadData()
         console.log(this.q._id)
@@ -266,6 +270,7 @@ export default class Page extends Vue {
             const nextId = userState.userCurriculum[nextQuestionIdx].questionId
             this.$router.push(`/question/id/${nextId}`)
         } else {
+            OMRState.setEndTime()
             this.$router.push(`/question/finish`)
         }
     }

@@ -47,6 +47,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/typescript
     '@nuxt/typescript-build',
+    "@nuxtjs/moment",
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -100,4 +101,12 @@ export default {
   transpileDependencies: [
     'vuex-module-decorators'
   ],
+
+  moment: {
+    defaultTimezone: 'Asia/Seoul',
+    locales: ['ko'],
+    plugins: [
+      'moment-duration-format',
+    ],
+  },
 }

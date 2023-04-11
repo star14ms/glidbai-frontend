@@ -2,7 +2,7 @@
 #counter.qkb-bot-ui(
   :class="uiClasses"
 )
-  transition(name="qkb-fadeDown")
+  transition(name="qkb-fadeUp")
     .qkb-board(v-show="botActive")
       slot(name='content')
         Counter(
@@ -207,20 +207,40 @@ export default {
     }
   }
 }
+@media screen and (max-width: 1600px) {
+  #counter.qkb-bot-ui {
+    bottom: 1.5rem !important;
+    left: 1.5rem !important;
+    top: unset !important;
+    right: unset !important;
 
-.qkb-bot-ui--animate {
-  // FadeDown
-  .qkb-fadeDown-enter-active,
-  .qkb-fadeDown-leave-active {
-    opacity: 1;
-    transform: translate(0, 0);
-    transition: opacity .15s linear, transform .2s ease-out;
+    .qkb-board {
+      left: 0;
+      bottom: 0;
+
+      @media screen and (max-width: 440px), screen and (max-height: 690px) {
+        bottom: -1.5rem !important;
+        left: -1.5rem;
+      }
+    }
   }
+}
 
-  .qkb-fadeDown-enter,
-  .qkb-fadeDown-leave-to {
-    transform: translate(0, -20px);
-    opacity: 0;
+@media screen and (min-width: 1600px) {
+  .qkb-bot-ui--animate {
+    // FadeDown
+    .qkb-fadeUp-enter-active,
+    .qkb-fadeUp-leave-active {
+      opacity: 1;
+      transform: translate(0, 0);
+      transition: opacity .15s linear, transform .2s ease-out;
+    }
+  
+    .qkb-fadeUp-enter,
+    .qkb-fadeUp-leave-to {
+      transform: translate(0, -20px);
+      opacity: 0;
+    }
   }
 }
 </style>

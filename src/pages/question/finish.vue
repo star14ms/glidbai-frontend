@@ -23,18 +23,29 @@
                             <h2 class="b-700">TOEFL</h2>
                             <h2 class="b-500">Reading Test</h2>
                         </span>
-    
-                        <span id="total-score" class="col-a-center has-background-white rounded-4 py-3 px-4">
-                            <h4>
-                                TOTAL SCORE
-                            </h4>
-                            <span class="row-a-end">
-                                <h3>
-                                    <span ref="correctCount">0</span>/{{ questionCount }}
+
+                        <div class="row">
+                            <span id="time-taken" class="col-a-center has-background-white rounded-4 py-3 px-4">
+                                <h4>
+                                    TIME TAKEN
+                                </h4>
+                                <h3 class="row-a-end">
+                                    {{ timeTaken.length < 3 ? ('00:' + timeTaken) : timeTaken }}
                                 </h3>
-                                <p ref="score" class="row-j-center">0.0%</p>
                             </span>
-                        </span>
+                            
+                            <span id="total-score" class="col-a-center has-background-white rounded-4 py-3 px-4">
+                                <h4>
+                                    TOTAL SCORE
+                                </h4>
+                                <span class="row-a-end">
+                                    <h3>
+                                        <span ref="correctCount">0</span>/{{ questionCount }}
+                                    </h3>
+                                    <p ref="score" class="row-j-center">0.0%</p>
+                                </span>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </zoom-y-transition>
@@ -88,13 +99,23 @@
 <script lang="ts">
 
 import { Component, Vue } from 'nuxt-property-decorator'
-import { OMRState } from '../../store'
+import { OMRState, userState } from '../../store'
+import $moment from '@nuxtjs/moment'
 
 @Component({
   middleware: 'login',
   layout: 'no-container',
+
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+        if (from.name === 'question-id-id' && from.params.id === userState.userCurriculum[4].questionId) {
+            OMRState.setEndTime()
+        }
+    })
+  }
 })
 export default class Page extends Vue {
+    $moment: any
     $refs!: {
         score: HTMLDivElement
         correctCount: HTMLSpanElement
@@ -129,6 +150,10 @@ export default class Page extends Vue {
 
     get iconSrc() {
         return require(`@/assets/icons/result/${this.resultKeyword}.svg`)
+    }
+
+    get timeTaken() {
+        return this.$moment.duration(this.$moment(OMRState.endTime).diff(OMRState.startTime)).format('mm:ss')
     }
 
     mounted() {
@@ -226,7 +251,11 @@ p {
 }
 
 #your-score {
-    #total-score {
+    .row {
+        gap: 1.5rem;
+    }
+
+    #total-score, #time-taken {
         width: 145px;
         gap: 8px;
 
