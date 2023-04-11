@@ -108,6 +108,8 @@
             {{ !isLastQuestion ? 'Next' : 'See Result'}}
         </button>
 
+        <DropBubble />
+        
         <ChatBot 
           :scenario="scenario" 
           :question-id="q._id" 
@@ -115,7 +117,7 @@
           :is-open="q_idx === 1 ? true : isOpen"
           :store-message="isMyQuestion ? true : false"
           :rating-enable="true"
-          />
+        />
     </div>
 </template>
 

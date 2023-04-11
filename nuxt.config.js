@@ -26,6 +26,7 @@ export default {
     '~/assets/styles/main.scss', 
     '~/assets/fonts/main.css',
     './vue-chat-bot-custom/dist/vue-chat-bot.css',
+    '@fortawesome/fontawesome-svg-core/styles.css',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -35,6 +36,8 @@ export default {
     { src: '~/plugins/accessor' },
     { src: '~/plugins/persistedState'},
     { src: '~/plugins/vue2-transitions'},
+    { src: '~/plugins/vue-awesome-countdown'},
+    { src: '~/plugins/font-awesome'},
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
