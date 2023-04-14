@@ -61,7 +61,7 @@
                             </h5>
         
                             <p class="has-background-white rounded-4 mt-3 p-3">
-                                {{ data.weakPoint }}
+                                {{ weakPoints[correctCount] }}
                             </p>
                         </div>
     
@@ -71,7 +71,7 @@
                             </h5>
         
                             <p class="has-background-white rounded-4 mt-3 p-3">
-                                {{ data.strongPoint }}
+                                {{ strongPoints[correctCount] }}
                             </p>
                         </div>
                     </div>
@@ -122,10 +122,22 @@ export default class Page extends Vue {
         correctCount: HTMLSpanElement
     }
 
-    data = {
-        weakPoint: 'Weak vocabulary: Some test-takers struggle with vocabulary, which can make it difficult for them to understand and answer questions.',
-        strongPoint: 'Strong English proficiency: Some test-takers have a high level of English proficiency, which can make it easier for them to understand and answer questions on the exam..',
-    }
+    weakPoints = [
+        'If this was golf, you would be doing great. But since it’s English, let’s aim for higher scores next time.',
+        'They say Rome wasn’t built in a day, and neither is English mastery. Let’s keep building!',
+        'Double or nothing? How about double and more! Let’s work on improving that English Score.',
+        'Three is a magic number, but in this case, we want to conjure up a higher score! Aim for higher than hat-trick!',
+        'A four-leaf clover - lucky - but we want to make it a bouquet of success! Almost there!',
+        'Top-notch like a 5-star hotel! Keep up the excellence',
+    ]
+    strongPoints = [
+        'Openness to receiving feedback and working on areas of improvement are noted!',
+        'Efforts and willingness to build vocabulary and grammar rules are noted!',
+        'Your quality of familiarity with common words and phrases are developing along with understanding of grammar rules.',
+        'You have qualities of clear understanding, and comprehension of complex sentences.',
+        'You have qualities of good vocabulary range, and understanding of verb tenses.',
+        'You have qualities of strong vocabulary and strong understanding of idioms and expressions.',
+    ]
 
     transition = {
         after_0: false,
@@ -283,6 +295,7 @@ p {
 
         p {
             font-weight: 500;
+            min-height: 72px;
         }
     }
 
