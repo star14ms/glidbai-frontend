@@ -98,6 +98,7 @@ export default {
         iconSendSrc: '/icons/send-white.svg',
         iconBubbleSrc: '/icons/bubble.svg',
         iconCloseSrc: '/icons/close.svg',
+        iconCloseHeaderSrc: '/icons/arrow-down-invert.svg',
       },
       scenarioIndex: 0,
       MessageUnrelated: '저는 당신의 영어 실력을 향상시키기 위해 도와주는 글라이디입니다! 당신의 학습에 도움이 되는 질문이라면 모두 답변해 드릴 수 있으니, 문제와 관련된 질문을 작성해주세요 😊'

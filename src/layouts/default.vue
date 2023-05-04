@@ -5,6 +5,8 @@
     <div class="container col-a-center is-10">
       <Nuxt />
     </div>
+
+    <ChatBot />
   </div>
 </template>
 
