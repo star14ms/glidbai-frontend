@@ -24,6 +24,8 @@
           img.qkb-action-icon.qkb-action-icon--send(:src="iconSendSrc")
 </template>
 <script>
+import iconSendIcon from './../../assets/icons/send.svg?raw'
+
 export default {
   props: {
     inputPlaceholder: {
@@ -41,7 +43,7 @@ export default {
 
     iconSendSrc: {
       type: String,
-      default: '/icons/send.svg'
+      default: iconSendIcon
     },
 
     clearButton: {

@@ -10,6 +10,8 @@
     )
 </template>
 <script>
+import iconCloseIcon from './../../assets/icons/arrow-down-invert.svg?raw'
+
 export default {
   props: {
     botTitle: {
@@ -19,7 +21,7 @@ export default {
 
     iconCloseSrc: {
       type: String,
-      default: "/icons/arrow-down-invert.svg",
+      default: iconCloseIcon,
     }
   }
 }

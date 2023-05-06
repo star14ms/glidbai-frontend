@@ -53,6 +53,11 @@ import BoardContent from './Board/Content'
 import BoardAction from './Board/Action'
 import AppStyle from './AppStyle'
 
+import iconSendIcon from './../assets/icons/send.svg?raw'
+import iconBubbleIcon from './../assets/icons/bubble.svg?raw'
+import iconCloseIcon from './../assets/icons/close.svg?raw'
+import iconCloseHeaderIcon from './../assets/icons/arrow-down-invert.svg?raw'
+
 export default {
   name: 'VueBotUI',
 
@@ -121,10 +126,10 @@ export default {
         inputPlaceholder: 'Message',
         inputDisableBg: '#fff',
         inputDisablePlaceholder: null,
-        iconSendSrc: '/icons/send.svg',
-        iconBubbleSrc: '/icons/bubble.svg',
-        iconCloseSrc: '/icons/close.svg',
-        iconCloseHeaderSrc: '/icons/arrow-down-invert.svg',
+        iconSendSrc: iconSendIcon,
+        iconBubbleSrc: iconBubbleIcon,
+        iconCloseSrc: iconCloseIcon,
+        iconCloseHeaderSrc: iconCloseHeaderIcon,
       }
     }
   },
