@@ -190,7 +190,7 @@ export default {
             return this.passwordField.available ? (this.passwordField.state = 'is-success') : (this.passwordField.state = 'is-danger')
         },
         passwordCheck2() {
-            this.passwordField2.available = this.passwordRegex.test(this.passwordField.password) &&
+            this.passwordField2.available = this.passwordRegex.test(this.passwordField2.password) &&
                 this.passwordField.password === this.passwordField2.password
             return this.passwordField2.available ? (this.passwordField2.state = 'is-success') : (this.passwordField2.state = 'is-danger')
         },

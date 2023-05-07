@@ -336,6 +336,10 @@ export default {
   }
 }
 #chatbot.not-drop-menu .qkb-board {
+  width: 1024px !important;
+  height: calc(100vh - ($header-height + 148px)) !important;
+  height: calc(100vh - ($header-height + var(--bottop, 148px))) !important;
+
   position: fixed;
   top: calc($header-height + 148px);
   top: calc($header-height + var(--bottop, 148px)) !important;
@@ -344,11 +348,13 @@ export default {
   box-shadow: none;
 
   @media screen and (max-width: 1024px) {
+    $header-height: 52px;
     width: 100% !important;
+    height: calc(100vh - ($header-height + 148px)) !important;
+    height: calc(100vh - ($header-height + var(--bottop, 148px))) !important;
+    top: calc($header-height + 148px);
+    top: calc($header-height + var(--bottop, 148px)) !important;
   }
-  width: 1024px !important;
-  height: calc(100vh - ($header-height + 148px)) !important;
-  height: calc(100vh - ($header-height + var(--bottop, 148px))) !important;
 
   .qkb-board-header {
     display: none;
