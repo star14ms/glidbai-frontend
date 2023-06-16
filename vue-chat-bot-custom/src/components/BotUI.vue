@@ -6,7 +6,7 @@
     .qkb-board(v-if="botActive")
       BoardHeader(
         :bot-title="optionsMain.botTitle",
-        :icon-closs-erc="optionsMain.iconCloseHeaderSrc"
+        :icon-close-src="optionsMain.iconCloseHeaderSrc"
         @close-bot="botToggle"
       )
         template(v-slot:header)

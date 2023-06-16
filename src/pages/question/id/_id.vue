@@ -108,11 +108,11 @@
             {{ !isLastQuestion ? 'Next' : 'See Result'}}
         </button>
 
-        <DropBubble 
+        <!-- <DropBubble 
           :is-open="isOpenCounter" 
           @open="changeOpenCounterState(true)"
           @destroy="changeOpenCounterState(false)"
-        />
+        /> -->
 
         <ChatBot 
           :scenario="scenario" 
