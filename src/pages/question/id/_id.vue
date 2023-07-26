@@ -158,6 +158,7 @@ export default class Page extends Vue {
     passageWithHighlight: string = ''
     choiceSymbols: Answer2Symbol = {'a': 'ⓐ', 'b': 'ⓑ', 'c': 'ⓒ', 'd': 'ⓓ'}
     q: Question = QuestionInit
+    toast: any
 
     startTextList: string[] = [
       '안녕하세요! <br> 당신의 영어 학습 도우미, 글라이디입니다 😊 <br> 문제 풀이 중 도움이 필요하시면 언제든지 채팅으로 편하게 질문해주세요. 아래 제공된 다양한 옵션 중 하나를 선택하여 사용해보는 것도 좋은 방법이에요. 기쁜 마음으로 도와드리겠습니다!',
@@ -212,8 +213,23 @@ export default class Page extends Vue {
     }
 
     async loadData() {
-        this.q = await this.$axios.$get(`/questions/${this.$route.params.id}`)
-        const res2 = await this.$axios.post('/chat', { questionId: this.$route.params.id, text: 'Try a similar example' })
+        try {
+            this.q = await this.$axios.$get(`/questions/${this.$route.params.id}`)
+        } catch(e) {
+            this.toast('Error: 문제를 찾을 수 없습니다!')
+        }
+
+        let res2
+        try {
+            res2 = await this.$axios.post('/chat', { questionId: this.$route.params.id, text: 'Try a similar example' })
+        } catch(e) {
+            this.toast('Error: Try a similar example (500)')
+            res2 = {
+                data: {
+                    response: null
+                }
+            }
+        }
 
         this.scenario = [[{
           agent: 'bot',

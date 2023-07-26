@@ -258,6 +258,22 @@ export default {
 
           // finish
           this.botTyping = false
+        }, (e) => {
+          this.toast(e.message)
+
+          const replyMessage = {
+            type: 'text',
+            agent: 'bot',
+            text: e.response.status === 404 ? 'Error: 현재 페이지의 문제를 찾을 수 없습니다!' : 'Error: 서버 오류가 발생했습니다!'
+          }
+
+          if (this.storeMessage) {
+            this.$store.commit('bot/AddMessageData', replyMessage)
+          } else {
+            this.messageData.push(replyMessage)
+          }
+
+          this.botTyping = false
         })
     },
 
